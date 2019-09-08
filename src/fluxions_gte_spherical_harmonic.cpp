@@ -714,10 +714,10 @@ namespace Fluxions
 	const float T447 = 4290.0f;
 	const float T448 = 742.5f;
 	const float T449 = 1.0f;
-	const float T450 = 0.0f;
-	const float T451 = 0.0f;
-	const float T452 = 0.0f;
-	const float T453 = 0.0f;
+	// const float T450 = 0.0f;
+	// const float T451 = 0.0f;
+	// const float T452 = 0.0f;
+	// const float T453 = 0.0f;
 
 	const bool debug_sph = true;
 

@@ -554,7 +554,7 @@ constexpr T LinearToSRGB(T x) noexcept
     constexpr T a = T(0.055);
 	constexpr T e = T(1.0 / 2.4);
 	constexpr T bottom = T(0.0031308);
-	constexpr T bottomFactor = T(12.92);
+	// constexpr T bottomFactor = T(12.92);
 	
 	if (x <= bottom) {
 		return T(x * 12.92f);
