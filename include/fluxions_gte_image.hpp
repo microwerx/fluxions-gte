@@ -156,8 +156,9 @@ class TImage
         if (imageDepth != 6)
             return borderColor;
 
-        float s, t;
-        size_t iz;
+        float s = 0.0f;
+		float t = 0.0f;
+        size_t iz = 0;
         MakeFaceSTFromCubeVector(x, y, z, &s, &t, &iz);
         size_t ix = (int)(s * imageWidth);
         size_t iy = (int)((1.0f - t) * imageHeight);
