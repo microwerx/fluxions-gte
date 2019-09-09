@@ -1,4 +1,4 @@
-// SSPHH/Fluxions/Unicornfish/Viperfish/Hatchetfish/Sunfish/KASL/GLUT Extensions
+// SSPHH/Fluxions/Unicornfish/Viperfish/Hatchetfish/Sunfish/Damselfish/GLUT Extensions
 // Copyright (C) 2017 Jonathan Metzgar
 // All rights reserved.
 //
@@ -1221,11 +1221,11 @@ namespace Fluxions
 	//void Sph4f::SaveJSON(const std::string &path, const std::string &name, const Vector3f &position)
 	//{
 	//	FilePathInfo fpi(path);
-	//	KASL::JSONPtr json = KASL::JSON::MakeObject({
-	//		{"numChannels", KASL::JSON::MakeNumber(3)},
-	//		{"maxDegree", KASL::JSON::MakeNumber((int)msph[0].GetMaxDegree())},
-	//		{"coefs", KASL::JSON::MakeArray()},
-	//		{"meta", KASL::JSON::MakeObject()}
+	//	Df::JSONPtr json = Df::JSON::MakeObject({
+	//		{"numChannels", Df::JSON::MakeNumber(3)},
+	//		{"maxDegree", Df::JSON::MakeNumber((int)msph[0].GetMaxDegree())},
+	//		{"coefs", Df::JSON::MakeArray()},
+	//		{"meta", Df::JSON::MakeObject()}
 	//		});
 
 	//	auto coefs = json->getMember("coefs");
@@ -1233,13 +1233,13 @@ namespace Fluxions
 	//		float r = msph[0].getCoefficient(lm);
 	//		float g = msph[1].getCoefficient(lm);
 	//		float b = msph[2].getCoefficient(lm);
-	//		coefs->PushBack(KASL::JSON::MakeArray({ r, g, b }));
+	//		coefs->PushBack(Df::JSON::MakeArray({ r, g, b }));
 	//	}
 
 	//	auto meta = json->getMember("meta");
-	//	meta->PushBack(KASL::JSON::MakeObject({
-	//		{ "name", KASL::JSON::MakeString(name) },
-	//		{ "position", KASL::JSON::MakeArray({
+	//	meta->PushBack(Df::JSON::MakeObject({
+	//		{ "name", Df::JSON::MakeString(name) },
+	//		{ "position", Df::JSON::MakeArray({
 	//			position.x,
 	//			position.y,
 	//			position.z
