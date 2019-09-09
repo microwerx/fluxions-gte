@@ -1,7 +1,13 @@
+INCLUDE_LIBRARIES = 
+INCLUDE_PROJECTS = hatchetfish fluxions-deps fluxions-gte
+INCLUDEDIRS = $(patsubst %,-I../%/include,$(INCLUDE_PROJECTS))
+LIBDIRS = $(patsubst %,-L../%/,$(INCLUDE_PROJECTS))
+LIBS = $(patsubst %,-l%,$(INCLUDE_PROJECTS)) $(patsubst %,-l%,$(INCLUDE_LIBRARIES))
+
 CXX = g++
 AR = ar rcs
-CXXFLAGS = -std=c++14 -g -Wall -Iinclude
-LDFLAGS = 
+CXXFLAGS = -std=c++14 -g -Wall -Iinclude $(INCLUDEDIRS)
+LDFLAGS = $(LIBDIRS) $(LIBS)
 
 # We use this to 
 SOURCES = $(wildcard src/*.cpp)
@@ -23,7 +29,7 @@ clean:
 
 # Tells make how to make target out of objects
 $(TARGET): $(OBJECTS)
-	$(AR) $@ $(OBJECTS) $(LDFLAGS)
+	$(AR) $@ $(OBJECTS)
 
 # Tells make how to make objects out of source code
 # It also says when we change a header, recompile
