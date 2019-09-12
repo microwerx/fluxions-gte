@@ -23,98 +23,91 @@
 
 namespace Fluxions
 {
-template <typename T, int stackDepth = 32>
-class Matrix4Stack
-{
-    void Reset()
-    {
-        curlevel = 0;
-        LoadIdentity();
-    }
+	template <typename T, int stackDepth = 32>
+	class Matrix4Stack
+	{
+		void Reset()
+		{
+			curlevel = 0;
+			LoadIdentity();
+		}
 
-    void LoadIdentity()
-    {
-        matrices_[curlevel].LoadIdentity();
-    }
+		void LoadIdentity()
+		{
+			matrices_[curlevel].LoadIdentity();
+		}
 
-    void LoadMatrix(const TMatrix4<T> &&m)
-    {
-        matrices_[curlevel] = m;
-    }
+		void LoadMatrix(const TMatrix4<T>&& m)
+		{
+			matrices_[curlevel] = m;
+		}
 
-    void MultMatrix(const TMatrix4<T> &&m)
-    {
-        matrices_[curlevel].MultMatrix(m);
-    }
+		void MultMatrix(const TMatrix4<T>&& m)
+		{
+			matrices_[curlevel].MultMatrix(m);
+		}
 
-    void PushMatrix()
-    {
-        if (curlevel > stackDepth)
-            return;
-        curlevel++;
-        matrices_[curlevel] = matrices_[curlevel - 1];
-    }
+		void PushMatrix()
+		{
+			if (curlevel > stackDepth)
+				return;
+			curlevel++;
+			matrices_[curlevel] = matrices_[curlevel - 1];
+		}
 
-    void PopMatrix()
-    {
-        if (curlevel == 0)
-            return;
-        curlevel--;
-    }
+		void PopMatrix()
+		{
+			if (curlevel == 0)
+				return;
+			curlevel--;
+		}
 
-    template <typename T2>
-    void Rotate(T2 angle, T2 x, T2 y, T2 z)
-    {
-        matrices_[curlevel].Rotate(angle, x, y, z);
-    }
+		void Rotate(T angle, T x, T y, T z)
+		{
+			matrices_[curlevel].Rotate(angle, x, y, z);
+		}
 
-    template <typename T2>
-    void Translate(T2 x, T2 y, T2 z)
-    {
-        matrices_[curlevel].Translate(x, y, z);
-    }
+		void Translate(T x, T y, T z)
+		{
+			matrices_[curlevel].Translate(x, y, z);
+		}
 
-    template <typename T2>
-    void Scale(T2 x, T2 y, T2 z)
-    {
-        matrices_[curlevel].Scale(x, y, z);
-    }
+		void Scale(T x, T y, T z)
+		{
+			matrices_[curlevel].Scale(x, y, z);
+		}
 
-    template <typename T2>
-    void Frustum(T2 left, T2 right, T2 bottom, T2 top, T2 near, T2 far)
-    {
-        matrices_[curlevel].Frustum(left, right, bottom, top, near, far);
-    }
+		void Frustum(T left, T right, T bottom, T top, T near, T far)
+		{
+			matrices_[curlevel].Frustum(left, right, bottom, top, near, far);
+		}
 
-    template <typename T2>
-    void Perspective(T2 fovy, T2 aspect, T2 near, T2 far)
-    {
-        matrices_[curlevel].Perspective(fovy, aspect, near, far);
-    }
+		void Perspective(T fovy, T aspect, T near, T far)
+		{
+			matrices_[curlevel].Perspective(fovy, aspect, near, far);
+		}
 
-    template <typename T2>
-    void Ortho(T2 left, T2 right, T2 bottom, T2 top, T2 near, T2 far)
-    {
-        matrices_[curlevel].Ortho(left, right, bottom, top, near, far);
-    }
+		void Ortho(T left, T right, T bottom, T top, T near, T far)
+		{
+			matrices_[curlevel].Ortho(left, right, bottom, top, near, far);
+		}
 
-    template <typename T2>
-    void Ortho2D(T2 left, T2 right, T2 bottom, T2 top)
-    {
-        matrices_[curlevel].Ortho2D(left, right, bottom, top);
-    }
+		void Ortho2D(T left, T right, T bottom, T top)
+		{
+			matrices_[curlevel].Ortho2D(left, right, bottom, top);
+		}
 
-  private:
-    TMatrix4<T> matrices_[stackDepth];
-    mutable int curlevel = 0;
-};
+	private:
+		TMatrix4<T> matrices_[stackDepth];
+		mutable unsigned curlevel = 0;
+	};
 
-using Matrix4Stackf = Matrix4Stack<float>;
-using Matrix4Stackd = Matrix4Stack<double>;
+	using Matrix4Stackf = Matrix4Stack<float>;
+	using Matrix4Stackd = Matrix4Stack<double>;
 
 #ifndef FLUXIONS_NO_EXTERN_TEMPLATES
-extern template class Matrix4Stack<float, 32>;
-extern template class Matrix4Stack<double, 32>;
+	extern template class Matrix4Stack<float, 32>;
+	extern template class Matrix4Stack<double, 32>;
 #endif
 } // namespace Fluxions
 

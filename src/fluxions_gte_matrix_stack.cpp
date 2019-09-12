@@ -21,6 +21,6 @@
 
 namespace Fluxions
 {
-template class Matrix4Stack<float, 32>;
-template class Matrix4Stack<double, 32>;
+	template class Matrix4Stack<float, 32>;
+	template class Matrix4Stack<double, 32>;
 } // namespace Fluxions
