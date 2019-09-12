@@ -68,10 +68,10 @@ class TRect
     // initialize with two points
     constexpr TRect(const TVector2<T> v1, const TVector2<T> v2) noexcept
     {
-        x = std::min(v1.x, v2.x);
-        y = std::min(v1.y, v2.y);
-        T x2 = std::max(v1.x, v2.x);
-        T y2 = std::max(v1.y, v2.y);
+		x = Fluxions::min2(v1.x, v2.x);
+		y = Fluxions::min2(v1.y, v2.y);
+		T x2 = Fluxions::max2(v1.x, v2.x);
+		T y2 = Fluxions::max2(v1.y, v2.y);
         w = x2 - x;
         h = y2 - y;
     }
@@ -148,10 +148,10 @@ class TRect
 
     constexpr TRect<T> &SetFromPoints(const TVector2<T> v1, const TVector2<T> v2) noexcept
     {
-        x = std::min(v1.x, v2.x);
-        y = std::min(v1.y, v2.y);
-        T x2 = std::max(v1.x, v2.x);
-        T y2 = std::max(v1.y, v2.y);
+        x = Fluxions::min2(v1.x, v2.x);
+        y = Fluxions::min2(v1.y, v2.y);
+        T x2 = Fluxions::max2(v1.x, v2.x);
+        T y2 = Fluxions::max2(v1.y, v2.y);
         w = x2 - x;
         h = y2 - y;
         return *this;

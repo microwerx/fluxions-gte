@@ -89,7 +89,7 @@ class Matrix4Stack
     template <typename T2>
     void Perspective(T2 fovy, T2 aspect, T2 near, T2 far)
     {
-        matrices_[curlevel].Perspective(fovy, aspect, far);
+        matrices_[curlevel].Perspective(fovy, aspect, near, far);
     }
 
     template <typename T2>
