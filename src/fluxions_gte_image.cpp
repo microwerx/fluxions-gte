@@ -21,7 +21,7 @@
 #include <fluxions_gte_color_math.hpp>
 #include <fluxions_gte_image.hpp>
 #define _CRT_SECURE_NO_WARNINGS
-#ifdef WIN32
+#ifdef _WIN32
 #pragma warning(disable : 4996)
 #endif
 
