@@ -84,6 +84,13 @@ namespace Fluxions
 			return *this;
 		}
 
+		const TColor4<T>& reset(const T red, const T green, const T blue) {
+			r = red;
+			g = green;
+			b = blue;
+			return *this;
+		}
+
 		const TColor4<T>& reset(const T red, const T green, const T blue, const T alpha)
 		{
 			r = red;
