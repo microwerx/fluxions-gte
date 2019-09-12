@@ -739,7 +739,7 @@ namespace Fluxions
 	void TImage<ColorType>::loadEXR(const std::string &path)
 	{
 #ifdef FLUXIONS_GTE_USEOPENEXR
-		double t1 = hflog.getMillisecondsElapsed();
+		double t1 = Hf::Log.getMillisecondsElapsed();
 		Imf::RgbaInputFile file(path.c_str());
 		Imath::Box2i dw = file.dataWindow();
 		size_t w = dw.max.x - dw.min.x + 1;
@@ -764,8 +764,8 @@ namespace Fluxions
 				addr++;
 			}
 		}
-		t1 = hflog.getMillisecondsElapsed() - t1;
-		hflog.infofn("TImage<>::loadEXR", "Read %dx%d image from %s (%3f ms) (min, max) = (%-2.3f, %-2.3f)", w, h, path.c_str(), t1, minC, maxC);
+		t1 = Hf::Log.getMillisecondsElapsed() - t1;
+		Hf::Log.infofn("TImage<>::loadEXR", "Read %dx%d image from %s (%3f ms) (min, max) = (%-2.3f, %-2.3f)", w, h, path.c_str(), t1, minC, maxC);
 #endif
 	}
 
@@ -773,7 +773,7 @@ namespace Fluxions
 	void TImage<ColorType>::saveEXR(const std::string &path)
 	{
 #ifdef FLUXIONS_GTE_USEOPENEXR
-		double t1 = hflog.getMillisecondsElapsed();
+		double t1 = Hf::Log.getMillisecondsElapsed();
 		const Imf::Rgba black(0.0f, 0.0f, 0.0f, 1.0f);
 		std::vector<Imf::Rgba> halfPixels(imageWidth * imageHeight * imageDepth, black);
 		const size_t count = imageWidth * imageHeight * imageDepth;
@@ -784,8 +784,8 @@ namespace Fluxions
 		Imf::RgbaOutputFile file(path.c_str(), (int)imageWidth, (int)imageHeight, Imf::WRITE_RGBA);
 		file.setFrameBuffer(halfPixels.data(), 1, imageWidth);
 		file.writePixels((int)imageHeight);
-		t1 = hflog.getMillisecondsElapsed() - t1;
-		hflog.infofn("TImage<>::saveEXR", "Wrote %dx%d image to %s (%3f ms)", imageWidth, imageHeight, path.c_str(), t1);
+		t1 = Hf::Log.getMillisecondsElapsed() - t1;
+		Hf::Log.infofn("TImage<>::saveEXR", "Wrote %dx%d image to %s (%3f ms)", imageWidth, imageHeight, path.c_str(), t1);
 #endif
 	}
 

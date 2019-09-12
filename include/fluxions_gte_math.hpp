@@ -59,105 +59,105 @@ enum IndexType
 // M A T H E M A T I C A L   C O N S T A N T S ///////////////////////
 //////////////////////////////////////////////////////////////////////
 
-const double FX_SQRT2 = 1.4142135623730950488016887242097;
-const double FX_SQRT3 = 1.7320508075688772935274463415059;
-const double FX_SQRT5 = 2.2360679774997896964091736687313;
-const double FX_ONEOVERSQRT2 = 0.70710678118654752440084436210485;
-const double FX_ONEOVERSQRT3 = 0.57735026918962576450914878050196;
-const double FX_ONEOVERSQRT5 = 0.44721359549995793928183473374626;
-const double FX_E = 2.7182818284590452353602874713527;
-const double FX_PHI = 1.618033988749894848204586834;
-const double FX_TWOPI = 6.283185307179586476925286766559;
-const double FX_PI = 3.1415926535897932384626433832795;
-const double FX_PIOVERTWO = 1.5707963267948966192313216916398;
-const double FX_PIOVERTHREE = 1.0471975511965977461542144610932;
-const double FX_PIOVERFOUR = 0.78539816339744830961566084581988;
-const double FX_RADIANS_TO_DEGREES = 57.295779513082320876798154814105;
-const double FX_EXTRA_RADIANS_TO_HOURS = 3.8197186342054880584532103209403;
-const double FX_EXTRA_RADIANS_TO_ARCMINS = 229.18311805232928350719261925642;
-const double FX_EXTRA_RADIANS_TO_ARCSECS = 13750.987083139757010431557155385;
-const double FX_DEGREES_TO_RADIANS = 0.01745329251994329576923690768489;
-const double FX_EXTRA_DEGREES_TO_HOURS = 0.06666666666666666666666666666667;
-const double FX_EXTRA_DEGREES_TO_ARCMINS = 4.0;
-const double FX_EXTRA_DEGREES_TO_ARCSECS = 240.0;
-const double FX_HOURS_TO_RADIANS = 0.26179938779914943653855361527329;
-const double FX_HOURS_TO_DEGREES = 15.0;
-const double FX_HOURS_TO_ARCMINS = 60.0;
-const double FX_HOURS_TO_ARCSECS = 3600.0;
-const double FX_ARCMINS_TO_RADIANS = 0.00436332312998582394230922692122;
-const double FX_ARCMINS_TO_DEGREES = 0.00416666666666666666666666666667;
-const double FX_ARCMINS_TO_HOURS = 0.01666666666666666666666666666667;
-const double FX_ARCMINS_TO_ARCSECS = 60.0;
-const double FX_ARCSECS_TO_DEGREES = 2.7777777777777777777777777777778e-4;
-const double FX_ARCSECS_TO_RADIANS = 4.8481368110953599358991410235795e-6;
-const double FX_ARCSECS_TO_HOURS = 2.7777777777777777777777777777778e-4;
-const double FX_ARCSECS_TO_ARCMINS = 0.01666666666666666666666666666667;
-const double FX_C = 299792458.0;            // speed of light
-const double FX_G = 6.6740831e-11;          // Newton's constant of gravitation
-const double FX_H = 6.62607004081e-34;      // Planck's h constant
-const double FX_HBAR = 1.05457180013e-34;   // Planck's h bar constant
-const double FX_EPSILON0 = 8.854187817e-12; // electric constant
+constexpr double FX_SQRT2 = 1.4142135623730950488016887242097;
+constexpr double FX_SQRT3 = 1.7320508075688772935274463415059;
+constexpr double FX_SQRT5 = 2.2360679774997896964091736687313;
+constexpr double FX_ONEOVERSQRT2 = 0.70710678118654752440084436210485;
+constexpr double FX_ONEOVERSQRT3 = 0.57735026918962576450914878050196;
+constexpr double FX_ONEOVERSQRT5 = 0.44721359549995793928183473374626;
+constexpr double FX_E = 2.7182818284590452353602874713527;
+constexpr double FX_PHI = 1.618033988749894848204586834;
+constexpr double FX_TWOPI = 6.283185307179586476925286766559;
+constexpr double FX_PI = 3.1415926535897932384626433832795;
+constexpr double FX_PIOVERTWO = 1.5707963267948966192313216916398;
+constexpr double FX_PIOVERTHREE = 1.0471975511965977461542144610932;
+constexpr double FX_PIOVERFOUR = 0.78539816339744830961566084581988;
+constexpr double FX_RADIANS_TO_DEGREES = 57.295779513082320876798154814105;
+constexpr double FX_EXTRA_RADIANS_TO_HOURS = 3.8197186342054880584532103209403;
+constexpr double FX_EXTRA_RADIANS_TO_ARCMINS = 229.18311805232928350719261925642;
+constexpr double FX_EXTRA_RADIANS_TO_ARCSECS = 13750.987083139757010431557155385;
+constexpr double FX_DEGREES_TO_RADIANS = 0.01745329251994329576923690768489;
+constexpr double FX_EXTRA_DEGREES_TO_HOURS = 0.06666666666666666666666666666667;
+constexpr double FX_EXTRA_DEGREES_TO_ARCMINS = 4.0;
+constexpr double FX_EXTRA_DEGREES_TO_ARCSECS = 240.0;
+constexpr double FX_HOURS_TO_RADIANS = 0.26179938779914943653855361527329;
+constexpr double FX_HOURS_TO_DEGREES = 15.0;
+constexpr double FX_HOURS_TO_ARCMINS = 60.0;
+constexpr double FX_HOURS_TO_ARCSECS = 3600.0;
+constexpr double FX_ARCMINS_TO_RADIANS = 0.00436332312998582394230922692122;
+constexpr double FX_ARCMINS_TO_DEGREES = 0.00416666666666666666666666666667;
+constexpr double FX_ARCMINS_TO_HOURS = 0.01666666666666666666666666666667;
+constexpr double FX_ARCMINS_TO_ARCSECS = 60.0;
+constexpr double FX_ARCSECS_TO_DEGREES = 2.7777777777777777777777777777778e-4;
+constexpr double FX_ARCSECS_TO_RADIANS = 4.8481368110953599358991410235795e-6;
+constexpr double FX_ARCSECS_TO_HOURS = 2.7777777777777777777777777777778e-4;
+constexpr double FX_ARCSECS_TO_ARCMINS = 0.01666666666666666666666666666667;
+constexpr double FX_C = 299792458.0;            // speed of light
+constexpr double FX_G = 6.6740831e-11;          // Newton's constant of gravitation
+constexpr double FX_H = 6.62607004081e-34;      // Planck's h constant
+constexpr double FX_HBAR = 1.05457180013e-34;   // Planck's h bar constant
+constexpr double FX_EPSILON0 = 8.854187817e-12; // electric constant
 
-const double FX_LOG2E = 1.44269504088896340736;    // log2(e)
-const double FX_LOG10E = 0.434294481903251827651;  // log10(e)
-const double FX_LN2 = 0.693147180559945309417;     // ln(2)
-const double FX_LN10 = 2.30258509299404568402;     // ln(10)
-const double FX_PI_2 = 1.57079632679489661923;     // pi/2
-const double FX_PI_4 = 0.785398163397448309616;    // pi/4
-const double FX_1_PI = 0.318309886183790671538;    // 1/pi
-const double FX_2_PI = 0.636619772367581343076;    // 2/pi
-const double FX_2_SQRTPI = 1.12837916709551257390; // 2/sqrt(pi)
-const double FX_SQRT1_2 = 0.707106781186547524401; // 1/sqrt(2)
+constexpr double FX_LOG2E = 1.44269504088896340736;    // log2(e)
+constexpr double FX_LOG10E = 0.434294481903251827651;  // log10(e)
+constexpr double FX_LN2 = 0.693147180559945309417;     // ln(2)
+constexpr double FX_LN10 = 2.30258509299404568402;     // ln(10)
+constexpr double FX_PI_2 = 1.57079632679489661923;     // pi/2
+constexpr double FX_PI_4 = 0.785398163397448309616;    // pi/4
+constexpr double FX_1_PI = 0.318309886183790671538;    // 1/pi
+constexpr double FX_2_PI = 0.636619772367581343076;    // 2/pi
+constexpr double FX_2_SQRTPI = 1.12837916709551257390; // 2/sqrt(pi)
+constexpr double FX_SQRT1_2 = 0.707106781186547524401; // 1/sqrt(2)
 
-const float FX_F32_SQRT2 = 1.41421356f;
-const float FX_F32_SQRT3 = 1.73205080f;
-const float FX_F32_SQRT5 = 2.23606797f;
-const float FX_F32_ONEOVERSQRT2 = 0.70710678f;
-const float FX_F32_ONEOVERSQRT3 = 0.57735026f;
-const float FX_F32_ONEOVERSQRT5 = 0.44721359f;
-const float FX_F32_E = 2.71828182f;
-const float FX_F32_PHI = 1.61803398f;
-const float FX_F32_TWOPI = 6.28318530f;
-const float FX_F32_PI = 3.1415926535f;
-const float FX_F32_PIOVERTWO = 1.57079632f;
-const float FX_F32_PIOVERTHREE = 1.04719755f;
-const float FX_F32_PIOVERFOUR = 0.78539816f;
-const float FX_F32_RADIANS_TO_DEGREES = 57.29577951f;
-const float FX_F32_EXTRA_RADIANS_TO_HOURS = 3.81971863f;
-const float FX_F32_EXTRA_RADIANS_TO_ARCMINS = 229.18311805f;
-const float FX_F32_EXTRA_RADIANS_TO_ARCSECS = 13750.98708313f;
-const float FX_F32_DEGREES_TO_RADIANS = 0.01745329f;
-const float FX_F32_EXTRA_DEGREES_TO_HOURS = 0.06666666f;
-const float FX_F32_EXTRA_DEGREES_TO_ARCMINS = 4.0f;
-const float FX_F32_EXTRA_DEGREES_TO_ARCSECS = 240.0f;
-const float FX_F32_HOURS_TO_RADIANS = 0.26179938f;
-const float FX_F32_HOURS_TO_DEGREES = 15.0f;
-const float FX_F32_HOURS_TO_ARCMINS = 60.0f;
-const float FX_F32_HOURS_TO_ARCSECS = 3600.0f;
-const float FX_F32_ARCMINS_TO_RADIANS = 0.00436332f;
-const float FX_F32_ARCMINS_TO_DEGREES = 0.00416666f;
-const float FX_F32_ARCMINS_TO_HOURS = 0.01666666f;
-const float FX_F32_ARCMINS_TO_ARCSECS = 60.0f;
-const float FX_F32_ARCSECS_TO_DEGREES = 2.77777777e-4f;
-const float FX_F32_ARCSECS_TO_RADIANS = 4.84813681e-6f;
-const float FX_F32_ARCSECS_TO_HOURS = 2.77777777e-4f;
-const float FX_F32_ARCSECS_TO_ARCMINS = 0.01666666f;
-const float FX_F32_C = 299792458.0f;           // speed of light
-const float FX_F32_G = 6.6740831e-11f;         // Newton's constant of gravitation
-const float FX_F32_H = 6.62607004e-34f;        // Planck's h constant
-const float FX_F32_HBAR = 1.05457180e-34f;     // Planck's h bar constant
-const float FX_F32_EPSILON0 = 8.85418781e-12f; // electric constant
+constexpr float FX_F32_SQRT2 = 1.41421356f;
+constexpr float FX_F32_SQRT3 = 1.73205080f;
+constexpr float FX_F32_SQRT5 = 2.23606797f;
+constexpr float FX_F32_ONEOVERSQRT2 = 0.70710678f;
+constexpr float FX_F32_ONEOVERSQRT3 = 0.57735026f;
+constexpr float FX_F32_ONEOVERSQRT5 = 0.44721359f;
+constexpr float FX_F32_E = 2.71828182f;
+constexpr float FX_F32_PHI = 1.61803398f;
+constexpr float FX_F32_TWOPI = 6.28318530f;
+constexpr float FX_F32_PI = 3.1415926535f;
+constexpr float FX_F32_PIOVERTWO = 1.57079632f;
+constexpr float FX_F32_PIOVERTHREE = 1.04719755f;
+constexpr float FX_F32_PIOVERFOUR = 0.78539816f;
+constexpr float FX_F32_RADIANS_TO_DEGREES = 57.29577951f;
+constexpr float FX_F32_EXTRA_RADIANS_TO_HOURS = 3.81971863f;
+constexpr float FX_F32_EXTRA_RADIANS_TO_ARCMINS = 229.18311805f;
+constexpr float FX_F32_EXTRA_RADIANS_TO_ARCSECS = 13750.98708313f;
+constexpr float FX_F32_DEGREES_TO_RADIANS = 0.01745329f;
+constexpr float FX_F32_EXTRA_DEGREES_TO_HOURS = 0.06666666f;
+constexpr float FX_F32_EXTRA_DEGREES_TO_ARCMINS = 4.0f;
+constexpr float FX_F32_EXTRA_DEGREES_TO_ARCSECS = 240.0f;
+constexpr float FX_F32_HOURS_TO_RADIANS = 0.26179938f;
+constexpr float FX_F32_HOURS_TO_DEGREES = 15.0f;
+constexpr float FX_F32_HOURS_TO_ARCMINS = 60.0f;
+constexpr float FX_F32_HOURS_TO_ARCSECS = 3600.0f;
+constexpr float FX_F32_ARCMINS_TO_RADIANS = 0.00436332f;
+constexpr float FX_F32_ARCMINS_TO_DEGREES = 0.00416666f;
+constexpr float FX_F32_ARCMINS_TO_HOURS = 0.01666666f;
+constexpr float FX_F32_ARCMINS_TO_ARCSECS = 60.0f;
+constexpr float FX_F32_ARCSECS_TO_DEGREES = 2.77777777e-4f;
+constexpr float FX_F32_ARCSECS_TO_RADIANS = 4.84813681e-6f;
+constexpr float FX_F32_ARCSECS_TO_HOURS = 2.77777777e-4f;
+constexpr float FX_F32_ARCSECS_TO_ARCMINS = 0.01666666f;
+constexpr float FX_F32_C = 299792458.0f;           // speed of light
+constexpr float FX_F32_G = 6.6740831e-11f;         // Newton's constant of gravitation
+constexpr float FX_F32_H = 6.62607004e-34f;        // Planck's h constant
+constexpr float FX_F32_HBAR = 1.05457180e-34f;     // Planck's h bar constant
+constexpr float FX_F32_EPSILON0 = 8.85418781e-12f; // electric constant
 
-const float FX_F32_LOG2E = 1.44269504f;    // log2(e)
-const float FX_F32_LOG10E = 0.43429448f;   // log10(e)
-const float FX_F32_LN2 = 0.69314718f;      // ln(2)
-const float FX_F32_LN10 = 2.30258509f;     // ln(10)
-const float FX_F32_PI_2 = 1.57079632f;     // pi/2
-const float FX_F32_PI_4 = 0.78539816f;     // pi/4
-const float FX_F32_1_PI = 0.31830988f;     // 1/pi
-const float FX_F32_2_PI = 0.63661977f;     // 2/pi
-const float FX_F32_2_SQRTPI = 1.12837916f; // 2/sqrt(pi)
-const float FX_F32_SQRT1_2 = 0.70710678f;  // 1/sqrt(2)
+constexpr float FX_F32_LOG2E = 1.44269504f;    // log2(e)
+constexpr float FX_F32_LOG10E = 0.43429448f;   // log10(e)
+constexpr float FX_F32_LN2 = 0.69314718f;      // ln(2)
+constexpr float FX_F32_LN10 = 2.30258509f;     // ln(10)
+constexpr float FX_F32_PI_2 = 1.57079632f;     // pi/2
+constexpr float FX_F32_PI_4 = 0.78539816f;     // pi/4
+constexpr float FX_F32_1_PI = 0.31830988f;     // 1/pi
+constexpr float FX_F32_2_PI = 0.63661977f;     // 2/pi
+constexpr float FX_F32_2_SQRTPI = 1.12837916f; // 2/sqrt(pi)
+constexpr float FX_F32_SQRT1_2 = 0.70710678f;  // 1/sqrt(2)
 
 template <typename T>
 constexpr T DegToRad(T x) noexcept
@@ -503,7 +503,12 @@ constexpr T abs(T x) noexcept
 */
 inline double sqS(double v, double n) noexcept
 {
-    return sgn(sin(v)) * pow(abs(sin(v)), n);
+	return sgn(sin(v)) * pow(abs(sin(v)), n);
+}
+
+inline float sqSf(float v, float n) noexcept
+{
+	return sgn(sinf(v)) * powf(fabsf(sinf(v)), n);
 }
 
 /* sqC (ptr, n)
@@ -513,7 +518,12 @@ inline double sqS(double v, double n) noexcept
 */
 inline double sqC(double v, double n) noexcept
 {
-    return sgn(cos(v)) * pow(abs(cos(v)), n);
+	return sgn(cos(v)) * pow(abs(cos(v)), n);
+}
+
+inline float sqCf(float v, float n) noexcept
+{
+	return sgn(cosf(v)) * powf(fabsf(cosf(v)), n);
 }
 
 /* sqCT (ptr, n, alpha)
@@ -524,6 +534,22 @@ inline double sqC(double v, double n) noexcept
 inline double sqCT(double v, double n, double alpha) noexcept
 {
     return alpha + sqC(v, n);
+}
+
+inline float sqCTf(float v, float n, float alpha) noexcept
+{
+	return alpha + sqCf(v, n);
+}
+
+inline void sqEllipsoid(float a1, float a2, float a3, float u, float v, float n, float e,
+	float* x, float* y, float* z, float* nx, float* ny, float* nz)
+{
+	*x = a1 * sqCf(u, n) * sqCf(v, e);
+	*y = a2 * sqCf(u, n) * sqSf(v, e);
+	*z = a3 * sqSf(u, n);
+	*nx = sqCf(u, 2.0f - n) * sqCf(v, 2.0f - e);
+	*ny = sqCf(u, 2.0f - n) * sqSf(v, 2.0f - e);
+	*nz = sqSf(u, 2.0f - n);
 }
 
 template <typename T>
