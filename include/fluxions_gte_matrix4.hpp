@@ -525,65 +525,115 @@ namespace Fluxions
 			return *this;
 		}
 
-		template <typename U>
-		constexpr TMatrix4<T>& Rotate(U angleInDegrees, U x, U y, U z) noexcept
+		constexpr TMatrix4<T>& Rotate(T angleInDegrees, T x, T y, T z) noexcept
 		{
-			return *this *= MakeRotation((T)angleInDegrees, (T)x, (T)y, (T)z);
+			return *this *= MakeRotation(angleInDegrees, x, y, z);
 		}
 
-		template <typename U>
-		constexpr TMatrix4<T>& Scale(U x, U y, U z) noexcept
+		constexpr TMatrix4<T>& Scale(T x, T y, T z) noexcept
 		{
-			return *this *= MakeScaling((T)x, (T)y, (T)z);
+			return *this *= MakeScaling(x, y, z);
 		}
 
-		template <typename U>
-		constexpr TMatrix4<T>& Translate(U x, U y, U z) noexcept
+		constexpr TMatrix4<T>& Translate(T x, T y, T z) noexcept
 		{
-			return *this *= MakeTranslation((T)x, (T)y, (T)z);
+			return *this *= MakeTranslation(x, y, z);
 		}
 
-		template <typename U>
-		constexpr TMatrix4<T>& Ortho(U left, U right, U bottom, U top, U near_value, U far_value) noexcept
+		constexpr TMatrix4<T>& Ortho(T left, T right, T bottom, T top, T near_value, T far_value) noexcept
 		{
-			return *this *= MakeOrtho((T)left, (T)right, (T)bottom, (T)top, (T)near_value, (T)far_value);
+			return *this *= MakeOrtho(left, right, bottom, top, near_value, far_value);
 		}
 
-		template <typename U>
-		constexpr TMatrix4<T>& Ortho2D(U left, U right, U bottom, U top) noexcept
+		constexpr TMatrix4<T>& Ortho2D(T left, T right, T bottom, T top) noexcept
 		{
-			return *this *= MakeOrtho2D((T)left, (T)right, (T)bottom, (T)top);
+			return *this *= MakeOrtho2D(left, right, bottom, top);
 		}
 
-		template <typename U>
-		constexpr TMatrix4<T>& Frustum(U left, U right, U bottom, U top, U near_value, U far_value) noexcept
+		constexpr TMatrix4<T>& Frustum(T left, T right, T bottom, T top, T near_value, T far_value) noexcept
 		{
-			return *this *= MakeFrustum((T)left, (T)right, (T)bottom, (T)top, (T)near_value, (T)far_value);
+			return *this *= MakeFrustum(left, right, bottom, top, near_value, far_value);
 		}
 
-		template <typename U>
-		constexpr TMatrix4<T>& Perspective(U angleInDegrees, U aspect, U near_value, U far_value) noexcept
+		constexpr TMatrix4<T>& Perspective(T angleInDegrees, T aspect, T near_value, T far_value) noexcept
 		{
-			return *this *= MakePerspective((T)angleInDegrees, (T)aspect, (T)near_value, (T)far_value);
+			return *this *= MakePerspective(angleInDegrees, aspect, near_value, far_value);
 		}
 
-		template <typename U>
-		constexpr TMatrix4<T>& PerspectiveX(U angleInDegrees, U aspect, U near_value, U far_value) noexcept
+		constexpr TMatrix4<T>& PerspectiveX(T angleInDegrees, T aspect, T near_value, T far_value) noexcept
 		{
-			return *this *= MakePerspectiveX((T)angleInDegrees, (T)aspect, (T)near_value, (T)far_value);
+			return *this *= MakePerspectiveX(angleInDegrees, aspect, near_value, far_value);
 		}
 
-		template <typename U>
-		constexpr TMatrix4<T>& PerspectiveY(U angleInDegrees, U aspect, U near_value, U far_value) noexcept
+		constexpr TMatrix4<T>& PerspectiveY(T angleInDegrees, T aspect, T near_value, T far_value) noexcept
 		{
-			return *this *= MakePerspectiveY((T)angleInDegrees, (T)aspect, (T)near_value, (T)far_value);
+			return *this *= MakePerspectiveY(angleInDegrees, aspect, near_value, far_value);
 		}
 
-		template <typename U>
-		constexpr TMatrix4<T>& LookAt(TVector3<U> eye, TVector3<U> center, TVector3<U> up) noexcept
+		constexpr TMatrix4<T>& LookAt(TVector3<T> eye, TVector3<T> center, TVector3<T> up) noexcept
 		{
-			return *this *= MakeLookAt((TVector3<T>)eye, (TVector3<T>)center, (TVector3<T>)up);
+			return *this *= MakeLookAt(eye, center, up);
 		}
+
+		//template <typename U>
+		//constexpr TMatrix4<T>& Rotate(U angleInDegrees, U x, U y, U z) noexcept
+		//{
+		//	return *this *= MakeRotation((T)angleInDegrees, (T)x, (T)y, (T)z);
+		//}
+
+		//template <typename U>
+		//constexpr TMatrix4<T>& Scale(U x, U y, U z) noexcept
+		//{
+		//	return *this *= MakeScaling((T)x, (T)y, (T)z);
+		//}
+
+		//template <typename U>
+		//constexpr TMatrix4<T>& Translate(U x, U y, U z) noexcept
+		//{
+		//	return *this *= MakeTranslation((T)x, (T)y, (T)z);
+		//}
+
+		//template <typename U>
+		//constexpr TMatrix4<T>& Ortho(U left, U right, U bottom, U top, U near_value, U far_value) noexcept
+		//{
+		//	return *this *= MakeOrtho((T)left, (T)right, (T)bottom, (T)top, (T)near_value, (T)far_value);
+		//}
+
+		//template <typename U>
+		//constexpr TMatrix4<T>& Ortho2D(U left, U right, U bottom, U top) noexcept
+		//{
+		//	return *this *= MakeOrtho2D((T)left, (T)right, (T)bottom, (T)top);
+		//}
+
+		//template <typename U>
+		//constexpr TMatrix4<T>& Frustum(U left, U right, U bottom, U top, U near_value, U far_value) noexcept
+		//{
+		//	return *this *= MakeFrustum((T)left, (T)right, (T)bottom, (T)top, (T)near_value, (T)far_value);
+		//}
+
+		//template <typename U>
+		//constexpr TMatrix4<T>& Perspective(U angleInDegrees, U aspect, U near_value, U far_value) noexcept
+		//{
+		//	return *this *= MakePerspective((T)angleInDegrees, (T)aspect, (T)near_value, (T)far_value);
+		//}
+
+		//template <typename U>
+		//constexpr TMatrix4<T>& PerspectiveX(U angleInDegrees, U aspect, U near_value, U far_value) noexcept
+		//{
+		//	return *this *= MakePerspectiveX((T)angleInDegrees, (T)aspect, (T)near_value, (T)far_value);
+		//}
+
+		//template <typename U>
+		//constexpr TMatrix4<T>& PerspectiveY(U angleInDegrees, U aspect, U near_value, U far_value) noexcept
+		//{
+		//	return *this *= MakePerspectiveY((T)angleInDegrees, (T)aspect, (T)near_value, (T)far_value);
+		//}
+
+		//template <typename U>
+		//constexpr TMatrix4<T>& LookAt(TVector3<U> eye, TVector3<U> center, TVector3<U> up) noexcept
+		//{
+		//	return *this *= MakeLookAt((TVector3<T>)eye, (TVector3<T>)center, (TVector3<T>)up);
+		//}
 
 		constexpr TMatrix4<T>& ShadowBias() noexcept
 		{
@@ -600,7 +650,7 @@ namespace Fluxions
 			return *this *= MakeCubeMatrixPosition(face, position);
 		}
 
-		constexpr TMatrix4<T>& AsTranspose() const noexcept
+		constexpr TMatrix4<T> AsTranspose() const noexcept
 		{
 			return TMatrix4<T>(
 				m11, m21, m31, m41,

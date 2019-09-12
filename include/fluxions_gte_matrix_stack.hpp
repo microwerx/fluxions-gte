@@ -23,9 +23,10 @@
 
 namespace Fluxions
 {
-	template <typename T, int stackDepth = 32>
+	template <typename T, unsigned stackDepth = 32>
 	class Matrix4Stack
 	{
+	public:
 		void Reset()
 		{
 			curlevel = 0;
@@ -52,7 +53,7 @@ namespace Fluxions
 			if (curlevel > stackDepth)
 				return;
 			curlevel++;
-			matrices_[curlevel] = matrices_[curlevel - 1];
+			matrices_[curlevel].operator=(matrices_[curlevel - 1]);
 		}
 
 		void PopMatrix()
@@ -84,7 +85,7 @@ namespace Fluxions
 
 		void Perspective(T fovy, T aspect, T near, T far)
 		{
-			matrices_[curlevel].Perspective(fovy, aspect, near, far);
+			matrices_[curlevel].PerspectiveY(fovy, aspect, near, far);
 		}
 
 		void Ortho(T left, T right, T bottom, T top, T near, T far)
