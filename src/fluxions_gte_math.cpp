@@ -17,13 +17,13 @@
 //
 // For any other type of licensing, please contact me at jmetzgar@outlook.com
 #define FLUXIONS_NO_EXTERN_TEMPLATES
-#include <fluxions_gte_math.hpp>
+
+#include <fluxions_gte_scalar_math.hpp>
 #include <random>
 
 namespace Fluxions
 {
-	float randomSampler(float _min0, float _max0)
-	{
+	float randomSampler(float _min0, float _max0) {
 		static std::mt19937 s;
 		std::uniform_real_distribution<float> urd(_min0, _max0);
 

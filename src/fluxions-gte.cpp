@@ -5,7 +5,7 @@
 #include <fluxions_gte_geometric_algebra.hpp>
 #include <fluxions_gte_image.hpp>
 #include <fluxions_gte_iostream.hpp>
-#include <fluxions_gte_math.hpp>
+#include <fluxions_gte_scalar_math.hpp>
 #include <fluxions_gte_matrix2.hpp>
 #include <fluxions_gte_matrix3.hpp>
 #include <fluxions_gte_matrix4.hpp>

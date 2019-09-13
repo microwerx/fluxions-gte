@@ -19,10 +19,10 @@
 #ifndef FLUXIONS_GTE_BOUNDING_BOX_HPP
 #define FLUXIONS_GTE_BOUNDING_BOX_HPP
 
+#include <fluxions_gte_scalar_math.hpp>
 #include <fluxions_gte_vector2.hpp>
 #include <fluxions_gte_vector3.hpp>
 #include <fluxions_gte_vector4.hpp>
-#include <fluxions_gte_math.hpp>
 
 namespace Fluxions
 {

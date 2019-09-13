@@ -23,9 +23,9 @@
 #include <string>
 #include <vector>
 #include <memory.h>
+#include <fluxions_gte_scalar_math.hpp>
 #include <fluxions_gte_color3.hpp>
 #include <fluxions_gte_color4.hpp>
-#include <fluxions_gte_math.hpp>
 #include <fluxions_gte_vector3.hpp>
 #include <fluxions_gte_vector4.hpp>
 

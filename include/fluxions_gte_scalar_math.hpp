@@ -17,8 +17,8 @@
 //
 // For any other type of licensing, please contact me at jmetzgar@outlook.com
 
-#ifndef FLUXIONS_MATH_HPP
-#define FLUXIONS_MATH_HPP
+#ifndef FLUXIONS_GTE_SCALAR_MATH_HPP
+#define FLUXIONS_GTE_SCALAR_MATH_HPP
 
 #include <algorithm>
 #include <type_traits>
@@ -553,15 +553,15 @@ namespace Fluxions
 	}
 
 	template <typename T>
-	constexpr T Radians(T x) noexcept
+	constexpr T Radians(T angleInDegrees) noexcept
 	{
-		return (T)(x * FX_RADIANS_TO_DEGREES);
+		return (T)(angleInDegrees * FX_RADIANS_TO_DEGREES);
 	}
 
 	template <typename T>
-	constexpr T Degrees(T x) noexcept
+	constexpr T Degrees(T angleInRadians) noexcept
 	{
-		return (T)(x * FX_DEGREES_TO_RADIANS);
+		return (T)(angleInRadians * FX_DEGREES_TO_RADIANS);
 	}
 
 	template <class T>
@@ -593,7 +593,6 @@ namespace Fluxions
 	constexpr f64_t LinearToSRGBd(f64_t x) noexcept { return LinearToSRGB<f64_t>(x); }
 	constexpr f32_t SRGBToLinearf(f32_t x) noexcept { return SRGBToLinear<f32_t>(x); }
 	constexpr f64_t SRGBToLineard(f64_t x) noexcept { return SRGBToLinear<f64_t>(x); }
-
 } //namespace Fluxions
 
 #endif

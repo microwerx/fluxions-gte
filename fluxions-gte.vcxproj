@@ -29,7 +29,8 @@
     <ClInclude Include="include\fluxions_gte_image.hpp" />
     <ClInclude Include="include\fluxions_gte_image_operations.hpp" />
     <ClInclude Include="include\fluxions_gte_iostream.hpp" />
-    <ClInclude Include="include\fluxions_gte_math.hpp" />
+    <ClInclude Include="include\fluxions_gte_matrix_math.hpp" />
+    <ClInclude Include="include\fluxions_gte_scalar_math.hpp" />
     <ClInclude Include="include\fluxions_gte_matrix2.hpp" />
     <ClInclude Include="include\fluxions_gte_matrix3.hpp" />
     <ClInclude Include="include\fluxions_gte_matrix4.hpp" />
@@ -45,6 +46,7 @@
     <ClInclude Include="include\fluxions_gte_vector2.hpp" />
     <ClInclude Include="include\fluxions_gte_vector3.hpp" />
     <ClInclude Include="include\fluxions_gte_vector4.hpp" />
+    <ClInclude Include="include\fluxions_gte_vector_math.hpp" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="src\fluxions-gte.cpp" />

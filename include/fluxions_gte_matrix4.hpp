@@ -20,7 +20,7 @@
 #define FLUXIONS_MATRIX4_HPP
 
 #include <functional>
-#include <fluxions_gte_math.hpp>
+#include <fluxions_gte_scalar_math.hpp>
 #include <fluxions_gte_vector3.hpp>
 #include <fluxions_gte_vector4.hpp>
 
@@ -46,8 +46,7 @@ namespace Fluxions
 		static constexpr size_t numrows() { return 4; }
 		static constexpr size_t numcols() { return 4; }
 
-		constexpr TMatrix4() noexcept
-		{
+		constexpr TMatrix4() noexcept {
 			m11 = 1;
 			m12 = 0;
 			m13 = 0;
@@ -66,8 +65,7 @@ namespace Fluxions
 			m44 = 1;
 		}
 
-		constexpr TMatrix4(const TMatrix4<T>& M) noexcept
-		{
+		constexpr TMatrix4(const TMatrix4<T>& M) noexcept {
 			m11 = M.m11;
 			m12 = M.m12;
 			m13 = M.m13;
@@ -86,8 +84,7 @@ namespace Fluxions
 			m44 = M.m44;
 		}
 
-		constexpr TMatrix4(TMatrix4<T>&& M) noexcept
-		{
+		constexpr TMatrix4(TMatrix4<T>&& M) noexcept {
 			m11 = std::move(M.m11);
 			m12 = std::move(M.m12);
 			m13 = std::move(M.m13);
@@ -106,8 +103,7 @@ namespace Fluxions
 			m44 = std::move(M.m44);
 		}
 
-		constexpr TMatrix4(const T value) noexcept
-		{
+		constexpr TMatrix4(const T value) noexcept {
 			m11 = value;
 			m12 = value;
 			m13 = value;
@@ -130,8 +126,7 @@ namespace Fluxions
 			const T a11, const T a12, const T a13, const T a14,
 			const T a21, const T a22, const T a23, const T a24,
 			const T a31, const T a32, const T a33, const T a34,
-			const T a41, const T a42, const T a43, const T a44) noexcept
-		{
+			const T a41, const T a42, const T a43, const T a44) noexcept {
 			m11 = a11;
 			m12 = a12;
 			m13 = a13;
@@ -150,28 +145,23 @@ namespace Fluxions
 			m44 = a44;
 		}
 
-		constexpr TMatrix4(const T M[numrows()][numcols()]) noexcept
-		{
+		constexpr TMatrix4(const T M[numrows()][numcols()]) noexcept {
 			const T* _v = M[0];
 			T* v = &m11;
-			for (size_t i = 0; i < size(); i++)
-			{
+			for (size_t i = 0; i < size(); i++) {
 				v[i] = _v[i];
 			}
 		}
 
-		constexpr TMatrix4(const T M[size()]) noexcept
-		{
+		constexpr TMatrix4(const T M[size()]) noexcept {
 			const T* _v = M;
 			T* v = &m11;
-			for (size_t i = 0; i < size(); i++)
-			{
+			for (size_t i = 0; i < size(); i++) {
 				v[i] = _v[i];
 			}
 		}
 
-		constexpr TMatrix4<T>& operator=(const TMatrix4<T>& M) noexcept
-		{
+		constexpr TMatrix4<T>& operator=(const TMatrix4<T>& M) noexcept {
 			m11 = M.m11;
 			m12 = M.m12;
 			m13 = M.m13;
@@ -192,8 +182,7 @@ namespace Fluxions
 		}
 
 		template <typename U>
-		constexpr TMatrix4<T>& operator=(const TMatrix4<U>& M) noexcept
-		{
+		constexpr TMatrix4<T>& operator=(const TMatrix4<U>& M) noexcept {
 			m11 = static_cast<T>(M.m11);
 			m12 = static_cast<T>(M.m12);
 			m13 = static_cast<T>(M.m13);
@@ -214,8 +203,7 @@ namespace Fluxions
 		}
 
 		template <typename U>
-		constexpr TMatrix4<T>& operator=(const U value) noexcept
-		{
+		constexpr TMatrix4<T>& operator=(const U value) noexcept {
 			m11 = static_cast<T>(value);
 			m12 = static_cast<T>(value);
 			m13 = static_cast<T>(value);
@@ -236,8 +224,7 @@ namespace Fluxions
 		}
 
 		template <typename U>
-		constexpr operator TMatrix4<U>() const noexcept
-		{
+		constexpr operator TMatrix4<U>() const noexcept {
 			return TMatrix4<U>(
 				static_cast<U>(m11), static_cast<U>(m12), static_cast<U>(m13), static_cast<U>(m14),
 				static_cast<U>(m21), static_cast<U>(m22), static_cast<U>(m23), static_cast<U>(m24),
@@ -255,10 +242,8 @@ namespace Fluxions
 		constexpr TVector4<T> col4() const noexcept { return TVector4<T>(m14, m24, m34, m44); }
 
 		// col(i) returns the ith column of the matrix (i = 1 is column 1)
-		constexpr TVector4<T> col(int i) const noexcept
-		{
-			switch (i)
-			{
+		constexpr TVector4<T> col(int i) const noexcept {
+			switch (i) {
 			case 1:
 				return col1();
 			case 2:
@@ -272,10 +257,8 @@ namespace Fluxions
 		}
 
 		// row(i) returns the ith row of the matrix (i = 1 is row 1)
-		constexpr TVector4<T> row(int i) const noexcept
-		{
-			switch (i)
-			{
+		constexpr TVector4<T> row(int i) const noexcept {
+			switch (i) {
 			case 1:
 				return row1();
 			case 2:
@@ -289,8 +272,7 @@ namespace Fluxions
 		}
 
 		template <typename U>
-		static constexpr auto compAdd(const TMatrix4<T>& m1, const TMatrix4<U>& m2) noexcept
-		{
+		static constexpr auto compAdd(const TMatrix4<T>& m1, const TMatrix4<U>& m2) noexcept {
 			return TMatrix4<std::common_type_t<T, U>>(
 				m1.m11 + m2.m11, m1.m12 + m2.m12, m1.m13 + m2.m13, m1.m14 + m2.m14,
 				m1.m21 + m2.m21, m1.m22 + m2.m22, m1.m23 + m2.m23, m1.m24 + m2.m24,
@@ -299,8 +281,7 @@ namespace Fluxions
 		}
 
 		template <typename U>
-		static constexpr auto compSub(const TMatrix4<T>& m1, const TMatrix4<U>& m2) noexcept
-		{
+		static constexpr auto compSub(const TMatrix4<T>& m1, const TMatrix4<U>& m2) noexcept {
 			return TMatrix4<std::common_type_t<T, U>>(
 				m1.m11 - m2.m11, m1.m12 - m2.m12, m1.m13 - m2.m13, m1.m14 - m2.m14,
 				m1.m21 - m2.m21, m1.m22 - m2.m22, m1.m23 - m2.m23, m1.m24 - m2.m24,
@@ -309,8 +290,7 @@ namespace Fluxions
 		}
 
 		template <typename U>
-		static constexpr auto compMult(const TMatrix4<T>& m1, const TMatrix4<U>& m2) noexcept
-		{
+		static constexpr auto compMult(const TMatrix4<T>& m1, const TMatrix4<U>& m2) noexcept {
 			return TMatrix4<std::common_type_t<T, U>>(
 				m1.m11 * m2.m11, m1.m12 * m2.m12, m1.m13 * m2.m13, m1.m14 * m2.m14,
 				m1.m21 * m2.m21, m1.m22 * m2.m22, m1.m23 * m2.m23, m1.m24 * m2.m24,
@@ -319,8 +299,7 @@ namespace Fluxions
 		}
 
 		template <typename U>
-		static constexpr auto compDiv(const TMatrix4<T>& m1, const TMatrix4<U>& m2) noexcept
-		{
+		static constexpr auto compDiv(const TMatrix4<T>& m1, const TMatrix4<U>& m2) noexcept {
 			return TMatrix4<std::common_type_t<T, U>>(
 				m1.m11 / m2.m11, m1.m12 / m2.m12, m1.m13 / m2.m13, m1.m14 / m2.m14,
 				m1.m21 / m2.m21, m1.m22 / m2.m22, m1.m23 / m2.m23, m1.m24 / m2.m24,
@@ -329,8 +308,7 @@ namespace Fluxions
 		}
 
 		template <typename U>
-		static constexpr auto multiply(const TMatrix4<T>& m1, const TMatrix4<U>& m2) noexcept
-		{
+		static constexpr auto multiply(const TMatrix4<T>& m1, const TMatrix4<U>& m2) noexcept {
 			return TMatrix4<std::common_type_t<T, U>>(
 				(m1.m14 * m2.m41 + m1.m13 * m2.m31 + m1.m12 * m2.m21 + m1.m11 * m2.m11),
 				(m1.m14 * m2.m42 + m1.m13 * m2.m32 + m1.m12 * m2.m22 + m1.m11 * m2.m12),
@@ -353,13 +331,11 @@ namespace Fluxions
 				(m1.m44 * m2.m44 + m1.m43 * m2.m34 + m1.m42 * m2.m24 + m1.m41 * m2.m14));
 		}
 
-		constexpr auto LoadIdentity() noexcept
-		{
+		constexpr auto LoadIdentity() noexcept {
 			return *this = MakeIdentity();
 		}
 
-		constexpr auto operator-() noexcept
-		{
+		constexpr auto operator-() noexcept {
 			return TMatrix4<T>(
 				-m11, -m12, -m13, -m14,
 				-m21, -m22, -m23, -m24,
@@ -368,8 +344,7 @@ namespace Fluxions
 		}
 
 		template <typename U>
-		constexpr auto operator()(std::function<U(T x)> Func) noexcept
-		{
+		constexpr auto operator()(std::function<U(T x)> Func) noexcept {
 			return TMatrix4<std::common_type_t<T, U>>(
 				Func(m11), Func(m12), Func(m13), Func(m14),
 				Func(m21), Func(m22), Func(m23), Func(m24),
@@ -378,20 +353,17 @@ namespace Fluxions
 		}
 
 		template <typename U>
-		constexpr auto MultMatrix(const TMatrix4<U>& M) noexcept
-		{
+		constexpr auto MultMatrix(const TMatrix4<U>& M) noexcept {
 			return *this = multiply(*this, M);
 		}
 
 		template <typename U>
-		constexpr TMatrix4<T>& operator*=(const TMatrix4<U>& M) noexcept
-		{
+		constexpr TMatrix4<T>& operator*=(const TMatrix4<U>& M) noexcept {
 			return *this = multiply(*this, M);
 		}
 
 		template <typename U>
-		constexpr TMatrix4<T>& operator+=(const TMatrix4<U>& M) noexcept
-		{
+		constexpr TMatrix4<T>& operator+=(const TMatrix4<U>& M) noexcept {
 			m11 += M.m11;
 			m12 += M.m12;
 			m13 += M.m13;
@@ -412,8 +384,7 @@ namespace Fluxions
 		}
 
 		template <typename U>
-		constexpr TMatrix4<T>& operator-=(const TMatrix4<U>& M) noexcept
-		{
+		constexpr TMatrix4<T>& operator-=(const TMatrix4<U>& M) noexcept {
 			m11 -= M.m11;
 			m12 -= M.m12;
 			m13 -= M.m13;
@@ -438,8 +409,7 @@ namespace Fluxions
 		//template <typename U> const TMatrix4<T> operator - (const TMatrix4<U> & M) const;
 
 		template <typename U>
-		constexpr TMatrix4<T>& operator+=(const U c) noexcept
-		{
+		constexpr TMatrix4<T>& operator+=(const U c) noexcept {
 			m11 += c;
 			m12 += c;
 			m13 += c;
@@ -460,8 +430,7 @@ namespace Fluxions
 		}
 
 		template <typename U>
-		constexpr TMatrix4<T>& operator-=(const U c) noexcept
-		{
+		constexpr TMatrix4<T>& operator-=(const U c) noexcept {
 			m11 -= c;
 			m12 -= c;
 			m13 -= c;
@@ -482,8 +451,7 @@ namespace Fluxions
 		}
 
 		template <typename U>
-		constexpr TMatrix4<T>& operator*=(const U c) noexcept
-		{
+		constexpr TMatrix4<T>& operator*=(const U c) noexcept {
 			m11 *= c;
 			m12 *= c;
 			m13 *= c;
@@ -504,8 +472,7 @@ namespace Fluxions
 		}
 
 		template <typename U>
-		constexpr TMatrix4<T>& operator/=(const U c) noexcept
-		{
+		constexpr TMatrix4<T>& operator/=(const U c) noexcept {
 			m11 /= c;
 			m12 /= c;
 			m13 /= c;
@@ -525,53 +492,43 @@ namespace Fluxions
 			return *this;
 		}
 
-		constexpr TMatrix4<T>& Rotate(T angleInDegrees, T x, T y, T z) noexcept
-		{
+		constexpr TMatrix4<T>& Rotate(T angleInDegrees, T x, T y, T z) noexcept {
 			return *this *= MakeRotation(angleInDegrees, x, y, z);
 		}
 
-		constexpr TMatrix4<T>& Scale(T x, T y, T z) noexcept
-		{
+		constexpr TMatrix4<T>& Scale(T x, T y, T z) noexcept {
 			return *this *= MakeScaling(x, y, z);
 		}
 
-		constexpr TMatrix4<T>& Translate(T x, T y, T z) noexcept
-		{
+		constexpr TMatrix4<T>& Translate(T x, T y, T z) noexcept {
 			return *this *= MakeTranslation(x, y, z);
 		}
 
-		constexpr TMatrix4<T>& Ortho(T left, T right, T bottom, T top, T near_value, T far_value) noexcept
-		{
+		constexpr TMatrix4<T>& Ortho(T left, T right, T bottom, T top, T near_value, T far_value) noexcept {
 			return *this *= MakeOrtho(left, right, bottom, top, near_value, far_value);
 		}
 
-		constexpr TMatrix4<T>& Ortho2D(T left, T right, T bottom, T top) noexcept
-		{
+		constexpr TMatrix4<T>& Ortho2D(T left, T right, T bottom, T top) noexcept {
 			return *this *= MakeOrtho2D(left, right, bottom, top);
 		}
 
-		constexpr TMatrix4<T>& Frustum(T left, T right, T bottom, T top, T near_value, T far_value) noexcept
-		{
+		constexpr TMatrix4<T>& Frustum(T left, T right, T bottom, T top, T near_value, T far_value) noexcept {
 			return *this *= MakeFrustum(left, right, bottom, top, near_value, far_value);
 		}
 
-		constexpr TMatrix4<T>& Perspective(T angleInDegrees, T aspect, T near_value, T far_value) noexcept
-		{
+		constexpr TMatrix4<T>& Perspective(T angleInDegrees, T aspect, T near_value, T far_value) noexcept {
 			return *this *= MakePerspective(angleInDegrees, aspect, near_value, far_value);
 		}
 
-		constexpr TMatrix4<T>& PerspectiveX(T angleInDegrees, T aspect, T near_value, T far_value) noexcept
-		{
+		constexpr TMatrix4<T>& PerspectiveX(T angleInDegrees, T aspect, T near_value, T far_value) noexcept {
 			return *this *= MakePerspectiveX(angleInDegrees, aspect, near_value, far_value);
 		}
 
-		constexpr TMatrix4<T>& PerspectiveY(T angleInDegrees, T aspect, T near_value, T far_value) noexcept
-		{
+		constexpr TMatrix4<T>& PerspectiveY(T angleInDegrees, T aspect, T near_value, T far_value) noexcept {
 			return *this *= MakePerspectiveY(angleInDegrees, aspect, near_value, far_value);
 		}
 
-		constexpr TMatrix4<T>& LookAt(TVector3<T> eye, TVector3<T> center, TVector3<T> up) noexcept
-		{
+		constexpr TMatrix4<T>& LookAt(TVector3<T> eye, TVector3<T> center, TVector3<T> up) noexcept {
 			return *this *= MakeLookAt(eye, center, up);
 		}
 
@@ -635,23 +592,19 @@ namespace Fluxions
 		//	return *this *= MakeLookAt((TVector3<T>)eye, (TVector3<T>)center, (TVector3<T>)up);
 		//}
 
-		constexpr TMatrix4<T>& ShadowBias() noexcept
-		{
+		constexpr TMatrix4<T>& ShadowBias() noexcept {
 			return *this *= MakeShadowBias();
 		}
 
-		constexpr TMatrix4<T>& CubeMatrix(int face) noexcept
-		{
+		constexpr TMatrix4<T>& CubeMatrix(int face) noexcept {
 			return *this *= MakeCubeMatrix(face);
 		}
 
-		constexpr TMatrix4<T>& CubeMatrixPosition(int face, const TVector3<T>& position) noexcept
-		{
+		constexpr TMatrix4<T>& CubeMatrixPosition(int face, const TVector3<T>& position) noexcept {
 			return *this *= MakeCubeMatrixPosition(face, position);
 		}
 
-		constexpr TMatrix4<T> AsTranspose() const noexcept
-		{
+		constexpr TMatrix4<T> AsTranspose() const noexcept {
 			return TMatrix4<T>(
 				m11, m21, m31, m41,
 				m12, m22, m32, m42,
@@ -659,13 +612,11 @@ namespace Fluxions
 				m14, m24, m34, m44);
 		}
 
-		constexpr TMatrix4<T>& Transpose() noexcept
-		{
+		constexpr TMatrix4<T>& Transpose() noexcept {
 			return *this = AsTranspose();
 		}
 
-		constexpr TMatrix4<T> AsAdjugate() const noexcept
-		{
+		constexpr TMatrix4<T> AsAdjugate() const noexcept {
 			T t1 = m32 * m43 - m33 * m42;
 			T t2 = m32 * m44 - m34 * m42;
 			T t3 = m33 * m44 - m34 * m43;
@@ -703,13 +654,11 @@ namespace Fluxions
 				m11 * t7 - m12 * t14 + m13 * t18);
 		}
 
-		constexpr TMatrix4<T> Adjugate() noexcept
-		{
+		constexpr TMatrix4<T> Adjugate() noexcept {
 			return *this = AsAdjugate();
 		}
 
-		constexpr TMatrix4<T> AsQuickInverse() const noexcept
-		{
+		constexpr TMatrix4<T> AsQuickInverse() const noexcept {
 			return TMatrix4<T>(
 				m11, m21, m31, -m14,
 				m12, m22, m32, -m24,
@@ -717,15 +666,13 @@ namespace Fluxions
 				T(0), T(0), T(0), T(1));
 		}
 
-		constexpr TMatrix4<T>& QuickInvert() noexcept
-		{
+		constexpr TMatrix4<T>& QuickInvert() noexcept {
 			if (Invertible())
 				return *this = AsQuickInverse();
 			return *this = MakeZero();
 		}
 
-		constexpr TMatrix4<T> AsInverse() const noexcept
-		{
+		constexpr TMatrix4<T> AsInverse() const noexcept {
 			T t1 = m32 * m43 - m33 * m42;
 			T t2 = m32 * m44 - m34 * m42;
 			T t3 = m33 * m44 - m34 * m43;
@@ -769,20 +716,17 @@ namespace Fluxions
 				(m11 * t15 - m12 * t20 + m13 * t23) * t11);
 		}
 
-		constexpr TMatrix4<T>& Invert() noexcept
-		{
+		constexpr TMatrix4<T>& Invert() noexcept {
 			if (Invertible())
 				return *this = AsInverse();
 			return *this = MakeZero();
 		}
 
-		constexpr bool Invertible() const noexcept
-		{
+		constexpr bool Invertible() const noexcept {
 			return Determinant() != 0;
 		}
 
-		constexpr T Determinant() const noexcept
-		{
+		constexpr T Determinant() const noexcept {
 			T t1 = m31 * m42 - m32 * m41;
 			T t2 = m31 * m43 - m33 * m41;
 			T t3 = m32 * m43 - m33 * m42;
@@ -796,8 +740,7 @@ namespace Fluxions
 		// S T A T I C   M E M B E R S ////////////////////////////////
 		///////////////////////////////////////////////////////////////
 
-		static constexpr TMatrix4<T> MakeIdentity() noexcept
-		{
+		static constexpr TMatrix4<T> MakeIdentity() noexcept {
 			return TMatrix4<T>(
 				1, 0, 0, 0,
 				0, 1, 0, 0,
@@ -805,8 +748,7 @@ namespace Fluxions
 				0, 0, 0, 1);
 		}
 
-		static constexpr TMatrix4<T> MakeZero() noexcept
-		{
+		static constexpr TMatrix4<T> MakeZero() noexcept {
 			return TMatrix4<T>(
 				0, 0, 0, 0,
 				0, 0, 0, 0,
@@ -814,8 +756,7 @@ namespace Fluxions
 				0, 0, 0, 0);
 		}
 
-		static constexpr TMatrix4<T> MakeRotation(T angleInDegrees, T x, T y, T z) noexcept
-		{
+		static constexpr TMatrix4<T> MakeRotation(T angleInDegrees, T x, T y, T z) noexcept {
 			T angleInRadians = static_cast<T>(angleInDegrees * FX_DEGREES_TO_RADIANS);
 			T c = cos(angleInRadians);
 			T s = sin(angleInRadians);
@@ -831,8 +772,7 @@ namespace Fluxions
 				0.0, 0.0, 0.0, 1.0);
 		}
 
-		static constexpr TMatrix4<T> MakeScaling(T x, T y, T z) noexcept
-		{
+		static constexpr TMatrix4<T> MakeScaling(T x, T y, T z) noexcept {
 			return TMatrix4<T>(
 				x, 0, 0, 0,
 				0, y, 0, 0,
@@ -840,8 +780,7 @@ namespace Fluxions
 				0, 0, 0, 1);
 		}
 
-		static constexpr TMatrix4<T> MakeTranslation(T x, T y, T z) noexcept
-		{
+		static constexpr TMatrix4<T> MakeTranslation(T x, T y, T z) noexcept {
 			return TMatrix4<T>(
 				1, 0, 0, x,
 				0, 1, 0, y,
@@ -849,8 +788,7 @@ namespace Fluxions
 				0, 0, 0, 1);
 		}
 
-		static constexpr TMatrix4<T> MakeOrtho(T left, T right, T bottom, T top, T near_value, T far_value) noexcept
-		{
+		static constexpr TMatrix4<T> MakeOrtho(T left, T right, T bottom, T top, T near_value, T far_value) noexcept {
 			T tx = -(right + left) / (right - left);
 			T ty = -(top + bottom) / (top - bottom);
 			T tz = -(far_value + near_value) / (far_value - near_value);
@@ -862,8 +800,7 @@ namespace Fluxions
 				0, 0, 0, 1);
 		}
 
-		static constexpr TMatrix4<T> MakeOrtho2D(T left, T right, T bottom, T top) noexcept
-		{
+		static constexpr TMatrix4<T> MakeOrtho2D(T left, T right, T bottom, T top) noexcept {
 			T tx = -(right + left) / (right - left);
 			T ty = -(top + bottom) / (top - bottom);
 
@@ -874,8 +811,7 @@ namespace Fluxions
 				0, 0, 0, 1);
 		}
 
-		static constexpr TMatrix4<T> MakeFrustum(T left, T right, T bottom, T top, T near_value, T far_value) noexcept
-		{
+		static constexpr TMatrix4<T> MakeFrustum(T left, T right, T bottom, T top, T near_value, T far_value) noexcept {
 			T A = (right + left) / (right - left);
 			T B = (top + bottom) / (top - bottom);
 			T C = -(far_value + near_value) / (far_value - near_value);
@@ -888,8 +824,7 @@ namespace Fluxions
 				0, 0, -1, 0);
 		}
 
-		static constexpr TMatrix4<T> MakePerspective(T angleInDegrees, T aspect, T near_value, T far_value) noexcept
-		{
+		static constexpr TMatrix4<T> MakePerspective(T angleInDegrees, T aspect, T near_value, T far_value) noexcept {
 			T f = static_cast<T>(1.0 / std::tan(FX_DEGREES_TO_RADIANS * 0.5 * angleInDegrees));
 
 			return TMatrix4<T>(
@@ -899,8 +834,7 @@ namespace Fluxions
 				0, 0, -1, 0);
 		}
 
-		static constexpr TMatrix4<T> MakePerspectiveX(T angleInDegrees, T aspect, T near_value, T far_value) noexcept
-		{
+		static constexpr TMatrix4<T> MakePerspectiveX(T angleInDegrees, T aspect, T near_value, T far_value) noexcept {
 			T f = static_cast<T>(1.0 / std::tan(FX_DEGREES_TO_RADIANS * 0.5 * angleInDegrees));
 
 			return TMatrix4<T>(
@@ -910,8 +844,7 @@ namespace Fluxions
 				0, 0, -1, 0);
 		}
 
-		static constexpr TMatrix4<T> MakePerspectiveY(T angleInDegrees, T aspect, T near_value, T far_value) noexcept
-		{
+		static constexpr TMatrix4<T> MakePerspectiveY(T angleInDegrees, T aspect, T near_value, T far_value) noexcept {
 			T f = static_cast<T>(1.0 / std::tan(FX_DEGREES_TO_RADIANS * 0.5 * angleInDegrees));
 
 			return TMatrix4<T>(
@@ -921,8 +854,7 @@ namespace Fluxions
 				0, 0, -1, 0);
 		}
 
-		static constexpr TMatrix4<T> MakeLookAt(TVector3<T> eye, TVector3<T> center, TVector3<T> up) noexcept
-		{
+		static constexpr TMatrix4<T> MakeLookAt(TVector3<T> eye, TVector3<T> center, TVector3<T> up) noexcept {
 			TVector3<T> F = (center - eye).norm();
 			TVector3<T> S = F.cross(up).norm();
 			TVector3<T> U = S.cross(F).norm();
@@ -935,8 +867,7 @@ namespace Fluxions
 				TMatrix4<T>::MakeTranslation(-eye.x, -eye.y, -eye.z));
 		}
 
-		static constexpr TMatrix4<T> MakeShadowBias() noexcept
-		{
+		static constexpr TMatrix4<T> MakeShadowBias() noexcept {
 			return TMatrix4<T>(
 				0.5, 0.0, 0.0, 0.5,
 				0.0, 0.5, 0.0, 0.5,
@@ -944,14 +875,12 @@ namespace Fluxions
 				0.0, 0.0, 0.0, 1.0);
 		}
 
-		static constexpr TMatrix4<T> MakeCubeMatrix(int face) noexcept
-		{
+		static constexpr TMatrix4<T> MakeCubeMatrix(int face) noexcept {
 			// support GL_TEXTURE_CUBE_MAP_POSITIVE_X, ... constants
 			if (face >= 0x8515 && face <= 0x851A)
 				face -= 0x8515;
 
-			switch (face)
-			{
+			switch (face) {
 			case 0: // GL_TEXTURE_CUBE_MAP_POSITIVE_X
 				return TMatrix4<T>::MakeRotation(90.0, 0.0, 1.0, 0.0);
 				break;
@@ -974,14 +903,12 @@ namespace Fluxions
 			return TMatrix4<T>::MakeIdentity();
 		}
 
-		static constexpr TMatrix4<T> MakeCubeMatrixPosition(int face, const TVector3<T>& position) noexcept
-		{
+		static constexpr TMatrix4<T> MakeCubeMatrixPosition(int face, const TVector3<T>& position) noexcept {
 			// support GL_TEXTURE_CUBE_MAP_POSITIVE_X, ... constants
 			if (face >= 0x8515 && face <= 0x851A)
 				face -= 0x8515;
 
-			switch (face)
-			{
+			switch (face) {
 			case 0: // GL_TEXTURE_CUBE_MAP_POSITIVE_X
 				return TMatrix4<T>::MakeLookAt(position, position + TVector3<T>(1, 0, 0), TVector3<T>(0, -1, 0));
 				break;
@@ -1707,22 +1634,19 @@ namespace Fluxions
 #endif
 
 	template <typename T, typename U>
-	constexpr auto operator*(const TMatrix4<T>& m1, const TMatrix4<U>& m2) noexcept
-	{
+	constexpr auto operator*(const TMatrix4<T>& m1, const TMatrix4<U>& m2) noexcept {
 		return TMatrix4<T>::multiply(m1, m2);
 	}
 
 	template <typename T, typename U>
-	constexpr auto operator*(const TMatrix4<T>& M, const TVector2<U>& V) noexcept
-	{
+	constexpr auto operator*(const TMatrix4<T>& M, const TVector2<U>& V) noexcept {
 		return TVector2<std::common_type_t<T, U>>(
 			M.m11 * V.x + M.m12 * V.y,
 			M.m21 * V.x + M.m22 * V.y);
 	}
 
 	template <typename T, typename U>
-	constexpr auto operator*(const TMatrix4<T>& M, const TVector3<U>& V) noexcept
-	{
+	constexpr auto operator*(const TMatrix4<T>& M, const TVector3<U>& V) noexcept {
 		return TVector2<std::common_type_t<T, U>>(
 			M.m11 * V.x + M.m12 * V.y + M.m13 * V.z,
 			M.m21 * V.x + M.m22 * V.y + M.m23 * V.z,
@@ -1730,8 +1654,7 @@ namespace Fluxions
 	}
 
 	template <typename T, typename U>
-	constexpr auto operator*(const TMatrix4<T>& M, const TVector4<U>& V) noexcept
-	{
+	constexpr auto operator*(const TMatrix4<T>& M, const TVector4<U>& V) noexcept {
 		return TVector4<std::common_type_t<T, U>>(
 			M.m11 * V.x + M.m12 * V.y + M.m13 * V.z + M.m14 * V.w,
 			M.m21 * V.x + M.m22 * V.y + M.m23 * V.z + M.m24 * V.w,

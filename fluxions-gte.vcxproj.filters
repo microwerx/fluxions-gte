@@ -42,9 +42,6 @@
     <ClInclude Include="include\fluxions_gte_iostream.hpp">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="include\fluxions_gte_math.hpp">
-      <Filter>Header Files</Filter>
-    </ClInclude>
     <ClInclude Include="include\fluxions_gte_matrix_extra.hpp">
       <Filter>Header Files</Filter>
     </ClInclude>
@@ -91,6 +88,15 @@
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="include\fluxions_gte_extra.hpp">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="include\fluxions_gte_vector_math.hpp">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="include\fluxions_gte_scalar_math.hpp">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="include\fluxions_gte_matrix_math.hpp">
       <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>
