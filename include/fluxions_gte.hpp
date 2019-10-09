@@ -49,6 +49,9 @@ namespace Fluxions
 	//		M.m41 * V.X + M.m42 * V.y + M.m43 * V.z + M.m44 * V.w
 	//		);
 	//}
+
+	void TestFluxionsGTE();
+
 } // namespace Fluxions
 
 #endif

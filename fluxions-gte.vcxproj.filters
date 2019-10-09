@@ -99,6 +99,9 @@
     <ClInclude Include="include\fluxions_gte_matrix_math.hpp">
       <Filter>Header Files</Filter>
     </ClInclude>
+    <ClInclude Include="include\fluxions_gte_common_vector.hpp">
+      <Filter>Header Files</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="src\fluxions-gte.cpp">

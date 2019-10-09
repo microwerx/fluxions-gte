@@ -19,3 +19,12 @@
 #include <fluxions_gte_vector3.hpp>
 #include <fluxions_gte_vector4.hpp>
 #include <fluxions_gte_image.hpp>
+
+namespace Fluxions
+{
+	void TestVector3();
+
+	void TestFluxionsGTE() {
+		TestVector3();
+	}
+}
