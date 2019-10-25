@@ -545,17 +545,17 @@ namespace Fluxions
 	}
 
 	template <typename ColorType>
-	TImage<ColorType> TImage<ColorType>::ScaleImage(size_t newWidth, size_t newHeight, bool bilinear) {
+	TImage<ColorType> TImage<ColorType>::ScaleImage(unsigned newWidth, unsigned newHeight, bool bilinear) {
 		TImage<ColorType> out;
 		out.resize(newWidth, newHeight, imageDepth);
-		size_t newDepth = imageDepth;
+		unsigned newDepth = imageDepth;
 		Vector3d d(imageWidth / (double)newWidth, imageHeight / (double)newHeight, imageDepth / (double)newDepth);
 		Vector3d src;
-		for (size_t z = 0; z < newDepth; z++) {
+		for (unsigned z = 0; z < newDepth; z++) {
 			src.y = 0.0;
-			for (size_t y = 0; y < newHeight; y++) {
+			for (unsigned y = 0; y < newHeight; y++) {
 				src.x = 0.0;
-				for (size_t x = 0; x < newWidth; x++) {
+				for (unsigned x = 0; x < newWidth; x++) {
 					// truncate coordinates
 					Vector3i pint((int)src.x, (int)src.y, (int)src.z);
 					ColorType closestPixel = getPixelUnsafe(pint.x, pint.y, pint.z);
@@ -571,7 +571,7 @@ namespace Fluxions
 	}
 
 	template <typename ColorType>
-	void TImage<ColorType>::savePPMRaw(const std::string& filename, size_t z) const {
+	void TImage<ColorType>::savePPMRaw(const std::string& filename, unsigned z) const {
 		const float scale = ColorType::to_float_factor * 255.0f;
 		float maxColorFound = maxrgb() * scale;
 		if (maxColorFound < 255.0f)
@@ -583,8 +583,8 @@ namespace Fluxions
 		fout << imageHeight << " ";
 		fout << maxColorFound << std::endl;
 
-		for (size_t y = 0; y < imageHeight; y++) {
-			for (size_t x = 0; x < imageWidth; x++) {
+		for (unsigned y = 0; y < imageHeight; y++) {
+			for (unsigned x = 0; x < imageWidth; x++) {
 				Color3f color = getPixel(x, y, z) * scale;
 				int ir = (int)color.r;
 				int ig = (int)color.g;
@@ -601,8 +601,8 @@ namespace Fluxions
 		std::ifstream fin(filename.c_str());
 
 		std::string magicNumber;
-		size_t width;
-		size_t height;
+		unsigned width;
+		unsigned height;
 		int maxInt;
 
 		fin >> magicNumber;
@@ -622,8 +622,8 @@ namespace Fluxions
 		const float scale = ColorType::from_float_factor / 255.99f;
 
 		resize(width, height);
-		for (size_t y = 0; y < imageHeight; y++) {
-			for (size_t x = 0; x < imageWidth; x++) {
+		for (unsigned y = 0; y < imageHeight; y++) {
+			for (unsigned x = 0; x < imageWidth; x++) {
 				Color3f color;
 				fin >> color.r >> color.g >> color.b;
 				color *= scale;
@@ -637,7 +637,7 @@ namespace Fluxions
 	}
 
 	template <typename ColorType>
-	void TImage<ColorType>::savePPM(const std::string& filename, size_t z, bool flipy) const {
+	void TImage<ColorType>::savePPM(const std::string& filename, unsigned z, bool flipy) const {
 		const float scale = ColorType::to_float_factor * 255.99f;
 		float maxColorFound = maxrgb() * scale;
 		if (maxColorFound < 255.0f)
@@ -672,7 +672,7 @@ namespace Fluxions
 	}
 
 	template <typename ColorType>
-	void TImage<ColorType>::savePPMi(const std::string& filename, float scale, int minValue, int maxValue, size_t z, bool flipy) const {
+	void TImage<ColorType>::savePPMi(const std::string& filename, float scale, int minValue, int maxValue, unsigned z, bool flipy) const {
 		if (maxValue <= 0) {
 			maxValue = (int)(scale * maxrgb());
 		}
@@ -703,7 +703,7 @@ namespace Fluxions
 	}
 
 	template <typename ColorType>
-	void TImage<ColorType>::savePPMHDRI(const std::string& filename, size_t z) const {
+	void TImage<ColorType>::savePPMHDRI(const std::string& filename, unsigned z) const {
 		std::ofstream fout(filename.c_str());
 
 		fout << "P3" << std::endl;
@@ -711,8 +711,8 @@ namespace Fluxions
 		fout << imageHeight << " ";
 		fout << "1.0" << std::endl;
 
-		for (size_t y = 0; y < imageHeight; y++) {
-			for (size_t x = 0; x < imageWidth; x++) {
+		for (unsigned y = 0; y < imageHeight; y++) {
+			for (unsigned x = 0; x < imageWidth; x++) {
 				ColorType c = getPixel(x, y, z);
 				Color3f color = ToColor3f(c);
 				fout << color.r << " " << color.g << " " << color.b << std::endl;
@@ -744,8 +744,8 @@ namespace Fluxions
 		double t1 = Hf::Log.getMillisecondsElapsed();
 		Imf::RgbaInputFile file(path.c_str());
 		Imath::Box2i dw = file.dataWindow();
-		size_t w = dw.max.x - dw.min.x + 1;
-		size_t h = dw.max.y - dw.min.y + 1;
+		unsigned w = dw.max.x - dw.min.x + 1;
+		unsigned h = dw.max.y - dw.min.y + 1;
 		//Imf::Array2D<Imf::Rgba> filePixels;
 		std::vector<Imf::Rgba> filePixels(w * h);
 		//filePixels.resizeErase(h, w);
@@ -753,11 +753,11 @@ namespace Fluxions
 		file.readPixels(dw.min.y, dw.max.y);
 
 		resize(w, h);
-		size_t addr = 0;
+		unsigned addr = 0;
 		float minC = 1e6;
 		float maxC = -1e6;
-		for (size_t j = 0; j < h; j++) {
-			for (size_t i = 0; i < w; i++) {
+		for (unsigned j = 0; j < h; j++) {
+			for (unsigned i = 0; i < w; i++) {
 				Imf::Rgba rgba = filePixels[addr];
 				Color3f color(float(rgba.r), float(rgba.g), float(rgba.b));
 				minC = std::min(minC, color.minrgb());
@@ -778,8 +778,8 @@ namespace Fluxions
 		double t1 = Hf::Log.getMillisecondsElapsed();
 		const Imf::Rgba black(0.0f, 0.0f, 0.0f, 1.0f);
 		std::vector<Imf::Rgba> halfPixels(imageWidth * imageHeight * imageDepth, black);
-		const size_t count = imageWidth * imageHeight * imageDepth;
-		for (size_t i = 0; i < count; i++) {
+		const unsigned count = imageWidth * imageHeight * imageDepth;
+		for (unsigned i = 0; i < count; i++) {
 			Color3f color = ToColor3f(pixels[i]);
 			halfPixels[i] = Imf::Rgba(color.r, color.g, color.b);
 		}
@@ -792,7 +792,7 @@ namespace Fluxions
 	}
 
 	template <typename ColorType>
-	void TImage<ColorType>::resize(size_t width, size_t height, size_t depth) {
+	void TImage<ColorType>::resize(unsigned width, unsigned height, unsigned depth) {
 		imageWidth = width;
 		imageHeight = height;
 		imageDepth = depth;
@@ -811,12 +811,12 @@ namespace Fluxions
 	}
 
 	template <typename ColorType>
-	void TImage<ColorType>::setImageData(unsigned int format, unsigned int type, size_t width, size_t height, size_t depth, void* _pixels) {
+	void TImage<ColorType>::setImageData(unsigned int format, unsigned int type, unsigned width, unsigned height, unsigned depth, void* _pixels) {
 		_setImageData(format, type, ColorType::gl_type, ColorType::gl_size, width, height, depth, _pixels);
 	}
 
 	template <typename ColorType>
-	void TImage<ColorType>::_setImageData(unsigned int fromFormat, unsigned int fromType, unsigned int toFormat, unsigned int toType, size_t width, size_t height, size_t depth, void* _pixels) {
+	void TImage<ColorType>::_setImageData(unsigned int fromFormat, unsigned int fromType, unsigned int toFormat, unsigned int toType, unsigned width, unsigned height, unsigned depth, void* _pixels) {
 		float scaleFactor_itof = 1.0f / 255.99f;
 		float scaleFactor_ftoi = 255.99f;
 
@@ -825,7 +825,7 @@ namespace Fluxions
 		const unsigned glconstant_FLOAT = 0x1406;
 		const unsigned glconstant_UNSIGNED_BYTE = 0x1401;
 
-		size_t stride;
+		unsigned stride;
 		if (fromFormat == 3 || fromFormat == glconstant_RGB)
 			stride = 3;
 		else if (fromFormat == 4 || fromFormat == glconstant_RGBA)
@@ -834,12 +834,12 @@ namespace Fluxions
 			return;
 
 		resize(width, height, depth);
-		size_t count = width * height * depth;
+		unsigned count = width * height * depth;
 		if (fromType == glconstant_UNSIGNED_BYTE && toType == glconstant_FLOAT) {
 			unsigned char* data = (unsigned char*)_pixels;
-			for (size_t i = 0; i < count; i++) {
+			for (unsigned i = 0; i < count; i++) {
 				typename ColorType::type* v = pixels[i].ptr();
-				for (size_t j = 0; j < stride; j++) {
+				for (unsigned j = 0; j < stride; j++) {
 					v[j] = (typename ColorType::type)clamp((int)(scaleFactor_itof * data[j]), 0, 255);
 				}
 				data += stride;
@@ -847,9 +847,9 @@ namespace Fluxions
 		}
 		else if (fromType == glconstant_FLOAT && toType == glconstant_UNSIGNED_BYTE) {
 			float* data = (float*)_pixels;
-			for (size_t i = 0; i < count; i++) {
+			for (unsigned i = 0; i < count; i++) {
 				typename ColorType::type* v = pixels[i].ptr();
-				for (size_t j = 0; j < stride; j++) {
+				for (unsigned j = 0; j < stride; j++) {
 					v[j] = (typename ColorType::type)clamp((int)(scaleFactor_ftoi * data[j]), 0, 255);
 				}
 				data += stride;
@@ -857,9 +857,9 @@ namespace Fluxions
 		}
 		else if (fromType == glconstant_UNSIGNED_BYTE && toType == glconstant_UNSIGNED_BYTE) {
 			unsigned char* data = (unsigned char*)_pixels;
-			for (size_t i = 0; i < count; i++) {
+			for (unsigned i = 0; i < count; i++) {
 				typename ColorType::type* v = pixels[i].ptr();
-				for (size_t j = 0; j < stride; j++) {
+				for (unsigned j = 0; j < stride; j++) {
 					v[j] = (typename ColorType::type)data[j];
 				}
 				data += stride;
@@ -867,9 +867,9 @@ namespace Fluxions
 		}
 		else if (fromType == glconstant_FLOAT && toType == glconstant_FLOAT) {
 			float* data = (float*)_pixels;
-			for (size_t i = 0; i < count; i++) {
+			for (unsigned i = 0; i < count; i++) {
 				typename ColorType::type* v = pixels[i].ptr();
-				for (size_t j = 0; j < stride; j++) {
+				for (unsigned j = 0; j < stride; j++) {
 					v[j] = (typename ColorType::type)data[j];
 				}
 				data += stride;
@@ -884,15 +884,15 @@ namespace Fluxions
 			return false;
 
 		std::vector<ColorType> tmp(imageWidth * imageHeight);
-		size_t size = imageWidth;
-		//size_t zstride = imageWidth * imageHeight;
-		size_t zoffset = zstride * z;
-		for (size_t x = 0; x < size; x++) {
-			for (size_t y = 0; y < size; y++) {
-				size_t sx = size - x - 1;
-				size_t sy = y;
-				size_t dst_offset = y * size + x;
-				size_t src_offset = sy * size + sx;
+		unsigned size = imageWidth;
+		//unsigned zstride = imageWidth * imageHeight;
+		unsigned zoffset = zstride * z;
+		for (unsigned x = 0; x < size; x++) {
+			for (unsigned y = 0; y < size; y++) {
+				unsigned sx = size - x - 1;
+				unsigned sy = y;
+				unsigned dst_offset = y * size + x;
+				unsigned src_offset = sy * size + sx;
 				tmp[dst_offset] = pixels[zoffset + src_offset];
 			}
 		}
@@ -907,15 +907,15 @@ namespace Fluxions
 			return false;
 
 		std::vector<ColorType> tmp(imageWidth * imageHeight);
-		size_t size = imageWidth;
-		//size_t zstride = imageWidth * imageHeight;
-		size_t zoffset = zstride * z;
-		for (size_t x = 0; x < size; x++) {
-			for (size_t y = 0; y < size; y++) {
-				size_t sx = x;
-				size_t sy = size - y - 1;
-				size_t dst_offset = y * size + x;
-				size_t src_offset = sy * size + sx;
+		unsigned size = imageWidth;
+		//unsigned zstride = imageWidth * imageHeight;
+		unsigned zoffset = zstride * z;
+		for (unsigned x = 0; x < size; x++) {
+			for (unsigned y = 0; y < size; y++) {
+				unsigned sx = x;
+				unsigned sy = size - y - 1;
+				unsigned dst_offset = y * size + x;
+				unsigned src_offset = sy * size + sx;
 				tmp[dst_offset] = pixels[zoffset + src_offset];
 			}
 		}
@@ -930,22 +930,22 @@ namespace Fluxions
 			return false;
 
 		std::vector<ColorType> tmp(imageWidth * imageHeight);
-		size_t size = imageWidth;
-		//size_t zstride = imageWidth * imageHeight;
-		size_t zoffset = zstride * z;
-		for (size_t x = 0; x < size; x++) {
-			for (size_t y = 0; y < size; y++) {
+		unsigned size = imageWidth;
+		//unsigned zstride = imageWidth * imageHeight;
+		unsigned zoffset = zstride * z;
+		for (unsigned x = 0; x < size; x++) {
+			for (unsigned y = 0; y < size; y++) {
 				int sx = (int)(size - y - 1);
 				int sy = (int)x;
-				size_t dst_offset = y * size + x;
-				size_t src_offset = sy * size + sx;
+				unsigned dst_offset = y * size + x;
+				unsigned src_offset = sy * size + sx;
 				tmp[dst_offset] = pixels[zoffset + src_offset];
 			}
 		}
 		//copy(tmp.begin(), tmp.end(), pixels.begin() + zoffset);
 		void* pdst = &pixels[zoffset];
 		void* psrc = &tmp[0];
-		size_t n = zstride * sizeof(ColorType);
+		unsigned n = zstride * sizeof(ColorType);
 		memcpy(pdst, psrc, n);
 		// memcpy(&pixels[zoffset], &tmp[0], zstride * sizeof(ColorType));
 
@@ -958,22 +958,22 @@ namespace Fluxions
 			return false;
 
 		std::vector<ColorType> tmp(imageWidth * imageHeight);
-		size_t size = imageWidth;
-		//size_t zstride = imageWidth * imageHeight;
-		size_t zoffset = zstride * z;
-		for (size_t x = 0; x < size; x++) {
-			for (size_t y = 0; y < size; y++) {
+		unsigned size = imageWidth;
+		//unsigned zstride = imageWidth * imageHeight;
+		unsigned zoffset = zstride * z;
+		for (unsigned x = 0; x < size; x++) {
+			for (unsigned y = 0; y < size; y++) {
 				int sx = (int)y;
 				int sy = (int)(size - x - 1);
-				size_t dst_offset = y * size + x;
-				size_t src_offset = sy * size + sx;
+				unsigned dst_offset = y * size + x;
+				unsigned src_offset = sy * size + sx;
 				tmp[dst_offset] = pixels[zoffset + src_offset];
 			}
 		}
 
 		void* dst = &pixels[zoffset];
 		void* src = &tmp[0];
-		size_t n = zstride * sizeof(ColorType);
+		unsigned n = zstride * sizeof(ColorType);
 		memcpy(dst, src, n);
 		//copy(tmp.begin(), tmp.end(), pixels.begin() + zoffset);
 
@@ -999,15 +999,15 @@ namespace Fluxions
 		std::vector<ColorType> src = pixels;
 		resize(size, size, 6);
 
-		for (int i = 0; i < 6; i++) {
-			int k = swizzle[i];
+		for (unsigned i = 0; i < 6; i++) {
+			unsigned k = swizzle[i];
 			// demultiplex the data
-			size_t dst_offset = i * zstride;
-			size_t src_offset = k * size;
+			unsigned dst_offset = i * zstride;
+			unsigned src_offset = k * size;
 			for (int y = 0; y < size; y++) {
 				void* pdst = &pixels[dst_offset];
 				void* psrc = &src[src_offset];
-				size_t n = size * sizeof(ColorType);
+				unsigned n = size * sizeof(ColorType);
 				memcpy(pdst, psrc, n);
 				dst_offset += size;
 				src_offset += 6 * size;
@@ -1040,12 +1040,12 @@ namespace Fluxions
 		for (int i = 0; i < 6; i++) {
 			int k = swizzle[i];
 			// demultiplex the data
-			size_t dst_offset = i * zstride;
-			size_t src_offset = k * size;
+			unsigned dst_offset = i * zstride;
+			unsigned src_offset = k * size;
 			for (int y = 0; y < size; y++) {
 				void* pdst = &dst.pixels[dst_offset];
 				const void* psrc = &src[src_offset];
-				size_t n = size * sizeof(ColorType);
+				unsigned n = size * sizeof(ColorType);
 				memcpy(pdst, psrc, n);
 				dst_offset += size;
 				src_offset += 6 * size;
@@ -1082,12 +1082,12 @@ namespace Fluxions
 		for (unsigned i = 0; i < 6; i++) {
 			unsigned k = swizzle[i];
 			// demultiplex the data
-			size_t src_offset = i * size * size;
-			size_t dst_offset = k * size;
-			for (int y = 0; y < size; y++) {
+			unsigned src_offset = i * size * size;
+			unsigned dst_offset = k * size;
+			for (unsigned y = 0; y < size; y++) {
 				void* pdst = &pixels[dst_offset];
 				void* psrc = &tmp[src_offset];
-				size_t n = size * sizeof(ColorType);
+				unsigned n = size * sizeof(ColorType);
 				memcpy(pdst, psrc, n);
 				src_offset += size;
 				dst_offset += 6 * size;
@@ -1122,12 +1122,12 @@ namespace Fluxions
 		for (int i = 0; i < 6; i++) {
 			int k = swizzle[i];
 			// demultiplex the data
-			size_t src_offset = i * size * size;
-			size_t dst_offset = k * size;
+			unsigned src_offset = i * size * size;
+			unsigned dst_offset = k * size;
 			for (int y = 0; y < size; y++) {
 				void* pdst = &dst.pixels[dst_offset];
 				void* psrc = &src.pixels[src_offset];
-				size_t n = size * sizeof(ColorType);
+				unsigned n = size * sizeof(ColorType);
 				memcpy(pdst, psrc, n);
 				src_offset += size;
 				dst_offset += 6 * size;

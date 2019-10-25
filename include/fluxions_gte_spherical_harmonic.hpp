@@ -37,7 +37,7 @@ namespace Fluxions
 	double legendre_polynomial(int l, int m, double x) noexcept;
 	double spherical_harmonic(int l, int m, double theta, double phi) noexcept;
 
-	constexpr size_t GetMaxSphCoefficients(size_t l) noexcept { return l * (l + 1) + l + 1; }
+	constexpr unsigned GetMaxSphCoefficients(unsigned l) noexcept { return l * (l + 1) + l + 1; }
 
 	template <typename T>
 	T calc_spherical_harmonic(int max_degree, const T *a, T theta, T phi);
@@ -51,8 +51,8 @@ namespace Fluxions
 	class TSphericalHarmonic
 	{
 	private:
-		size_t maxCoefficients = 1;
-		size_t maxDegree = 0;
+		unsigned maxCoefficients = 1;
+		unsigned maxDegree = 0;
 		std::vector<VectorType> coefficients;
 
 	public:
@@ -62,10 +62,10 @@ namespace Fluxions
 		}
 
 		constexpr void reset() noexcept { resize(maxDegree, VectorType(0)); }
-		constexpr void reset(size_t maxDegree_) noexcept { resize(maxDegree_, VectorType(0)); }
-		constexpr void reset(size_t maxDegree_, const VectorType &value) noexcept { resize(maxDegree_, value); }
-		constexpr void resize(size_t maxDegree_) noexcept;
-		constexpr void resize(size_t maxDegree_, const VectorType &value) noexcept;
+		constexpr void reset(unsigned maxDegree_) noexcept { resize(maxDegree_, VectorType(0)); }
+		constexpr void reset(unsigned maxDegree_, const VectorType &value) noexcept { resize(maxDegree_, value); }
+		constexpr void resize(unsigned maxDegree_) noexcept;
+		constexpr void resize(unsigned maxDegree_, const VectorType &value) noexcept;
 		void readFromString(const std::string &data) noexcept;
 		void readFromFile(const std::string &filename) noexcept;
 
@@ -90,7 +90,7 @@ namespace Fluxions
 				return *this;
 			}
 
-			for (size_t i = 0; i < coefficients.size(); i++) {
+			for (unsigned i = 0; i < coefficients.size(); i++) {
 				coefficients[i] += b.coefficients[i];
 			}
 
@@ -99,17 +99,17 @@ namespace Fluxions
 
 		constexpr TSphericalHarmonic<VectorType, ScalarType> &Accumulate(const TSphericalHarmonic<VectorType, ScalarType> &b, const ScalarType c = 1, int maxDegrees = -1) noexcept
 		{
-			size_t firstIndex = 0;
-			size_t lastDegree = maxDegree;
+			unsigned firstIndex = 0;
+			unsigned lastDegree = maxDegree;
 			if (maxDegrees >= 0) {
-				lastDegree = min3<size_t>(maxDegrees, maxDegree, b.maxDegree);
+				lastDegree = min3<unsigned>(maxDegrees, maxDegree, b.maxDegree);
 			}
 			else {
 				lastDegree = std::min(maxDegree, b.maxDegree);
 			}
-			size_t lastIndex = lastDegree * (lastDegree + 1);
+			unsigned lastIndex = lastDegree * (lastDegree + 1);
 
-			for (size_t i = firstIndex; i <= lastIndex; i++) {
+			for (unsigned i = firstIndex; i <= lastIndex; i++) {
 				coefficients[i] += b.coefficients[i] * (VectorType)c;
 			}
 
@@ -118,15 +118,15 @@ namespace Fluxions
 
 		constexpr TSphericalHarmonic<VectorType, ScalarType> &Accumulate(const TSphericalHarmonic<VectorType, ScalarType> &b, const TSphericalHarmonic<VectorType, ScalarType> &c, int maxDegrees = -1) noexcept
 		{
-			size_t firstIndex = 0;
-			size_t lastDegree = maxDegree;
+			unsigned firstIndex = 0;
+			unsigned lastDegree = maxDegree;
 			if (maxDegrees >= 0) {
-				lastDegree = min3<size_t>(maxDegrees, maxDegree, b.maxDegree);
+				lastDegree = min3<unsigned>(maxDegrees, maxDegree, b.maxDegree);
 			}
 			else {
 				lastDegree = std::min(maxDegree, b.maxDegree);
 			}
-			size_t lastIndex = lastDegree * (lastDegree + 1);
+			unsigned lastIndex = lastDegree * (lastDegree + 1);
 
 			//if (coefficients.size() != b.coefficients.size())
 			//{
@@ -134,7 +134,7 @@ namespace Fluxions
 			//	return *this;
 			//}
 
-			for (size_t i = firstIndex; i < lastIndex; i++) {
+			for (unsigned i = firstIndex; i < lastIndex; i++) {
 				coefficients[i] += b.coefficients[i] * c.coefficients[i];
 			}
 
@@ -143,24 +143,24 @@ namespace Fluxions
 
 		constexpr TSphericalHarmonic<VectorType, ScalarType> &Accumulate(const TSphericalHarmonic<VectorType, ScalarType> &b, const TSphericalHarmonic<VectorType, ScalarType> &c, float d, int maxDegrees = -1) noexcept
 		{
-			size_t firstIndex = 0;
-			size_t lastDegree = maxDegree;
+			unsigned firstIndex = 0;
+			unsigned lastDegree = maxDegree;
 			if (maxDegrees >= 0) {
-				lastDegree = min3<size_t>(maxDegrees, maxDegree, b.maxDegree);
+				lastDegree = min3<unsigned>(maxDegrees, maxDegree, b.maxDegree);
 			}
 			else {
 				lastDegree = std::min(maxDegree, b.maxDegree);
 			}
-			size_t lastIndex = lastDegree * (lastDegree + 1);
+			unsigned lastIndex = lastDegree * (lastDegree + 1);
 
-			for (size_t i = firstIndex; i < lastIndex; i++) {
+			for (unsigned i = firstIndex; i < lastIndex; i++) {
 				coefficients[i] += d * b.coefficients[i] * c.coefficients[i];
 			}
 
 			return *this;
 		}
 
-		constexpr const VectorType operator[](size_t i) const noexcept
+		constexpr const VectorType operator[](unsigned i) const noexcept
 		{
 			if (i >= 0 && i < maxCoefficients)
 				return coefficients[i];
@@ -168,25 +168,25 @@ namespace Fluxions
 				return VectorType();
 		}
 
-		constexpr VectorType &operator[](size_t i)
+		constexpr VectorType &operator[](unsigned i)
 		{
 			return coefficients[i];
 		}
 
-		constexpr size_t GetMaxDegree() const noexcept
+		constexpr unsigned GetMaxDegree() const noexcept
 		{
 			return maxDegree;
 		}
 
-		constexpr size_t getMaxCoefficients() const noexcept
+		constexpr unsigned getMaxCoefficients() const noexcept
 		{
 			return maxDegree * (maxDegree + 1) + maxDegree + 1;
 		}
 
 		// returns -1 if out of range, or index if in range
-		constexpr size_t getCoefficientIndex(size_t l, int m) const noexcept
+		constexpr unsigned getCoefficientIndex(unsigned l, int m) const noexcept
 		{
-			if (l <= maxDegree && (size_t)abs(m) <= l)
+			if (l <= maxDegree && (unsigned)abs(m) <= l)
 				return l * (l + 1) + m;
 			else
 				return 0;
@@ -197,16 +197,16 @@ namespace Fluxions
 			return coefficients;
 		}
 
-		constexpr VectorType getCoefficient(size_t l, int m) const noexcept
+		constexpr VectorType getCoefficient(unsigned l, int m) const noexcept
 		{
-			size_t index = getCoefficientIndex(l, m);
+			unsigned index = getCoefficientIndex(l, m);
 			if (index < coefficients.size())
 				return coefficients[index];
 			else
 				return VectorType();
 		}
 
-		constexpr VectorType getCoefficient(size_t lm) const noexcept
+		constexpr VectorType getCoefficient(unsigned lm) const noexcept
 		{
 			if (lm < coefficients.size())
 				return coefficients[lm];
@@ -214,14 +214,14 @@ namespace Fluxions
 				return VectorType();
 		}
 
-		constexpr void setCoefficient(size_t l, int m, const VectorType x) noexcept
+		constexpr void setCoefficient(unsigned l, int m, const VectorType x) noexcept
 		{
-			size_t index = getCoefficientIndex(l, m);
+			unsigned index = getCoefficientIndex(l, m);
 			if (index < coefficients.size())
 				coefficients[index] = x;
 		}
 
-		constexpr void setCoefficient(size_t lm, const VectorType x) noexcept
+		constexpr void setCoefficient(unsigned lm, const VectorType x) noexcept
 		{
 			if (lm < coefficients.size())
 				coefficients[lm] = x;
@@ -289,7 +289,7 @@ namespace Fluxions
 	};
 
 	template <typename VectorType, typename ScalarType>
-	constexpr void TSphericalHarmonic<VectorType, ScalarType>::resize(size_t maxDegree_) noexcept
+	constexpr void TSphericalHarmonic<VectorType, ScalarType>::resize(unsigned maxDegree_) noexcept
 	{
 		if (maxDegree_ > 10) {
 			maxDegree_ = 10;
@@ -302,7 +302,7 @@ namespace Fluxions
 	}
 
 	template <typename VectorType, typename ScalarType>
-	constexpr void TSphericalHarmonic<VectorType, ScalarType>::resize(size_t maxDegree_, const VectorType &value) noexcept
+	constexpr void TSphericalHarmonic<VectorType, ScalarType>::resize(unsigned maxDegree_, const VectorType &value) noexcept
 	{
 		if (maxDegree_ > 10) {
 			maxDegree_ = 10;
@@ -371,7 +371,7 @@ namespace Fluxions
 
 		std::string str;
 		fin.seekg(0, std::ios::end);
-		size_t size = (size_t)fin.tellg();
+		unsigned size = (unsigned)fin.tellg();
 		str.resize(size);
 		fin.seekg(0, std::ios::beg);
 		fin.read(&str[0], size);
@@ -443,8 +443,8 @@ namespace Fluxions
 		const SphericalHarmonicf &b() const { return msph[2]; }
 		const SphericalHarmonicf &a() const { return msph[3]; }
 
-		SphericalHarmonicf &operator[](size_t i) { return msph[i]; }
-		const SphericalHarmonicf &operator[](size_t i) const { return msph[i]; }
+		SphericalHarmonicf &operator[](unsigned i) { return msph[i]; }
+		const SphericalHarmonicf &operator[](unsigned i) const { return msph[i]; }
 
 		inline void resize(int degree, float value = 0.0f)
 		{
@@ -460,7 +460,7 @@ namespace Fluxions
 		}
 
 		// returns the number of elements: maxDegree * (maxDegree + 1) + maxDegree + 1
-		constexpr size_t size() const noexcept { size_t m = maxDegree;  return m * (m+1) + m + 1; }
+		constexpr unsigned size() const noexcept { unsigned m = maxDegree;  return m * (m+1) + m + 1; }
 
 		inline void MakeLuminanceChannel() { MakeLuminanceChannel4f(msph); }
 

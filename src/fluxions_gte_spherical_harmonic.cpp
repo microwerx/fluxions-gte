@@ -1229,7 +1229,7 @@ namespace Fluxions
 	//		});
 
 	//	auto coefs = json->getMember("coefs");
-	//	for (size_t lm = 0; lm < msph->getMaxCoefficients(); lm++) {
+	//	for (unsigned lm = 0; lm < msph->getMaxCoefficients(); lm++) {
 	//		float r = msph[0].getCoefficient(lm);
 	//		float g = msph[1].getCoefficient(lm);
 	//		float b = msph[2].getCoefficient(lm);
@@ -1255,7 +1255,7 @@ namespace Fluxions
 	bool Sph4f::fromVectorFormat(int maxDegrees, const std::vector<std::vector<float>> & v)
 	{
 		// do a sanity check on the incoming data
-		size_t lmCount = maxDegree * (maxDegree + 1) + maxDegree + 1;
+		unsigned lmCount = maxDegree * (maxDegree + 1) + maxDegree + 1;
 		if (lmCount != v.size()) return false;
 
 		// then attempt to resize to fit the incoming data
@@ -1265,9 +1265,9 @@ namespace Fluxions
 		maxDegrees = std::min(maxDegrees, maxDegree);
 		lmCount = maxDegree * (maxDegree + 1) + maxDegree + 1;
 
-		for (size_t lm = 0; lm < lmCount; lm++) {
+		for (unsigned lm = 0; lm < lmCount; lm++) {
 			auto & v_element = v[lm];
-			size_t c = v_element.size();
+			unsigned c = (unsigned)v_element.size();
 			if (c >= 1) msph[0].setCoefficient(lm, v_element[0]);
 			else msph[0].setCoefficient(lm, 0.0f);
 			if (c >= 2) msph[1].setCoefficient(lm, v_element[1]);
@@ -1285,7 +1285,7 @@ namespace Fluxions
 		if (numChannels < 1 || numChannels > 4) return false;
 		v.resize(size());
 		int lmCount = (int)msph->getMaxCoefficients();
-		for (size_t lm = 0; lm < (size_t)lmCount; lm++) {
+		for (unsigned lm = 0; lm < (unsigned)lmCount; lm++) {
 			auto & v_element = v[lm];
 			v_element.resize(numChannels);
 			for (int i = 0; i < numChannels; i++) {

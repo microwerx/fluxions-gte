@@ -267,7 +267,7 @@ namespace Fluxions
 
 	float randomSampler(float _min0, float _max0);
 
-	inline void MakeFaceSTFromCubeVector(float x, float y, float z, float* s, float* t, size_t* whichFace) noexcept {
+	inline void MakeFaceSTFromCubeVector(float x, float y, float z, float* s, float* t, unsigned* whichFace) noexcept {
 		// ma is absolute value
 		float absX = fabsf(x);
 		float absY = fabsf(y);
@@ -346,7 +346,7 @@ namespace Fluxions
 		*t = 0.5f * (tc / maxAxis + 1.0f);
 	}
 
-	constexpr void MakeCubeVectorFromFaceST(size_t face, float s, float t, float* x, float* y, float* z) noexcept {
+	constexpr void MakeCubeVectorFromFaceST(unsigned face, float s, float t, float* x, float* y, float* z) noexcept {
 		// 0 GL_TEXTURE_CUBE_MAP_POSITIVE_X
 		// 1 GL_TEXTURE_CUBE_MAP_NEGATIVE_X
 		// 2 GL_TEXTURE_CUBE_MAP_POSITIVE_Y
