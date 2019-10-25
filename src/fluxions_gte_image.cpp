@@ -725,14 +725,14 @@ namespace Fluxions
 	template <typename ColorType>
 	void TImage<ColorType>::savePPMCube(const std::string& path) const {
 		if (imageHeight * 6 == imageWidth) {
-			savePPM(path);
+			savePPMRaw(path);
 			return;
 		}
 
 		if (imageDepth == 6) {
 			ImageType image;
 			convertCubeMapToRect(image);
-			image.savePPM(path);
+			image.savePPMRaw(path);
 		}
 
 		return;
