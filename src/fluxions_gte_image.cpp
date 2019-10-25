@@ -36,16 +36,14 @@ namespace Fluxions
 {
 	// C++ Specializations Must Come First
 
-	Color3ub RGBFloatToUint8(const Color3f &c)
-	{
+	Color3ub RGBFloatToUint8(const Color3f& c) {
 		return Color3ub(
 			(unsigned char)clamp((int)(c.r * 255.0f), 0, 255),
 			(unsigned char)clamp((int)(c.g * 255.0f), 0, 255),
 			(unsigned char)clamp((int)(c.b * 255.0f), 0, 255));
 	}
 
-	Color3i RGBFloatToInt32(const Color3f &c)
-	{
+	Color3i RGBFloatToInt32(const Color3f& c) {
 		return Color3i(
 			(int)clamp((int)(c.r * 255.0f), 0, 65535),
 			(int)clamp((int)(c.g * 255.0f), 0, 65535),
@@ -494,9 +492,8 @@ namespace Fluxions
 	// }
 
 	template <typename ColorType>
-	TImage<ColorType> &TImage<ColorType>::ToSRGB()
-	{
-		for (ColorType &c : pixels) {
+	TImage<ColorType>& TImage<ColorType>::ToSRGB() {
+		for (ColorType& c : pixels) {
 			Color3f color_linear = ToColor3f(c);
 			Color3f color_srgb = RGBtoSRGB(color_linear);
 			FromColor3f(c, color_srgb.clamp());
@@ -506,9 +503,8 @@ namespace Fluxions
 	}
 
 	template <typename ColorType>
-	TImage<ColorType> &TImage<ColorType>::ReverseSRGB()
-	{
-		for (ColorType &c : pixels) {
+	TImage<ColorType>& TImage<ColorType>::ReverseSRGB() {
+		for (ColorType& c : pixels) {
 			Color3f color_srgb = ToColor3f(c);
 			Color3f color_linear = SRGBtoRGB(color_srgb);
 			FromColor3f(c, color_linear.clamp());
@@ -518,10 +514,9 @@ namespace Fluxions
 	}
 
 	template <typename ColorType>
-	TImage<ColorType> &TImage<ColorType>::ReverseToneMap(float exposure)
-	{
+	TImage<ColorType>& TImage<ColorType>::ReverseToneMap(float exposure) {
 		float tm = 1.0f / (2.5f * powf(2.0f, exposure));
-		for (ColorType &c : pixels) {
+		for (ColorType& c : pixels) {
 			Color3f color = ToColor3f(c);
 			color *= tm;
 			FromColor3f(c, color.clamp());
@@ -531,10 +526,9 @@ namespace Fluxions
 	}
 
 	template <typename ColorType>
-	TImage<ColorType> &TImage<ColorType>::ToneMap(float exposure)
-	{
+	TImage<ColorType>& TImage<ColorType>::ToneMap(float exposure) {
 		float tm = 2.5f * powf(2.0f, exposure);
-		for (ColorType &c : pixels) {
+		for (ColorType& c : pixels) {
 			Color3f color = ToColor3f(c);
 			color *= tm;
 			FromColor3f(c, color.clamp());
@@ -544,16 +538,14 @@ namespace Fluxions
 	}
 
 	template <typename ColorType>
-	void TImage<ColorType>::scaleColors(const float x)
-	{
-		for (ColorType &c : pixels) {
+	void TImage<ColorType>::scaleColors(const float x) {
+		for (ColorType& c : pixels) {
 			c *= (typename ColorType::type)x;
 		}
 	}
 
 	template <typename ColorType>
-	TImage<ColorType> TImage<ColorType>::ScaleImage(size_t newWidth, size_t newHeight, bool bilinear)
-	{
+	TImage<ColorType> TImage<ColorType>::ScaleImage(size_t newWidth, size_t newHeight, bool bilinear) {
 		TImage<ColorType> out;
 		out.resize(newWidth, newHeight, imageDepth);
 		size_t newDepth = imageDepth;
@@ -579,8 +571,7 @@ namespace Fluxions
 	}
 
 	template <typename ColorType>
-	void TImage<ColorType>::savePPMRaw(const std::string &filename, size_t z)
-	{
+	void TImage<ColorType>::savePPMRaw(const std::string& filename, size_t z) const {
 		const float scale = ColorType::to_float_factor * 255.0f;
 		float maxColorFound = maxrgb() * scale;
 		if (maxColorFound < 255.0f)
@@ -606,8 +597,7 @@ namespace Fluxions
 	}
 
 	template <typename ColorType>
-	void TImage<ColorType>::loadPPM(const std::string &filename)
-	{
+	void TImage<ColorType>::loadPPM(const std::string& filename) {
 		std::ifstream fin(filename.c_str());
 
 		std::string magicNumber;
@@ -647,8 +637,7 @@ namespace Fluxions
 	}
 
 	template <typename ColorType>
-	void TImage<ColorType>::savePPM(const std::string &filename, size_t z, bool flipy)
-	{
+	void TImage<ColorType>::savePPM(const std::string& filename, size_t z, bool flipy) const {
 		const float scale = ColorType::to_float_factor * 255.99f;
 		float maxColorFound = maxrgb() * scale;
 		if (maxColorFound < 255.0f)
@@ -683,8 +672,7 @@ namespace Fluxions
 	}
 
 	template <typename ColorType>
-	void TImage<ColorType>::savePPMi(const std::string &filename, float scale, int minValue, int maxValue, size_t z, bool flipy)
-	{
+	void TImage<ColorType>::savePPMi(const std::string& filename, float scale, int minValue, int maxValue, size_t z, bool flipy) const {
 		if (maxValue <= 0) {
 			maxValue = (int)(scale * maxrgb());
 		}
@@ -715,8 +703,7 @@ namespace Fluxions
 	}
 
 	template <typename ColorType>
-	void TImage<ColorType>::savePPMHDRI(const std::string &filename, size_t z)
-	{
+	void TImage<ColorType>::savePPMHDRI(const std::string& filename, size_t z) const {
 		std::ofstream fout(filename.c_str());
 
 		fout << "P3" << std::endl;
@@ -736,8 +723,23 @@ namespace Fluxions
 	}
 
 	template <typename ColorType>
-	void TImage<ColorType>::loadEXR(const std::string &path)
-	{
+	void TImage<ColorType>::savePPMCube(const std::string& path) const {
+		if (imageHeight * 6 == imageWidth) {
+			savePPM(path);
+			return;
+		}
+
+		if (imageDepth == 6) {
+			ImageType image;
+			convertCubeMapToRect(image);
+			image.savePPM(path);
+		}
+
+		return;
+	}
+
+	template <typename ColorType>
+	void TImage<ColorType>::loadEXR(const std::string& path) {
 #ifdef FLUXIONS_GTE_USEOPENEXR
 		double t1 = Hf::Log.getMillisecondsElapsed();
 		Imf::RgbaInputFile file(path.c_str());
@@ -745,7 +747,7 @@ namespace Fluxions
 		size_t w = dw.max.x - dw.min.x + 1;
 		size_t h = dw.max.y - dw.min.y + 1;
 		//Imf::Array2D<Imf::Rgba> filePixels;
-		std::vector<Imf::Rgba> filePixels(w*h);
+		std::vector<Imf::Rgba> filePixels(w * h);
 		//filePixels.resizeErase(h, w);
 		file.setFrameBuffer(&filePixels[0], 1, w);
 		file.readPixels(dw.min.y, dw.max.y);
@@ -770,7 +772,7 @@ namespace Fluxions
 	}
 
 	template <typename ColorType>
-	void TImage<ColorType>::saveEXR(const std::string &path)
+	void TImage<ColorType>::saveEXR(const std::string& path) const
 	{
 #ifdef FLUXIONS_GTE_USEOPENEXR
 		double t1 = Hf::Log.getMillisecondsElapsed();
@@ -790,8 +792,7 @@ namespace Fluxions
 	}
 
 	template <typename ColorType>
-	void TImage<ColorType>::resize(size_t width, size_t height, size_t depth)
-	{
+	void TImage<ColorType>::resize(size_t width, size_t height, size_t depth) {
 		imageWidth = width;
 		imageHeight = height;
 		imageDepth = depth;
@@ -803,22 +804,19 @@ namespace Fluxions
 	}
 
 	template <typename ColorType>
-	void TImage<ColorType>::clear(const ColorType &clearcolor)
-	{
-		for (ColorType &c : pixels) {
+	void TImage<ColorType>::clear(const ColorType& clearcolor) {
+		for (ColorType& c : pixels) {
 			c = clearcolor;
 		}
 	}
 
 	template <typename ColorType>
-	void TImage<ColorType>::setImageData(unsigned int format, unsigned int type, size_t width, size_t height, size_t depth, void *_pixels)
-	{
+	void TImage<ColorType>::setImageData(unsigned int format, unsigned int type, size_t width, size_t height, size_t depth, void* _pixels) {
 		_setImageData(format, type, ColorType::gl_type, ColorType::gl_size, width, height, depth, _pixels);
 	}
 
 	template <typename ColorType>
-	void TImage<ColorType>::_setImageData(unsigned int fromFormat, unsigned int fromType, unsigned int toFormat, unsigned int toType, size_t width, size_t height, size_t depth, void *_pixels)
-	{
+	void TImage<ColorType>::_setImageData(unsigned int fromFormat, unsigned int fromType, unsigned int toFormat, unsigned int toType, size_t width, size_t height, size_t depth, void* _pixels) {
 		float scaleFactor_itof = 1.0f / 255.99f;
 		float scaleFactor_ftoi = 255.99f;
 
@@ -838,9 +836,9 @@ namespace Fluxions
 		resize(width, height, depth);
 		size_t count = width * height * depth;
 		if (fromType == glconstant_UNSIGNED_BYTE && toType == glconstant_FLOAT) {
-			unsigned char *data = (unsigned char *)_pixels;
+			unsigned char* data = (unsigned char*)_pixels;
 			for (size_t i = 0; i < count; i++) {
-				typename ColorType::type *v = pixels[i].ptr();
+				typename ColorType::type* v = pixels[i].ptr();
 				for (size_t j = 0; j < stride; j++) {
 					v[j] = (typename ColorType::type)clamp((int)(scaleFactor_itof * data[j]), 0, 255);
 				}
@@ -848,9 +846,9 @@ namespace Fluxions
 			}
 		}
 		else if (fromType == glconstant_FLOAT && toType == glconstant_UNSIGNED_BYTE) {
-			float *data = (float *)_pixels;
+			float* data = (float*)_pixels;
 			for (size_t i = 0; i < count; i++) {
-				typename ColorType::type *v = pixels[i].ptr();
+				typename ColorType::type* v = pixels[i].ptr();
 				for (size_t j = 0; j < stride; j++) {
 					v[j] = (typename ColorType::type)clamp((int)(scaleFactor_ftoi * data[j]), 0, 255);
 				}
@@ -858,9 +856,9 @@ namespace Fluxions
 			}
 		}
 		else if (fromType == glconstant_UNSIGNED_BYTE && toType == glconstant_UNSIGNED_BYTE) {
-			unsigned char *data = (unsigned char *)_pixels;
+			unsigned char* data = (unsigned char*)_pixels;
 			for (size_t i = 0; i < count; i++) {
-				typename ColorType::type *v = pixels[i].ptr();
+				typename ColorType::type* v = pixels[i].ptr();
 				for (size_t j = 0; j < stride; j++) {
 					v[j] = (typename ColorType::type)data[j];
 				}
@@ -868,9 +866,9 @@ namespace Fluxions
 			}
 		}
 		else if (fromType == glconstant_FLOAT && toType == glconstant_FLOAT) {
-			float *data = (float *)_pixels;
+			float* data = (float*)_pixels;
 			for (size_t i = 0; i < count; i++) {
-				typename ColorType::type *v = pixels[i].ptr();
+				typename ColorType::type* v = pixels[i].ptr();
 				for (size_t j = 0; j < stride; j++) {
 					v[j] = (typename ColorType::type)data[j];
 				}
@@ -881,8 +879,7 @@ namespace Fluxions
 
 	// Square image operations
 	template <typename ColorType>
-	bool TImage<ColorType>::flipX(int z)
-	{
+	bool TImage<ColorType>::flipX(int z) {
 		if (empty() || imageWidth != imageHeight)
 			return false;
 
@@ -905,8 +902,7 @@ namespace Fluxions
 	}
 
 	template <typename ColorType>
-	bool TImage<ColorType>::flipY(int z)
-	{
+	bool TImage<ColorType>::flipY(int z) {
 		if (empty() || imageWidth != imageHeight)
 			return false;
 
@@ -929,8 +925,7 @@ namespace Fluxions
 	}
 
 	template <typename ColorType>
-	bool TImage<ColorType>::rotateLeft90(int z)
-	{
+	bool TImage<ColorType>::rotateLeft90(int z) {
 		if (empty() || (imageWidth != imageHeight))
 			return false;
 
@@ -948,8 +943,8 @@ namespace Fluxions
 			}
 		}
 		//copy(tmp.begin(), tmp.end(), pixels.begin() + zoffset);
-		void *pdst = &pixels[zoffset];
-		void *psrc = &tmp[0];
+		void* pdst = &pixels[zoffset];
+		void* psrc = &tmp[0];
 		size_t n = zstride * sizeof(ColorType);
 		memcpy(pdst, psrc, n);
 		// memcpy(&pixels[zoffset], &tmp[0], zstride * sizeof(ColorType));
@@ -958,8 +953,7 @@ namespace Fluxions
 	}
 
 	template <typename ColorType>
-	bool TImage<ColorType>::rotateRight90(int z)
-	{
+	bool TImage<ColorType>::rotateRight90(int z) {
 		if (empty() || imageWidth != imageHeight)
 			return false;
 
@@ -977,8 +971,8 @@ namespace Fluxions
 			}
 		}
 
-		void *dst = &pixels[zoffset];
-		void *src = &tmp[0];
+		void* dst = &pixels[zoffset];
+		void* src = &tmp[0];
 		size_t n = zstride * sizeof(ColorType);
 		memcpy(dst, src, n);
 		//copy(tmp.begin(), tmp.end(), pixels.begin() + zoffset);
@@ -987,8 +981,7 @@ namespace Fluxions
 	}
 
 	template <typename ColorType>
-	bool TImage<ColorType>::convertRectToCubeMap()
-	{
+	bool TImage<ColorType>::convertRectToCubeMap() {
 		if (empty() || imageWidth != 6 * imageHeight)
 			return false;
 
@@ -1012,8 +1005,8 @@ namespace Fluxions
 			size_t dst_offset = i * zstride;
 			size_t src_offset = k * size;
 			for (int y = 0; y < size; y++) {
-				void *pdst = &pixels[dst_offset];
-				void *psrc = &src[src_offset];
+				void* pdst = &pixels[dst_offset];
+				void* psrc = &src[src_offset];
 				size_t n = size * sizeof(ColorType);
 				memcpy(pdst, psrc, n);
 				dst_offset += size;
@@ -1028,17 +1021,94 @@ namespace Fluxions
 	}
 
 	template <typename ColorType>
-	bool TImage<ColorType>::convertCubeMapToRect()
-	{
+	bool TImage<ColorType>::convertRectToCubeMap(ImageType& dst) const {
+		if (empty() || imageWidth != 6 * imageHeight)
+			return false;
+
+		int swizzle[6] = {
+			4, // POSITIVE Z
+			5, // NEGATIVE Z
+			2, // POSITIVE Y
+			3, // NEGATIVE Y
+			1, // POSITIVE X
+			0, // NEGATIVE X
+		};
+		int size = (int)imageHeight;
+		const std::vector<ColorType>& src = pixels;
+		dst.resize(size, size, 6);
+
+		for (int i = 0; i < 6; i++) {
+			int k = swizzle[i];
+			// demultiplex the data
+			size_t dst_offset = i * zstride;
+			size_t src_offset = k * size;
+			for (int y = 0; y < size; y++) {
+				void* pdst = &dst.pixels[dst_offset];
+				const void* psrc = &src[src_offset];
+				size_t n = size * sizeof(ColorType);
+				memcpy(pdst, psrc, n);
+				dst_offset += size;
+				src_offset += 6 * size;
+			}
+		}
+
+		dst.rotateRight90(3);
+		dst.rotateLeft90(2);
+
+		return true;
+	}
+
+	template <typename ColorType>
+	bool TImage<ColorType>::convertCubeMapToRect() {
 		if (empty() || ((imageWidth != imageHeight) && (imageDepth != 6)))
 			return false;
 
 		rotateLeft90(2);
 		rotateRight90(3);
 
-		int size = (int)imageWidth;
+		unsigned size = imageWidth;
 		std::vector<ColorType> tmp = pixels;
 		resize(size * 6, size, 1);
+
+		unsigned swizzle[6] = {
+			4, // POSITIVE Z
+			5, // NEGATIVE Z
+			2, // POSITIVE Y
+			3, // NEGATIVE Y
+			1, // POSITIVE X
+			0, // NEGATIVE X
+		};
+
+		for (unsigned i = 0; i < 6; i++) {
+			unsigned k = swizzle[i];
+			// demultiplex the data
+			size_t src_offset = i * size * size;
+			size_t dst_offset = k * size;
+			for (int y = 0; y < size; y++) {
+				void* pdst = &pixels[dst_offset];
+				void* psrc = &tmp[src_offset];
+				size_t n = size * sizeof(ColorType);
+				memcpy(pdst, psrc, n);
+				src_offset += size;
+				dst_offset += 6 * size;
+			}
+		}
+
+		return true;
+	}
+
+	template <typename ColorType>
+	bool TImage<ColorType>::convertCubeMapToRect(ImageType& dst) const {
+		if (empty() || ((imageWidth != imageHeight) && (imageDepth != 6)))
+			return false;
+
+		ImageType src(*this);
+		src.rotateLeft90(2);
+		src.rotateRight90(3);
+
+		int size = (int)imageWidth;
+		//std::vector<ColorType> tmp = pixels;
+		dst.resize(size * 6, size, 1);
 
 		int swizzle[6] = {
 			4, // POSITIVE Z
@@ -1055,8 +1125,8 @@ namespace Fluxions
 			size_t src_offset = i * size * size;
 			size_t dst_offset = k * size;
 			for (int y = 0; y < size; y++) {
-				void *pdst = &pixels[dst_offset];
-				void *psrc = &tmp[src_offset];
+				void* pdst = &dst.pixels[dst_offset];
+				void* psrc = &src.pixels[src_offset];
 				size_t n = size * sizeof(ColorType);
 				memcpy(pdst, psrc, n);
 				src_offset += size;
@@ -1068,20 +1138,18 @@ namespace Fluxions
 	}
 
 	template <typename ColorType>
-	double TImage<ColorType>::getIntensity() const
-	{
+	double TImage<ColorType>::getIntensity() const {
 		double I = 0.0;
-		for (auto &c : pixels) {
+		for (auto& c : pixels) {
 			I += c.Intensity();
 		}
 		return I;
 	}
 
 	template <typename ColorType>
-	double TImage<ColorType>::getMinimum() const
-	{
+	double TImage<ColorType>::getMinimum() const {
 		double I = 1e6;
-		for (auto &c : pixels) {
+		for (auto& c : pixels) {
 			if (c.Intensity() < I)
 				I = c.Intensity();
 		}
@@ -1089,10 +1157,9 @@ namespace Fluxions
 	}
 
 	template <typename ColorType>
-	double TImage<ColorType>::getMaximum() const
-	{
+	double TImage<ColorType>::getMaximum() const {
 		double I = -1e6;
-		for (auto &c : pixels) {
+		for (auto& c : pixels) {
 			if (c.Intensity() > I)
 				I = c.Intensity();
 		}
@@ -1100,10 +1167,9 @@ namespace Fluxions
 	}
 
 	template <typename ColorType>
-	double TImage<ColorType>::getAverage() const
-	{
+	double TImage<ColorType>::getAverage() const {
 		double I = 0.0;
-		for (auto &c : pixels) {
+		for (auto& c : pixels) {
 			I += c.Intensity();
 		}
 		I /= (double)getNumPixels();
