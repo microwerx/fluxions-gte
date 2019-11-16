@@ -39,9 +39,6 @@ namespace Fluxions
 	public:
 		T r, g, b, a;
 
-		constexpr T* ptr() noexcept { return &r; }
-		constexpr const T* const_ptr() const noexcept { return &r; }
-
 		using type = T;
 
 		static float to_float_factor;
@@ -52,6 +49,18 @@ namespace Fluxions
 
 		static unsigned int gl_type; // UNSIGNED_BYTE, FLOAT, etc.
 		static unsigned int gl_size; // 3 for RGB, 4 for RGBA
+
+		using iterator = TCommonIterator<T>;
+		using const_iterator = TCommonIterator<const T>;
+
+		constexpr T* ptr() noexcept { return &r; }
+		constexpr const T* const_ptr() const noexcept { return &r; }
+
+		constexpr unsigned size() noexcept { return 3; }
+		iterator begin() noexcept { return iterator(ptr()); }
+		iterator end() noexcept { return iterator(ptr() + size()); }
+		const_iterator cbegin() noexcept { return const_iterator(const_ptr()); }
+		const_iterator cend() noexcept { return const_iterator(const_ptr() + size()); }
 
 		constexpr TColor4()
 			: r(0), g(0), b(0), a(0)

@@ -20,6 +20,8 @@
 #include <fstream>
 #include <fluxions_gte_color_math.hpp>
 #include <fluxions_gte_image.hpp>
+#include <fluxions_gte_image_operations.hpp>
+
 #define _CRT_SECURE_NO_WARNINGS
 #ifdef _WIN32
 #pragma warning(disable : 4996)
@@ -573,7 +575,7 @@ namespace Fluxions
 	template <typename ColorType>
 	void TImage<ColorType>::savePPMRaw(const std::string& filename, unsigned z) const {
 		const float scale = ColorType::to_float_factor * 255.0f;
-		float maxColorFound = maxrgb() * scale;
+		float maxColorFound = std::max(*this) * scale;
 		if (maxColorFound < 255.0f)
 			maxColorFound = 255.0f;
 
@@ -639,7 +641,7 @@ namespace Fluxions
 	template <typename ColorType>
 	void TImage<ColorType>::savePPM(const std::string& filename, unsigned z, bool flipy) const {
 		const float scale = ColorType::to_float_factor * 255.99f;
-		float maxColorFound = maxrgb() * scale;
+		float maxColorFound = std::max(*this) * scale;
 		if (maxColorFound < 255.0f)
 			maxColorFound = 255.0f;
 
@@ -674,7 +676,7 @@ namespace Fluxions
 	template <typename ColorType>
 	void TImage<ColorType>::savePPMi(const std::string& filename, float scale, int minValue, int maxValue, unsigned z, bool flipy) const {
 		if (maxValue <= 0) {
-			maxValue = (int)(scale * maxrgb());
+			maxValue = (int)(scale * maxof(*this));
 		}
 
 		std::ofstream fout(filename.c_str());

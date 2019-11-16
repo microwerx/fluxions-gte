@@ -31,6 +31,4 @@
 // * vectors and scalars
 // * vectors and vectors
 
-
-
 #endif

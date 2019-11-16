@@ -17,6 +17,7 @@
 //
 // For any other type of licensing, please contact me at jmetzgar@outlook.com
 #include <stdio.h>
+#include <type_traits>
 #define FLUXIONS_NO_EXTERN_TEMPLATES
 #include <fluxions_gte_vector3.hpp>
 
@@ -127,6 +128,9 @@ namespace Fluxions
 			x = 1;
 			TEST(a[i++] == 1);
 		}
+
+		bool trivially_copy_constructible = 0;
+		fprintf(stderr, "trivially_copy_constructible: %d", std::is_trivially_copy_constructible_v<vtype>);
 
 		return result;
 	}

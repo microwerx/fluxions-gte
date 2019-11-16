@@ -19,15 +19,12 @@
 #ifndef FLUXIONS_GTE_IMAGE_HPP
 #define FLUXIONS_GTE_IMAGE_HPP
 
-// #include <algorithm>
 #include <string>
 #include <vector>
 #include <memory.h>
 #include <fluxions_gte_scalar_math.hpp>
-#include <fluxions_gte_color3.hpp>
-#include <fluxions_gte_color4.hpp>
-#include <fluxions_gte_vector3.hpp>
-#include <fluxions_gte_vector4.hpp>
+#include <fluxions_gte_vector_math.hpp>
+#include <fluxions_gte_color_math.hpp>
 
 namespace Fluxions
 {
@@ -69,6 +66,14 @@ namespace Fluxions
 				return NULL;
 			return &(pixels[index * zstride]);
 		}
+
+		using iterator = typename std::vector<ColorType>::iterator;
+		using const_iterator = typename std::vector<ColorType>::const_iterator;
+
+		iterator begin() noexcept { return pixels.begin(); }
+		iterator end() noexcept { return pixels.end(); }
+		const_iterator cbegin() const noexcept { return pixels.cbegin(); }
+		const_iterator cend() const noexcept { return pixels.cend(); }
 
 		void resize(unsigned width, unsigned height, unsigned depth = 1);
 		void reset() { resize(0, 0, 0); }
@@ -118,21 +123,22 @@ namespace Fluxions
 			return pixels[z * zstride + y * imageWidth + x];
 		}
 
-		constexpr typename ColorType::type maxrgb() const noexcept {
-			typename ColorType::type maxColorFound = 0;
-			for (auto& c : pixels) {
-				maxColorFound = std::max(c.maxrgb(), maxColorFound);
-			}
-			return maxColorFound;
-		}
+		//constexpr typename ColorType::type maxrgb() const noexcept {
+		//	typename ColorType::type maxColorFound = 0;
+		//	for (auto& c : pixels) {
+		//		// maxColorFound = std::max(c.maxrgb(), maxColorFound);
+		//		maxColorFound = std::max(maxof(c), maxColorFound);
+		//	}
+		//	return maxColorFound;
+		//}
 
-		constexpr typename ColorType::type minrgb() const noexcept {
-			typename ColorType::type minColorFound = pixels.empty() ? 0 : pixels[0].minrgb();
-			for (auto& c : pixels) {
-				minColorFound = std::min(c.minrgb(), minColorFound);
-			}
-			return minColorFound;
-		}
+		//constexpr typename ColorType::type minrgb() const noexcept {
+		//	typename ColorType::type minColorFound = pixels.empty() ? 0 : pixels[0].minrgb();
+		//	for (auto& c : pixels) {
+		//		minColorFound = std::min(c.minrgb(), minColorFound);
+		//	}
+		//	return minColorFound;
+		//}
 
 		constexpr ColorType getPixelCubeMap(const Vector3f& v) const {
 			return getPixelCubeMap(v.x, v.y, v.z);

@@ -45,7 +45,7 @@ namespace Fluxions
 	class TVector4;
 
 	template <typename T>
-	class TColor3
+	class TColor3 : public TCommonContainer<T>
 	{
 	public:
 		T r, g, b;
@@ -60,6 +60,15 @@ namespace Fluxions
 
 		static unsigned int gl_type; // UNSIGNED_BYTE, FLOAT, etc.
 		static unsigned int gl_size; // 3 for RGB, 4 for RGBA
+
+		using iterator = TCommonIterator<T>;
+		using const_iterator = TCommonIterator<const T>;
+
+		constexpr unsigned size() noexcept { return 3; }
+		iterator begin() noexcept { return iterator(&r); }
+		iterator end() noexcept { return iterator(&r + size()); }
+		const_iterator cbegin() noexcept { return const_iterator(&r); }
+		const_iterator cend() noexcept { return const_iterator(&r + size()); }
 
 		constexpr T* ptr() noexcept { return &r; }
 		constexpr const T* const_ptr() const noexcept { return &r; }

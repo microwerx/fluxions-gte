@@ -458,6 +458,11 @@ namespace Fluxions
 	}
 
 	template <typename T>
+	constexpr T maxof(T x) noexcept {
+		return x;
+	}
+
+	template <typename T>
 	constexpr T sqr(T x) noexcept {
 		return x * x;
 	}
