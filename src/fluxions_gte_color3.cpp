@@ -55,37 +55,37 @@ namespace Fluxions
 	float TColor3<short>::from_float_factor = 1.0f / 255.00f;
 
 	template <>
-	TColor3<float>::type TColor3<float>::min_value = 0.0f;
+	TColor3<float>::value_type TColor3<float>::min_value = 0.0f;
 	template <>
-	TColor3<float>::type TColor3<float>::max_value = 1.0f;
+	TColor3<float>::value_type TColor3<float>::max_value = 1.0f;
 	template <>
-	TColor3<double>::type TColor3<double>::min_value = 0.0;
+	TColor3<double>::value_type TColor3<double>::min_value = 0.0;
 	template <>
-	TColor3<double>::type TColor3<double>::max_value = 1.0;
+	TColor3<double>::value_type TColor3<double>::max_value = 1.0;
 	template <>
-	TColor3<char>::type TColor3<char>::min_value = 0;
+	TColor3<char>::value_type TColor3<char>::min_value = 0;
 	template <>
-	TColor3<char>::type TColor3<char>::max_value = 127;
+	TColor3<char>::value_type TColor3<char>::max_value = 127;
 	template <>
-	TColor3<short>::type TColor3<short>::min_value = 0;
+	TColor3<short>::value_type TColor3<short>::min_value = 0;
 	template <>
-	TColor3<short>::type TColor3<short>::max_value = 255;
+	TColor3<short>::value_type TColor3<short>::max_value = 255;
 	template <>
-	TColor3<int>::type TColor3<int>::min_value = 0;
+	TColor3<int>::value_type TColor3<int>::min_value = 0;
 	template <>
-	TColor3<int>::type TColor3<int>::max_value = 65535;
+	TColor3<int>::value_type TColor3<int>::max_value = 65535;
 	template <>
-	TColor3<unsigned char>::type TColor3<unsigned char>::min_value = 0;
+	TColor3<unsigned char>::value_type TColor3<unsigned char>::min_value = 0;
 	template <>
-	TColor3<unsigned char>::type TColor3<unsigned char>::max_value = 255;
+	TColor3<unsigned char>::value_type TColor3<unsigned char>::max_value = 255;
 	template <>
-	TColor3<unsigned short>::type TColor3<unsigned short>::min_value = 0;
+	TColor3<unsigned short>::value_type TColor3<unsigned short>::min_value = 0;
 	template <>
-	TColor3<unsigned short>::type TColor3<unsigned short>::max_value = 65535;
+	TColor3<unsigned short>::value_type TColor3<unsigned short>::max_value = 65535;
 	template <>
-	TColor3<unsigned int>::type TColor3<unsigned int>::min_value = 0;
+	TColor3<unsigned int>::value_type TColor3<unsigned int>::min_value = 0;
 	template <>
-	TColor3<unsigned int>::type TColor3<unsigned int>::max_value = 65535;
+	TColor3<unsigned int>::value_type TColor3<unsigned int>::max_value = 65535;
 
 	template <>
 	unsigned int TColor3<float>::gl_type = 0x1406; // GL_FLOAT

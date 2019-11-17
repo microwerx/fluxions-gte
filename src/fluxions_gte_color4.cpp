@@ -55,37 +55,37 @@ template <>
 float TColor4<short>::from_float_factor = 1.0f / 255.00f;
 
 template <>
-TColor4<float>::type TColor4<float>::min_value = 0.0f;
+TColor4<float>::value_type TColor4<float>::min_value = 0.0f;
 template <>
-TColor4<float>::type TColor4<float>::max_value = 1.0f;
+TColor4<float>::value_type TColor4<float>::max_value = 1.0f;
 template <>
-TColor4<double>::type TColor4<double>::min_value = 0.0;
+TColor4<double>::value_type TColor4<double>::min_value = 0.0;
 template <>
-TColor4<double>::type TColor4<double>::max_value = 1.0;
+TColor4<double>::value_type TColor4<double>::max_value = 1.0;
 template <>
-TColor4<char>::type TColor4<char>::min_value = 0;
+TColor4<char>::value_type TColor4<char>::min_value = 0;
 template <>
-TColor4<char>::type TColor4<char>::max_value = 127;
+TColor4<char>::value_type TColor4<char>::max_value = 127;
 template <>
-TColor4<short>::type TColor4<short>::min_value = 0;
+TColor4<short>::value_type TColor4<short>::min_value = 0;
 template <>
-TColor4<short>::type TColor4<short>::max_value = 255;
+TColor4<short>::value_type TColor4<short>::max_value = 255;
 template <>
-TColor4<int>::type TColor4<int>::min_value = 0;
+TColor4<int>::value_type TColor4<int>::min_value = 0;
 template <>
-TColor4<int>::type TColor4<int>::max_value = 65535;
+TColor4<int>::value_type TColor4<int>::max_value = 65535;
 template <>
-TColor4<unsigned char>::type TColor4<unsigned char>::min_value = 0;
+TColor4<unsigned char>::value_type TColor4<unsigned char>::min_value = 0;
 template <>
-TColor4<unsigned char>::type TColor4<unsigned char>::max_value = 255;
+TColor4<unsigned char>::value_type TColor4<unsigned char>::max_value = 255;
 template <>
-TColor4<unsigned short>::type TColor4<unsigned short>::min_value = 0;
+TColor4<unsigned short>::value_type TColor4<unsigned short>::min_value = 0;
 template <>
-TColor4<unsigned short>::type TColor4<unsigned short>::max_value = 65535;
+TColor4<unsigned short>::value_type TColor4<unsigned short>::max_value = 65535;
 template <>
-TColor4<unsigned int>::type TColor4<unsigned int>::min_value = 0;
+TColor4<unsigned int>::value_type TColor4<unsigned int>::min_value = 0;
 template <>
-TColor4<unsigned int>::type TColor4<unsigned int>::max_value = 65535;
+TColor4<unsigned int>::value_type TColor4<unsigned int>::max_value = 65535;
 
 template <>
 unsigned int TColor4<float>::gl_type = 0x1406; // GL_FLOAT
