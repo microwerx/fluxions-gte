@@ -23,8 +23,12 @@
 namespace Fluxions
 {
 	void TestVector3();
+	void TestColorType();
+	void TestImage();
 
 	void TestFluxionsGTE() {
 		TestVector3();
+		TestColorType();
+		TestImage();
 	}
 }
