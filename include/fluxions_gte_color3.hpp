@@ -45,18 +45,18 @@ namespace Fluxions
 	class TVector4;
 
 	template <typename T>
-	class TColor3 : public TCommonContainer<T>
+	class TColor3 : public TCommonColor<T>
 	{
 	public:
 		T r, g, b;
 
-		using type = T;
+		using value_type = typename TCommonColor<T>::value_type;
 
 		static float to_float_factor;
 		static float from_float_factor;
 
-		static type min_value;
-		static type max_value;
+		static value_type min_value;
+		static value_type max_value;
 
 		static unsigned int gl_type; // UNSIGNED_BYTE, FLOAT, etc.
 		static unsigned int gl_size; // 3 for RGB, 4 for RGBA
@@ -64,14 +64,17 @@ namespace Fluxions
 		using iterator = TCommonIterator<T>;
 		using const_iterator = TCommonIterator<const T>;
 
-		constexpr unsigned size() noexcept { return 3; }
-		iterator begin() noexcept { return iterator(&r); }
-		iterator end() noexcept { return iterator(&r + size()); }
-		const_iterator cbegin() noexcept { return const_iterator(&r); }
-		const_iterator cend() noexcept { return const_iterator(&r + size()); }
+		constexpr unsigned size() const noexcept { return 3; }
+		constexpr iterator begin() noexcept { return iterator(&r); }
+		constexpr iterator end() noexcept { return iterator(&r + size()); }
+		constexpr const_iterator cbegin() const noexcept { return const_iterator(&r); }
+		constexpr const_iterator cend() const noexcept { return const_iterator(&r + size()); }
 
 		constexpr T* ptr() noexcept { return &r; }
 		constexpr const T* const_ptr() const noexcept { return &r; }
+
+		constexpr T& operator[](unsigned index) noexcept { return (&r)[index]; }
+		constexpr const T& operator[](unsigned index) const noexcept { return (&r)[index]; }
 
 		constexpr TColor3()
 			: r(0), g(0), b(0) {}
@@ -128,6 +131,20 @@ namespace Fluxions
 		}
 
 		const TColor3<T>& operator=(const T value) {
+			r = value;
+			g = value;
+			b = value;
+			return *this;
+		}
+
+		TColor3<T>& reset(T r_, T g_, T b_) {
+			r = r_;
+			g = g_;
+			b = b_;
+			return *this;
+		}
+
+		TColor3<T>& reset(const T value) {
 			r = value;
 			g = value;
 			b = value;
@@ -354,13 +371,13 @@ namespace Fluxions
 				(OtherType)0);
 		}
 
-		constexpr double Max() noexcept {
-			return (double)max3(r, g, b);
-		}
+		//constexpr double Max() noexcept {
+		//	return (double)max3(r, g, b);
+		//}
 
-		constexpr double Min() noexcept {
-			return (double)min3(r, g, b);
-		}
+		//constexpr double Min() noexcept {
+		//	return (double)min3(r, g, b);
+		//}
 
 		constexpr double Intensity() const {
 			return (r + g + b) / 3.0;

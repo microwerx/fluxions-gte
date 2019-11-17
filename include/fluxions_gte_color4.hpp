@@ -34,18 +34,18 @@ namespace Fluxions
 	class TVector4;
 
 	template <typename T>
-	class TColor4
+	class TColor4 : TCommonContainer<T>
 	{
 	public:
 		T r, g, b, a;
 
-		using type = T;
+		using value_type = TCommonContainer<T>::value_type;
 
 		static float to_float_factor;
 		static float from_float_factor;
 
-		static type min_value;
-		static type max_value;
+		static value_type min_value;
+		static value_type max_value;
 
 		static unsigned int gl_type; // UNSIGNED_BYTE, FLOAT, etc.
 		static unsigned int gl_size; // 3 for RGB, 4 for RGBA
@@ -56,11 +56,14 @@ namespace Fluxions
 		constexpr T* ptr() noexcept { return &r; }
 		constexpr const T* const_ptr() const noexcept { return &r; }
 
-		constexpr unsigned size() noexcept { return 3; }
+		constexpr T& operator[](unsigned index) noexcept { return (&r)[index]; }
+		constexpr const T& operator[](unsigned index) const noexcept { return (&r)[index]; }
+
+		constexpr unsigned size() const noexcept { return 4; }
 		iterator begin() noexcept { return iterator(ptr()); }
 		iterator end() noexcept { return iterator(ptr() + size()); }
-		const_iterator cbegin() noexcept { return const_iterator(const_ptr()); }
-		const_iterator cend() noexcept { return const_iterator(const_ptr() + size()); }
+		const_iterator cbegin() const noexcept { return const_iterator(const_ptr()); }
+		const_iterator cend() const noexcept { return const_iterator(const_ptr() + size()); }
 
 		constexpr TColor4()
 			: r(0), g(0), b(0), a(0)
@@ -76,6 +79,9 @@ namespace Fluxions
 			: r(red), g(green), b(blue), a(alpha)
 		{
 		}
+
+		constexpr TColor4(const T red, const T green, const T blue)
+			: r(red), g(green), b(blue), a(0) {}
 
 		constexpr TColor4(const TColor4<T>& color)
 			: r(color.r), g(color.g), b(color.b), a(color.a)
@@ -93,14 +99,15 @@ namespace Fluxions
 			return *this;
 		}
 
-		const TColor4<T>& reset(const T red, const T green, const T blue) {
+		TColor4<T>& reset(const T red, const T green, const T blue) {
 			r = red;
 			g = green;
 			b = blue;
+			a = 0;
 			return *this;
 		}
 
-		const TColor4<T>& reset(const T red, const T green, const T blue, const T alpha)
+		TColor4<T>& reset(const T red, const T green, const T blue, const T alpha)
 		{
 			r = red;
 			g = green;
