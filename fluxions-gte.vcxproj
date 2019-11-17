@@ -54,6 +54,7 @@
     <ClCompile Include="src\fluxions_gte_bounding_box.cpp" />
     <ClCompile Include="src\fluxions_gte_color3.cpp" />
     <ClCompile Include="src\fluxions_gte_color4.cpp" />
+    <ClCompile Include="src\fluxions_gte_color_tests.cpp" />
     <ClCompile Include="src\fluxions_gte_geometric_algebra.cpp" />
     <ClCompile Include="src\fluxions_gte_image.cpp" />
     <ClCompile Include="src\fluxions_gte_image_operations.cpp" />
