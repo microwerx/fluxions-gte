@@ -44,11 +44,22 @@ namespace Fluxions
 		unsigned imageHeight;
 		unsigned imageDepth;
 
-		using ImageType = TImage<ColorType>;
+		//using ImageType = TImage<ColorType>;
+		using vector_type = ColorType;
+		using scalar_type = typename ColorType::value_type;
+		using value_type = typename ColorType;
 
 		TImage()
 			: imageWidth(0), imageHeight(0), imageDepth(0) {}
 		TImage(int width, int height, int depth = 1) { resize(width, height, depth); }
+
+		TImage(const TImage<ColorType>& image) {
+			pixels.resize(image.pixels.size());
+			std::copy(image.pixels.cbegin(), image.pixels.cend(), pixels.begin());
+			imageWidth = image.imageWidth;
+			imageHeight = image.imageHeight;
+			imageDepth = image.imageDepth;
+		}
 
 		constexpr void setBorderColor(const ColorType& color) { borderColor = color; }
 		constexpr const ColorType& getBorderColor() const { return borderColor; }
@@ -171,20 +182,55 @@ namespace Fluxions
 			return &pixels[z * zstride];
 		}
 
-		double getIntensity() const;
-		double getMinimum() const;
-		double getMaximum() const;
-		double getAverage() const;
+		scalar_type maxrgb() const {
+			if (pixels.empty()) return 0;
+			scalar_type value = pixels[0][0];
+			for (const vector_type& pixel : pixels) {
+				value = std::max(
+					*std::max_element(pixel.cbegin(), pixel.cend()),
+									  value);
+			}
+			return value;
+		}
+
+		scalar_type minrgb() const {
+			if (pixels.empty()) return 0;
+			scalar_type value = pixels[0][0];
+			for (const vector_type& pixel : pixels) {
+				value = std::min<scalar_type>(
+					*std::min_element(pixel.cbegin(), pixel.cend()),
+					value);
+			}
+			return value;
+		}
+
+		double getTotalIntensity() const;
+		double getMinIntensity() const;
+		double getMaxIntensity() const;
+		double getMeanIntensity() const;
 		int getNumPixels() const { return (int)pixels.size(); }
 
-		void savePPMRaw(const std::string& filename, unsigned z = 0) const;
+		// TODO: change these to
+		// * savePPM
+		// * saveEXR
+		// * saveCubePPM
+		// * saveCubeEXR
+		// * saveCubePFM
+		// * savePFM
+		//void savePPMRaw(const std::string& filename, unsigned z = 0) const;
 		void savePPM(const std::string& filename, unsigned z = 0, bool flipy = false) const;
-		void savePPMi(const std::string& filename, float scale, int minValue, int maxValue, unsigned z = 0, bool flipy = false) const;
-		void savePPMHDRI(const std::string& filename, unsigned z = 0) const;
-		void loadPPM(const std::string& filename);
-		void loadEXR(const std::string& path);
-		void saveEXR(const std::string& path) const;
-		void savePPMCube(const std::string& filename) const;
+		//void savePPMi(const std::string& filename, float scale, int minValue, int maxValue, unsigned z = 0, bool flipy = false) const;
+		//void savePPMHDRI(const std::string& filename, unsigned z = 0) const;
+		void saveCubePPM(const std::string& filename, bool flipy = false) const;
+
+		// TODO: change these to
+		// * loadPPM
+		// * loadEXR
+		// * loadCubePPM
+		// * saveCubeEXR
+		//void loadPPM(const std::string& filename);
+		//void loadEXR(const std::string& path);
+		//void saveEXR(const std::string& path) const;
 
 		bool flipX(int z = 0);
 		bool flipY(int z = 0);
@@ -192,8 +238,8 @@ namespace Fluxions
 		bool rotateRight90(int z = 0);
 		bool convertRectToCubeMap();
 		bool convertCubeMapToRect();
-		bool convertRectToCubeMap(ImageType& dst) const;
-		bool convertCubeMapToRect(ImageType& dst) const;
+		bool convertRectToCubeMap(TImage<ColorType>& dst) const;
+		bool convertCubeMapToRect(TImage<ColorType>& dst) const;
 
 		void setImageData(unsigned int format, unsigned int type, unsigned width, unsigned height, unsigned depth, void* _pixels);
 
@@ -209,18 +255,22 @@ namespace Fluxions
 	using Image3f = TImage<Color3f>;
 	using Image3i = TImage<Color3i>;
 	using Image3ub = TImage<Color3ub>;
+	using Image3us = TImage<Color3us>;
 
 	using Image4f = TImage<Color4f>;
 	using Image4i = TImage<Color4i>;
+	using Image4us = TImage<Color4us>;
 	using Image4ub = TImage<Color4ub>;
 
 #ifndef FLUXIONS_NO_EXTERN_TEMPLATES
 	extern template class TImage<Color3f>;
 	extern template class TImage<Color3i>;
+	extern template class TImage<Color3us>;
 	extern template class TImage<Color3ub>;
 
 	extern template class TImage<Color4f>;
 	extern template class TImage<Color4i>;
+	extern template class TImage<Color4us>;
 	extern template class TImage<Color4ub>;
 #endif
 } // namespace Fluxions
