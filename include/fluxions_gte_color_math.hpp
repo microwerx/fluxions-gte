@@ -42,16 +42,16 @@ namespace Fluxions
 
 	template <typename T>
 	constexpr void FromColor3f(TColor3<T>& dst, const TColor3<float>& src) {
-		dst.r = (typename TColor3<T>::type)(TColor4<T>::from_float_factor * (float)src.r);
-		dst.g = (typename TColor3<T>::type)(TColor4<T>::from_float_factor * (float)src.g);
-		dst.b = (typename TColor3<T>::type)(TColor4<T>::from_float_factor * (float)src.b);
+		dst.r = (typename TColor3<T>::value_type)(TColor4<T>::from_float_factor * (float)src.r);
+		dst.g = (typename TColor3<T>::value_type)(TColor4<T>::from_float_factor * (float)src.g);
+		dst.b = (typename TColor3<T>::value_type)(TColor4<T>::from_float_factor * (float)src.b);
 	}
 
 	template <typename T>
 	constexpr void FromColor3f(TColor4<T>& dst, const TColor3<float>& src) {
-		dst.r = (typename TColor4<T>::type)(TColor4<T>::from_float_factor * (float)src.r);
-		dst.g = (typename TColor4<T>::type)(TColor4<T>::from_float_factor * (float)src.g);
-		dst.b = (typename TColor4<T>::type)(TColor4<T>::from_float_factor * (float)src.b);
+		dst.r = (typename TColor4<T>::value_type)(TColor4<T>::from_float_factor * (float)src.r);
+		dst.g = (typename TColor4<T>::value_type)(TColor4<T>::from_float_factor * (float)src.g);
+		dst.b = (typename TColor4<T>::value_type)(TColor4<T>::from_float_factor * (float)src.b);
 	}
 
 	// MATH ROUTINES
@@ -64,6 +64,34 @@ namespace Fluxions
 	template <typename T>
 	constexpr T maxof(const TColor4<T>& c) noexcept {
 		return c.maxrgb();
+	}
+
+	template<typename T>
+	constexpr T color_max_value() {
+		bool is_int = std::is_integral_v<T>;
+		bool is_flt = std::is_floating_point_v<T>;
+		if (is_int && sizeof(T) == 1)
+			return T(255);
+		else if (is_int && sizeof(T) >= 2)
+			return T(65535);
+		else if (is_flt)
+			return T(1);
+		else
+			return T(0);
+	}
+
+	template<typename T>
+	constexpr float color_to_float_factor() {
+		bool is_int = std::is_integral_v<T>;
+		bool is_flt = std::is_floating_point_v<T>;
+		if (is_int && sizeof(T) == 1)
+			return float(1.0/255.0);
+		else if (is_int && sizeof(T) >= 2)
+			return float(1.0/65535.0);
+		else if (is_flt)
+			return 1.0f;
+		else
+			return 0.0f;
 	}
 } // namespace Fluxions
 #endif
