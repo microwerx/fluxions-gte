@@ -1,12 +1,13 @@
 #include "fluxions_gte_pch.hpp"
-#include <fluxions_stdcxx.hpp>
-#include <fluxions_common_test.hpp>
+// #include <fluxions_stdcxx.hpp>
+// #include <fluxions_common_test.hpp>
 #include <fluxions_gte_transformation.hpp>
 
 namespace Fluxions {
 	template class TTransformation<float>;
 	template class TTransformation<double>;
 
+/*
 	template <typename T>
 	bool TestCommonVector(const char* testname) {
 		FLUXIONS_BEGIN_TESTS();
@@ -57,4 +58,5 @@ namespace Fluxions {
 		FLUXIONS_TEST(TestGteTransformations<float>);
 		FLUXIONS_TEST(TestGteTransformations<double>);
 	}
+*/
 }

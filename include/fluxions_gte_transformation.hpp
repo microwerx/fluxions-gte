@@ -83,7 +83,7 @@ namespace Fluxions {
 	extern template class TTransformation<double>;
 #endif
 
-	void TestGteTransformations() noexcept;
+	// void TestGteTransformations() noexcept;
 
 }
 

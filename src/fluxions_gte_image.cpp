@@ -2,6 +2,7 @@
 #include <algorithm>
 #include <fstream>
 #include <iostream>
+#include <sstream>
 #ifdef _MSC_VER
 #elif defined(__unix__)
 #include <byteswap.h>
@@ -800,7 +801,7 @@ namespace Fluxions {
 #ifdef _MSC_VER
 #define FX_SWAP32INT(v) _byteswap_ulong(v);
 #elif defined(__APPLE__)
-#define FX_SWAP32INT(v) OSSwapInt32(v);
+#define FX_SWAP32INT(v) _OSSwapInt32(v);
 #elif defined(__unix__)
 #define FX_SWAP32INT(v) __bswap_32(v);
 #endif
