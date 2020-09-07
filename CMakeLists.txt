@@ -10,6 +10,7 @@ if (APPLE)
 endif()
 
 include_directories(${PROJECT_SOURCE_DIR}/include)
+include_directories(${PROJECT_SOURCE_DIR}/hatchetfish/include)
 
 add_library(${PROJECT_NAME}
     STATIC

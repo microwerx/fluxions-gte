@@ -334,3 +334,4 @@ desktop.ini
 *.o
 *.a
 
+build/
