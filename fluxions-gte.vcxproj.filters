@@ -15,16 +15,34 @@
     </Filter>
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="src\fluxions_gte_pch.hpp">
+      <Filter>Source Files</Filter>
+    </ClInclude>
     <ClInclude Include="include\fluxions_gte.hpp">
       <Filter>Header Files</Filter>
     </ClInclude>
+    <ClInclude Include="include\fluxions_gte_base.hpp">
+      <Filter>Header Files</Filter>
+    </ClInclude>
     <ClInclude Include="include\fluxions_gte_bounding_box.hpp">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="include\fluxions_gte_catmull_rom.hpp">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="include\fluxions_gte_color_math.hpp">
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="include\fluxions_gte_color3.hpp">
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="include\fluxions_gte_color4.hpp">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="include\fluxions_gte_common_vector.hpp">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="include\fluxions_gte_extra.hpp">
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="include\fluxions_gte_geometric_algebra.hpp">
@@ -42,6 +60,9 @@
     <ClInclude Include="include\fluxions_gte_matrix_extra.hpp">
       <Filter>Header Files</Filter>
     </ClInclude>
+    <ClInclude Include="include\fluxions_gte_matrix_math.hpp">
+      <Filter>Header Files</Filter>
+    </ClInclude>
     <ClInclude Include="include\fluxions_gte_matrix_stack.hpp">
       <Filter>Header Files</Filter>
     </ClInclude>
@@ -52,6 +73,9 @@
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="include\fluxions_gte_matrix4.hpp">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="include\fluxions_gte_noise.hpp">
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="include\fluxions_gte_plane.hpp">
@@ -69,10 +93,22 @@
     <ClInclude Include="include\fluxions_gte_scalar.hpp">
       <Filter>Header Files</Filter>
     </ClInclude>
+    <ClInclude Include="include\fluxions_gte_scalar_math.hpp">
+      <Filter>Header Files</Filter>
+    </ClInclude>
     <ClInclude Include="include\fluxions_gte_spherical_harmonic.hpp">
       <Filter>Header Files</Filter>
     </ClInclude>
+    <ClInclude Include="include\fluxions_gte_stdcxx.hpp">
+      <Filter>Header Files</Filter>
+    </ClInclude>
     <ClInclude Include="include\fluxions_gte_superquadric.hpp">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="include\fluxions_gte_transformation.hpp">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="include\fluxions_gte_vector_math.hpp">
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="include\fluxions_gte_vector2.hpp">
@@ -84,30 +120,15 @@
     <ClInclude Include="include\fluxions_gte_vector4.hpp">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="include\fluxions_gte_extra.hpp">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="include\fluxions_gte_vector_math.hpp">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="include\fluxions_gte_scalar_math.hpp">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="include\fluxions_gte_matrix_math.hpp">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="include\fluxions_gte_common_vector.hpp">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="include\fluxions_gte_color_math.hpp">
-      <Filter>Header Files</Filter>
-    </ClInclude>
   </ItemGroup>
   <ItemGroup>
-    <ClCompile Include="src\fluxions-gte.cpp">
+    <ClCompile Include="src\fluxions_gte.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
     <ClCompile Include="src\fluxions_gte_bounding_box.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="src\fluxions_gte_color_tests.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
     <ClCompile Include="src\fluxions_gte_color3.cpp">
@@ -146,6 +167,9 @@
     <ClCompile Include="src\fluxions_gte_matrix4.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="src\fluxions_gte_pch.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
     <ClCompile Include="src\fluxions_gte_quaternion.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
@@ -164,6 +188,9 @@
     <ClCompile Include="src\fluxions_gte_superquadric.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="src\fluxions_gte_transformation.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
     <ClCompile Include="src\fluxions_gte_vector2.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
@@ -171,9 +198,6 @@
       <Filter>Source Files</Filter>
     </ClCompile>
     <ClCompile Include="src\fluxions_gte_vector4.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="src\fluxions_gte_color_tests.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
   </ItemGroup>
