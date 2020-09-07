@@ -1,28 +1,9 @@
-// SSPHH/Fluxions/Unicornfish/Viperfish/Hatchetfish/Sunfish/Damselfish/GLUT Extensions
-// Copyright (C) 2017 Jonathan Metzgar
-// All rights reserved.
-//
-// This program is free software : you can redistribute it and/or modify
-// it under the terms of the GNU Affero General Public License as
-// published by the Free Software Foundation, either version 3 of the
-// License, or (at your option) any later version.
-//
-// This program is distributed in the hope that it will be useful,
-// but WITHOUT ANY WARRANTY; without even the implied warranty of
-// MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.See the
-// GNU Affero General Public License for more details.
-//
-// You should have received a copy of the GNU Affero General Public License
-// along with this program.If not, see <https://www.gnu.org/licenses/>.
-//
-// For any other type of licensing, please contact me at jmetzgar@outlook.com
+#include "fluxions_gte_pch.hpp"
 #define FLUXIONS_NO_EXTERN_TEMPLATES
 #include <fluxions_gte_spherical_harmonic.hpp>
-//#include <fluxions_fileio.hpp>
 //#include <kasl_json.hpp>
 
-namespace Fluxions
-{
+namespace Fluxions {
 	template class TSphericalHarmonic<float, float>;
 	template class TSphericalHarmonic<float, double>;
 	//template class TSphericalHarmonic<Color3f>;
@@ -30,8 +11,7 @@ namespace Fluxions
 	//template class TSphericalHarmonic<Vector3f>;
 	//template class TSphericalHarmonic<Vector4f>;
 
-	double _legendre_polynomial(int l, int m, double x)
-	{
+	double _legendre_polynomial(int l, int m, double x) {
 		// evaluate an Associated Legendre Polynomial P(l,ptr,X) at X
 		double pmm = 1.0;
 		if (m > 0) {
@@ -56,8 +36,7 @@ namespace Fluxions
 		return pll;
 	}
 
-	double legendre_polynomial(int l, int m, double x) noexcept
-	{
+	double legendre_polynomial(int l, int m, double x) noexcept {
 		if (l < 0 || abs(m) > l || x < -1.0 || x > 1.0)
 			return 0.0;
 
@@ -109,8 +88,7 @@ namespace Fluxions
 		return 0.0;
 	}
 
-	double spherical_harmonic(int l, int m, double theta, double phi) noexcept
-	{
+	double spherical_harmonic(int l, int m, double theta, double phi) noexcept {
 		// K = sqrt(2.0) * sqrt((2 * l + 1) / (4 * FX_PI) * factorial(l - abs(ptr)) / factorial(l + abs(ptr)))
 		static const double K[] = {
 			3.9894228040143300E-01,
@@ -722,8 +700,7 @@ namespace Fluxions
 	const bool debug_sph = true;
 
 	template <typename T>
-	T calc_degree_0(const T *a, T theta, T phi)
-	{
+	T calc_degree_0(const T* a, T theta, T phi) {
 		if (debug_sph) // && randomSampler(0.0f, 1.0f) > 0.5f)
 		{
 			const int l = 0;
@@ -739,8 +716,7 @@ namespace Fluxions
 	}
 
 	template <typename T>
-	T calc_degree_1(const T *a, T theta, T phi)
-	{
+	T calc_degree_1(const T* a, T theta, T phi) {
 		if (debug_sph) // && randomSampler(0.0f, 1.0f) > 0.5f)
 		{
 			const int l = 1;
@@ -758,8 +734,7 @@ namespace Fluxions
 	}
 
 	template <typename T>
-	T calc_degree_2(const T *a, T theta, T phi)
-	{
+	T calc_degree_2(const T* a, T theta, T phi) {
 		if (debug_sph) // && randomSampler(0.0f, 1.0f) > 0.5f)
 		{
 			const int l = 2;
@@ -781,8 +756,7 @@ namespace Fluxions
 	}
 
 	template <typename T>
-	T calc_degree_3(const T *a, T theta, T phi)
-	{
+	T calc_degree_3(const T* a, T theta, T phi) {
 		if (debug_sph) // && randomSampler(0.0f, 1.0f) > 0.5f)
 		{
 			const int l = 3;
@@ -810,8 +784,7 @@ namespace Fluxions
 	}
 
 	template <typename T>
-	T calc_degree_4(const T *a, T theta, T phi)
-	{
+	T calc_degree_4(const T* a, T theta, T phi) {
 		if (debug_sph) // && randomSampler(0.0f, 1.0f) > 0.5f)
 		{
 			const int l = 4;
@@ -844,8 +817,7 @@ namespace Fluxions
 	}
 
 	template <typename T>
-	T calc_degree_5(const T *a, T theta, T phi)
-	{
+	T calc_degree_5(const T* a, T theta, T phi) {
 		if (debug_sph) // && randomSampler(0.0f, 1.0f) > 0.5f)
 		{
 			const int l = 5;
@@ -883,8 +855,7 @@ namespace Fluxions
 	}
 
 	template <typename T>
-	T calc_degree_6(const T *a, T theta, T phi)
-	{
+	T calc_degree_6(const T* a, T theta, T phi) {
 		if (debug_sph) // && randomSampler(0.0f, 1.0f) > 0.5f)
 		{
 			const int l = 6;
@@ -926,8 +897,7 @@ namespace Fluxions
 	}
 
 	template <typename T>
-	T calc_degree_7(const T *a, T theta, T phi)
-	{
+	T calc_degree_7(const T* a, T theta, T phi) {
 		if (debug_sph) // && randomSampler(0.0f, 1.0f) > 0.5f)
 		{
 			const int l = 7;
@@ -973,8 +943,7 @@ namespace Fluxions
 	}
 
 	template <typename T>
-	T calc_degree_8(const T *a, T theta, T phi)
-	{
+	T calc_degree_8(const T* a, T theta, T phi) {
 		if (debug_sph) // && randomSampler(0.0f, 1.0f) > 0.5f)
 		{
 			const int l = 8;
@@ -1023,8 +992,7 @@ namespace Fluxions
 	}
 
 	template <typename T>
-	T calc_degree_9(const T *a, T theta, T phi)
-	{
+	T calc_degree_9(const T* a, T theta, T phi) {
 		if (debug_sph) // && randomSampler(0.0f, 1.0f) > 0.5f)
 		{
 			const int l = 9;
@@ -1078,8 +1046,7 @@ namespace Fluxions
 	}
 
 	template <typename T>
-	T calc_degree_10(const T *a, T theta, T phi)
-	{
+	T calc_degree_10(const T* a, T theta, T phi) {
 		if (debug_sph) // && randomSampler(0.0f, 1.0f) > 0.5f)
 		{
 			const int l = 10;
@@ -1140,15 +1107,13 @@ namespace Fluxions
 	}
 
 	template <typename T>
-	T calc_spherical_harmonic(int degree, int band, const T theta, const T phi)
-	{
+	T calc_spherical_harmonic(int degree, int band, const T theta, const T phi) {
 		// if (degree == 0) return calc_degree_0();
 		return T(0);
 	}
 
 	template <typename T>
-	T calc_spherical_harmonic(int max_degree, const T *a, const T theta, const T phi)
-	{
+	T calc_spherical_harmonic(int max_degree, const T* a, const T theta, const T phi) {
 		T accum = 0;
 		if (max_degree >= 0) {
 			accum += calc_degree_0<T>(a, theta, phi);
@@ -1186,36 +1151,35 @@ namespace Fluxions
 		return accum;
 	}
 
-	template float calc_degree_0<float>(const float *a, float theta, float phi);
-	template float calc_degree_1<float>(const float *a, float theta, float phi);
-	template float calc_degree_2<float>(const float *a, float theta, float phi);
-	template float calc_degree_3<float>(const float *a, float theta, float phi);
-	template float calc_degree_4<float>(const float *a, float theta, float phi);
-	template float calc_degree_5<float>(const float *a, float theta, float phi);
-	template float calc_degree_6<float>(const float *a, float theta, float phi);
-	template float calc_degree_7<float>(const float *a, float theta, float phi);
-	template float calc_degree_8<float>(const float *a, float theta, float phi);
-	template float calc_degree_9<float>(const float *a, float theta, float phi);
-	template float calc_degree_10<float>(const float *a, float theta, float phi);
+	template float calc_degree_0<float>(const float* a, float theta, float phi);
+	template float calc_degree_1<float>(const float* a, float theta, float phi);
+	template float calc_degree_2<float>(const float* a, float theta, float phi);
+	template float calc_degree_3<float>(const float* a, float theta, float phi);
+	template float calc_degree_4<float>(const float* a, float theta, float phi);
+	template float calc_degree_5<float>(const float* a, float theta, float phi);
+	template float calc_degree_6<float>(const float* a, float theta, float phi);
+	template float calc_degree_7<float>(const float* a, float theta, float phi);
+	template float calc_degree_8<float>(const float* a, float theta, float phi);
+	template float calc_degree_9<float>(const float* a, float theta, float phi);
+	template float calc_degree_10<float>(const float* a, float theta, float phi);
 
-	template double calc_degree_0<double>(const double *a, double theta, double phi);
-	template double calc_degree_1<double>(const double *a, double theta, double phi);
-	template double calc_degree_2<double>(const double *a, double theta, double phi);
-	template double calc_degree_3<double>(const double *a, double theta, double phi);
-	template double calc_degree_4<double>(const double *a, double theta, double phi);
-	template double calc_degree_5<double>(const double *a, double theta, double phi);
-	template double calc_degree_6<double>(const double *a, double theta, double phi);
-	template double calc_degree_7<double>(const double *a, double theta, double phi);
-	template double calc_degree_8<double>(const double *a, double theta, double phi);
-	template double calc_degree_9<double>(const double *a, double theta, double phi);
-	template double calc_degree_10<double>(const double *a, double theta, double phi);
+	template double calc_degree_0<double>(const double* a, double theta, double phi);
+	template double calc_degree_1<double>(const double* a, double theta, double phi);
+	template double calc_degree_2<double>(const double* a, double theta, double phi);
+	template double calc_degree_3<double>(const double* a, double theta, double phi);
+	template double calc_degree_4<double>(const double* a, double theta, double phi);
+	template double calc_degree_5<double>(const double* a, double theta, double phi);
+	template double calc_degree_6<double>(const double* a, double theta, double phi);
+	template double calc_degree_7<double>(const double* a, double theta, double phi);
+	template double calc_degree_8<double>(const double* a, double theta, double phi);
+	template double calc_degree_9<double>(const double* a, double theta, double phi);
+	template double calc_degree_10<double>(const double* a, double theta, double phi);
 
-	template double calc_spherical_harmonic<double>(int, const double *, double, double);
-	template float calc_spherical_harmonic<float>(int, const float *, float, float);
+	template double calc_spherical_harmonic<double>(int, const double*, double, double);
+	template float calc_spherical_harmonic<float>(int, const float*, float, float);
 
 	// TODO: Move SaveJSON to a higher library
-	void Sph4f::SaveJSON(const std::string& path, const std::string& name, const Vector3f& position)
-	{
+	void Sph4f::SaveJSON(const std::string& path, const std::string& name, const Vector3f& position) {
 
 	}
 	//void Sph4f::SaveJSON(const std::string &path, const std::string &name, const Vector3f &position)
@@ -1252,8 +1216,7 @@ namespace Fluxions
 	//	fout.close();
 	//}
 
-	bool Sph4f::fromVectorFormat(int maxDegrees, const std::vector<std::vector<float>> & v)
-	{
+	bool Sph4f::fromVectorFormat(int maxDegrees, const std::vector<std::vector<float>>& v) {
 		// do a sanity check on the incoming data
 		unsigned lmCount = maxDegree * (maxDegree + 1) + maxDegree + 1;
 		if (lmCount != v.size()) return false;
@@ -1266,7 +1229,7 @@ namespace Fluxions
 		lmCount = maxDegree * (maxDegree + 1) + maxDegree + 1;
 
 		for (unsigned lm = 0; lm < lmCount; lm++) {
-			auto & v_element = v[lm];
+			auto& v_element = v[lm];
 			unsigned c = (unsigned)v_element.size();
 			if (c >= 1) msph[0].setCoefficient(lm, v_element[0]);
 			else msph[0].setCoefficient(lm, 0.0f);
@@ -1280,13 +1243,12 @@ namespace Fluxions
 		return true;
 	}
 
-	bool Sph4f::toVectorFormat(int numChannels, std::vector<std::vector<float>> & v)
-	{
+	bool Sph4f::toVectorFormat(int numChannels, std::vector<std::vector<float>>& v) {
 		if (numChannels < 1 || numChannels > 4) return false;
 		v.resize(size());
 		int lmCount = (int)msph->getMaxCoefficients();
 		for (unsigned lm = 0; lm < (unsigned)lmCount; lm++) {
-			auto & v_element = v[lm];
+			auto& v_element = v[lm];
 			v_element.resize(numChannels);
 			for (int i = 0; i < numChannels; i++) {
 				v_element[i] = msph[i].getCoefficient(lm);

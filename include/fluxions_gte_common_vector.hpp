@@ -2,9 +2,9 @@
 #define FLUXIONS_GTE_COMMON_VECTOR_HPP
 
 #include <type_traits>
+#include <iterator>
 
-namespace Fluxions
-{
+namespace Fluxions {
 	template <typename T>
 	class TCommonContainer {
 	public:
@@ -19,19 +19,16 @@ namespace Fluxions
 	};
 
 	template <typename T>
-	class TCommonColor : public TCommonContainer<typename T>
-	{
+	class TCommonColor : public TCommonContainer<T> {
 	public:
 		using TCommonContainer<T>::is_int;
 		using TCommonContainer<T>::is_flt;
 
 		static constexpr unsigned value_size = sizeof(T);
-		static constexpr int int_max_value =
-			is_int && value_size == 1 ? 255 :
-			is_int && value_size == 2 ? 65535 : 255;
+		static constexpr unsigned short int_max_value =
+			is_int && value_size == 1 ? 255 : 65535;
 		static constexpr float to_float_factor =
-			is_int ? (1.0f / (float)int_max_value) :
-			1.0f;
+			is_int ? (1.0f / (float)int_max_value) : 1.0f;
 		static constexpr float from_float_factor = 1.0f / to_float_factor;
 		static constexpr T min_value = T(0);
 		static constexpr T max_value = is_int ? T(int_max_value) : T(1);
@@ -40,13 +37,43 @@ namespace Fluxions
 	template <typename T>
 	class TCommonIterator {
 	public:
+		using difference_type = typename std::iterator_traits<T*>::difference_type;
+		using value_type = typename std::iterator_traits<T*>::value_type;
+		using pointer = typename std::iterator_traits<T*>::pointer;
+		using reference = typename std::iterator_traits<T*>::reference;
+		using iterator_category = typename std::iterator_traits<T*>::iterator_category;
+
 		TCommonIterator(T* ptr) : ptr(ptr) {}
-		TCommonIterator operator++() { ++ptr; return *this; }
-		bool operator !=(const TCommonIterator& other) const { return ptr != other.ptr; }
-		const T& operator*() const { return *ptr; }
-		T& operator*() { return *ptr; }
+		constexpr TCommonIterator& operator++() {
+			++ptr;
+			return *this;
+		}
+		constexpr TCommonIterator& operator--() {
+			--ptr;
+			return *this;
+		}
+		constexpr bool operator!=(const TCommonIterator& other) const { return ptr != other.ptr; }
+		constexpr bool operator==(const TCommonIterator& other) const { return ptr == other.ptr; }
+		constexpr const T& operator*() const { return *ptr; }
+		constexpr T& operator*() { return *ptr; }
+		constexpr difference_type operator-(const TCommonIterator& other) const { return ptr - other.ptr; }
+		constexpr difference_type operator+(const TCommonIterator& other) const { return ptr + other.ptr; }
+		constexpr TCommonIterator operator+(const size_t n) const {
+			return TCommonIterator(ptr + n);
+		}
+		constexpr TCommonIterator operator-(const size_t n) const {
+			return TCommonIterator(ptr - n);
+		}
+		constexpr TCommonIterator& operator+=(const size_t n) {
+			ptr += n;
+			return *this;
+		}
+		constexpr TCommonIterator& operator-=(const size_t n) {
+			ptr -= n;
+			return *this;
+		}
 	private:
 		T* ptr;
 	};
-}
+} // namespace Fluxions
 #endif

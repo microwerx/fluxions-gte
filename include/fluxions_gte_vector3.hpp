@@ -1,47 +1,30 @@
-// SSPHH/Fluxions/Unicornfish/Viperfish/Hatchetfish/Sunfish/Damselfish/GLUT Extensions
-// Copyright (C) 2017 Jonathan Metzgar
-// All rights reserved.
-//
-// This program is free software : you can redistribute it and/or modify
-// it under the terms of the GNU Affero General Public License as
-// published by the Free Software Foundation, either version 3 of the
-// License, or (at your option) any later version.
-//
-// This program is distributed in the hope that it will be useful,
-// but WITHOUT ANY WARRANTY; without even the implied warranty of
-// MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.See the
-// GNU Affero General Public License for more details.
-//
-// You should have received a copy of the GNU Affero General Public License
-// along with this program.If not, see <https://www.gnu.org/licenses/>.
-//
-// For any other type of licensing, please contact me at jmetzgar@outlook.com
-
 #ifndef FLUXIONS_VECTOR3_HPP
 #define FLUXIONS_VECTOR3_HPP
 
+#include <cstdint>
+#include <cstdio>
 #include <fluxions_gte_common_vector.hpp>
 #include <fluxions_gte_scalar_math.hpp>
 
-namespace Fluxions
-{
+namespace Fluxions {
+	using std::uint64_t;
+
 	template <typename T>
-	class TVector3 : public TCommonContainer<T>
-	{
+	class TVector3 : public TCommonContainer<T> {
 	public:
 		T x, y, z;
 
-		using type = T;
-		using type_ptr = T *;
-		using const_type_ptr = const T*;
-		using type_ref = T &;
-		using const_type_ref = const T &;
+		using value_type = T;
+		using value_type_ptr = T*;
+		using const_value_type_ptr = const T*;
+		using value_type_ref = T&;
+		using const_value_type_ref = const T&;
 
 		using vector_type = TVector3<T>;
 		using const_vector_type = const TVector3<T>;
 
-		constexpr type_ptr ptr() noexcept { return &x; }
-		constexpr const_type_ptr const_ptr() const noexcept { return &x; }
+		constexpr value_type_ptr ptr() noexcept { return &x; }
+		constexpr const_value_type_ptr const_ptr() const noexcept { return &x; }
 		constexpr TVector3<T>& ref() noexcept { return *this; }
 		constexpr const TVector3<T>& const_ref() const noexcept { return *this; }
 
@@ -51,47 +34,29 @@ namespace Fluxions
 		using const_iterator = TCommonIterator<const T>;
 		iterator begin() noexcept { return iterator(ptr()); }
 		iterator end() noexcept { return iterator(ptr() + 3); }
-		const_iterator begin() const noexcept { return const_iterator(const_ptr()); }
-		const_iterator end() const noexcept { return const_iterator(const_ptr() + size()); }
+		const_iterator cbegin() const noexcept { return const_iterator(const_ptr()); }
+		const_iterator cend() const noexcept { return const_iterator(const_ptr() + size()); }
 
 		const T& operator[](unsigned i) const noexcept { return const_ptr()[i]; }
 		T& operator[](unsigned i) noexcept { return ptr()[i]; }
 
-		constexpr TVector3() noexcept {
-			x = 0;
-			y = 0;
-			z = 0;
-		}
+		constexpr TVector3() noexcept :
+			x(0), y(0), z(0) {}
 
-		constexpr TVector3(const T _x, const T _y, const T _z) noexcept {
-			x = _x;
-			y = _y;
-			z = _z;
-		}
+		constexpr TVector3(const T _x, const T _y, const T _z) noexcept :
+			x(_x), y(_y), z(_z) {}
 
-		constexpr TVector3(const T value) noexcept {
-			x = value;
-			y = value;
-			z = value;
-		}
+		constexpr TVector3(const T value) noexcept :
+			x(value), y(value), z(value) {}
 
-		constexpr TVector3(const TVector3<T>& V) noexcept {
-			x = V.x;
-			y = V.y;
-			z = V.z;
-		}
+		constexpr TVector3(const TVector3<T>& V) noexcept :
+			x(V.x), y(V.y), z(V.z) {}
 
-		constexpr TVector3(TVector3<T>&& V) noexcept {
-			x = std::move(V.x);
-			y = std::move(V.y);
-			z = std::move(V.z);
-		}
+		constexpr TVector3(TVector3<T>&& V) noexcept :
+			x(std::move(V.x)), y(std::move(V.y)), z(std::move(V.z)) {}
 
-		constexpr TVector3(const T V[3]) noexcept {
-			x = V[0];
-			y = V[1];
-			z = V[2];
-		}
+		constexpr TVector3(const T V[3]) noexcept :
+			x(V[0]), y(V[1]), z(V[2]) {}
 
 		constexpr TVector3<T>& operator=(const TVector3<T>& V) noexcept {
 			x = V.x;
@@ -118,39 +83,41 @@ namespace Fluxions
 		constexpr TVector3<T> operator-() noexcept {
 			if (TVector3<T>::is_signed)
 				return TVector3<T>(-x, -y, -z);
+#ifdef _DEBUG
 			fprintf(stderr, "%s(): ATTEMPTING UNARY NEGATIVE ON SIGNED TYPE", __FUNCTION__);
+#endif
 			return TVector3<T>(x, y, z);
 		}
 
 		template <typename U>
-		constexpr TVector3<T>& operator+=(const U val) noexcept {
-			x += static_cast<T>(val);
-			y += static_cast<T>(val);
-			z += static_cast<T>(val);
+		constexpr TVector3<T>& operator+=(U val) noexcept {
+			x += (T)(val);
+			y += (T)(val);
+			z += (T)(val);
 			return *this;
 		}
 
 		template <typename U>
-		constexpr TVector3<T>& operator-=(const U val) noexcept {
-			x -= static_cast<T>(val);
-			y -= static_cast<T>(val);
-			z -= static_cast<T>(val);
+		constexpr TVector3<T>& operator-=(U val) noexcept {
+			x -= (T)(val);
+			y -= (T)(val);
+			z -= (T)(val);
 			return *this;
 		}
 
 		template <typename U>
-		constexpr TVector3<T>& operator*=(const U val) noexcept {
-			x *= static_cast<T>(val);
-			y *= static_cast<T>(val);
-			z *= static_cast<T>(val);
+		constexpr TVector3<T>& operator*=(U val) noexcept {
+			x *= (T)(val);
+			y *= (T)(val);
+			z *= (T)(val);
 			return *this;
 		}
 
 		template <typename U>
-		constexpr TVector3<T>& operator/=(const U val) noexcept {
-			x /= static_cast<T>(val);
-			y /= static_cast<T>(val);
-			z /= static_cast<T>(val);
+		constexpr TVector3<T>& operator/=(U val) noexcept {
+			x /= (T)(val);
+			y /= (T)(val);
+			z /= (T)(val);
 			return *this;
 		}
 
@@ -228,33 +195,41 @@ namespace Fluxions
 		//const T LengthSquared() const;
 		//TVector3<T> & Normalize();
 
+		constexpr T l1dist() const noexcept {
+			return x + y + z;
+		}
+
+		constexpr T l2dist() const noexcept {
+			return length();
+		}
+
 		constexpr T length() const noexcept {
-			return static_cast<T>(sqrt(x * x + y * y + z * z));
+			return (T)(sqrt(x * x + y * y + z * z));
 		}
 
 		constexpr T lengthSquared() const noexcept {
 			return x * x + y * y + z * z;
 		}
 
-		constexpr vector_type norm() const noexcept {
-			T invLen = (length() != 0) ? (T)(1.0 / length()) : 0;
-			return TVector3<T>(x * invLen, y * invLen, z * invLen);
-		}
+		//constexpr vector_type norm() const noexcept {
+		//	T invLen = (length() != 0) ? (T)(1.0 / length()) : 0;
+		//	return TVector3<T>(x * invLen, y * invLen, z * invLen);
+		//}
 
-		constexpr vector_type unit_vector() const noexcept {
+		constexpr vector_type unit() const noexcept {
 			T invLen = length() != 0 ? (T)(1.0 / length()) : 0;
 			return TVector3<T>(x * invLen, y * invLen, z * invLen);
 		}
 
 		constexpr vector_type& normalize() noexcept {
-			return *this = norm();
+			return *this = unit();
 		}
 
-		constexpr type dot(const TVector3<T> v) const noexcept {
+		constexpr value_type dot(const TVector3<T>& v) const noexcept {
 			return x * v.x + y * v.y + z * v.z;
 		}
 
-		constexpr vector_type cross(const TVector3<T> v) const noexcept {
+		constexpr vector_type cross(const TVector3<T>& v) const noexcept {
 			return TVector3<T>(
 				y * v.z - z * v.y,
 				z * v.x - x * v.z,
@@ -621,43 +596,43 @@ namespace Fluxions
 	// COMPARISON OPERATORS //////////////////////////////////////////
 	//////////////////////////////////////////////////////////////////
 
-	template <typename T>
-	constexpr bool operator==(const TVector3<T>& a, const TVector3<T>& b) noexcept {
-		return (a.x == b.x) && (a.y == b.y) && (a.z == b.z);
+	template <typename T, typename U>
+	constexpr bool operator==(const TVector3<T>& a, const TVector3<U>& b) noexcept {
+		return (a.x == (T)b.x) && (a.y == (T)b.y) && (a.z == (T)b.z);
 	}
 
 
-	template <typename T>
-	constexpr bool operator!=(const TVector3<T>& a, const TVector3<T>& b) noexcept {
-		return !(a == b);
+	template <typename T, typename U>
+	constexpr bool operator!=(const TVector3<T>& a, const TVector3<U>& b) noexcept {
+		return (a.x != (T)b.x) || (a.y != (T)b.y) || (a.z != (T)b.z);
 	}
 
-	template <typename T>
-	constexpr TVector3<T> operator < (const TVector3<T>& a, const TVector3<T>& b) noexcept {
-		return TVector3<T>(a.x < b.x ? TVector3<T>::one : TVector3<T>::zero,
-						   a.y < b.y ? TVector3<T>::one : TVector3<T>::zero,
-						   a.z < b.z ? TVector3<T>::one : TVector3<T>::zero);
+	template <typename T, typename U>
+	constexpr TVector3<T> operator < (const TVector3<T>& a, const TVector3<U>& b) noexcept {
+		return TVector3<T>(a.x < (T)b.x ? TVector3<T>::one : TVector3<T>::zero,
+						   a.y < (T)b.y ? TVector3<T>::one : TVector3<T>::zero,
+						   a.z < (T)b.z ? TVector3<T>::one : TVector3<T>::zero);
 	}
 
-	template <typename T>
-	constexpr TVector3<T> operator <= (const TVector3<T>& a, const TVector3<T>& b) noexcept {
-		return TVector3<T>(a.x <= b.x ? TVector3<T>::one : TVector3<T>::zero,
-						   a.y <= b.y ? TVector3<T>::one : TVector3<T>::zero,
-						   a.z <= b.z ? TVector3<T>::one : TVector3<T>::zero);
+	template <typename T, typename U>
+	constexpr TVector3<T> operator <= (const TVector3<T>& a, const TVector3<U>& b) noexcept {
+		return TVector3<T>(a.x <= (T)b.x ? TVector3<T>::one : TVector3<T>::zero,
+						   a.y <= (T)b.y ? TVector3<T>::one : TVector3<T>::zero,
+						   a.z <= (T)b.z ? TVector3<T>::one : TVector3<T>::zero);
 	}
 
-	template <typename T>
-	constexpr TVector3<T> operator > (const TVector3<T>& a, const TVector3<T>& b) noexcept {
-		return TVector3<T>(a.x > b.x ? TVector3<T>::one : TVector3<T>::zero,
-						   a.y > b.y ? TVector3<T>::one : TVector3<T>::zero,
-						   a.z > b.z ? TVector3<T>::one : TVector3<T>::zero);
+	template <typename T, typename U>
+	constexpr TVector3<T> operator > (const TVector3<T>& a, const TVector3<U>& b) noexcept {
+		return TVector3<T>(a.x > (T)b.x ? TVector3<T>::one : TVector3<T>::zero,
+						   a.y > (T)b.y ? TVector3<T>::one : TVector3<T>::zero,
+						   a.z > (T)b.z ? TVector3<T>::one : TVector3<T>::zero);
 	}
 
-	template <typename T>
-	constexpr TVector3<T> operator >= (const TVector3<T>& a, const TVector3<T>& b) noexcept {
-		return TVector3<T>(a.x >= b.x ? TVector3<T>::one : TVector3<T>::zero,
-						   a.y >= b.y ? TVector3<T>::one : TVector3<T>::zero,
-						   a.z >= b.z ? TVector3<T>::one : TVector3<T>::zero);
+	template <typename T, typename U>
+	constexpr TVector3<T> operator >= (const TVector3<T>& a, const TVector3<U>& b) noexcept {
+		return TVector3<T>(a.x >= (T)b.x ? TVector3<T>::one : TVector3<T>::zero,
+						   a.y >= (T)b.y ? TVector3<T>::one : TVector3<T>::zero,
+						   a.z >= (T)b.z ? TVector3<T>::one : TVector3<T>::zero);
 	}
 
 } // namespace Fluxions

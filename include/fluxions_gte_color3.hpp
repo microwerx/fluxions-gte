@@ -1,42 +1,11 @@
-// SSPHH/Fluxions/Unicornfish/Viperfish/Hatchetfish/Sunfish/Damselfish/GLUT Extensions
-// Copyright (C) 2017 Jonathan Metzgar
-// All rights reserved.
-//
-// This program is free software : you can redistribute it and/or modify
-// it under the terms of the GNU Affero General Public License as
-// published by the Free Software Foundation, either version 3 of the
-// License, or (at your option) any later version.
-//
-// This program is distributed in the hope that it will be useful,
-// but WITHOUT ANY WARRANTY; without even the implied warranty of
-// MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.See the
-// GNU Affero General Public License for more details.
-//
-// You should have received a copy of the GNU Affero General Public License
-// along with this program.If not, see <https://www.gnu.org/licenses/>.
-//
-// For any other type of licensing, please contact me at jmetzgar@outlook.com
 #ifndef FLUXIONS_GTE_COLOR3_HPP
 #define FLUXIONS_GTE_COLOR3_HPP
 
-#ifndef NOMINMAX
-#define NOMINMAX
-#endif
-
-#ifdef min
-#undef min
-#endif
-
-#ifdef max
-#undef max
-#endif
-
-#include <fluxions_gte_scalar_math.hpp>
+#include <fluxions_gte_base.hpp>
 #include <fluxions_gte_color4.hpp>
 #include <fluxions_gte_vector3.hpp>
 
-namespace Fluxions
-{
+namespace Fluxions {
 	template <typename T>
 	class TColor4;
 	template <typename T>
@@ -45,8 +14,7 @@ namespace Fluxions
 	class TVector4;
 
 	template <typename T>
-	class TColor3 : public TCommonColor<T>
-	{
+	class TColor3 : public TCommonColor<T> {
 	public:
 		T r, g, b;
 
@@ -315,8 +283,8 @@ namespace Fluxions
 
 		constexpr TColor3<T>& clamp() noexcept {
 			r = Fluxions::clamp(r, min_value, max_value);
-			g = Fluxions::clamp(r, min_value, max_value);
-			b = Fluxions::clamp(r, min_value, max_value);
+			g = Fluxions::clamp(g, min_value, max_value);
+			b = Fluxions::clamp(b, min_value, max_value);
 			return *this;
 		}
 
@@ -498,6 +466,105 @@ namespace Fluxions
 	using Color3b = TColor3<char>;
 	using Color3ub = TColor3<unsigned char>;
 
+	template <>
+	float TColor3<float>::to_float_factor = 1.0f;
+	template <>
+	float TColor3<float>::from_float_factor = 1.0f;
+	template <>
+	float TColor3<double>::to_float_factor = 1.0f;
+	template <>
+	float TColor3<double>::from_float_factor = 1.0f;
+	template <>
+	float TColor3<unsigned char>::to_float_factor = 255.99f;
+	template <>
+	float TColor3<unsigned char>::from_float_factor = 1.0f / 255.00f;
+	template <>
+	float TColor3<unsigned int>::to_float_factor = 255.99f;
+	template <>
+	float TColor3<unsigned int>::from_float_factor = 1.0f / 255.00f;
+	template <>
+	float TColor3<unsigned short>::to_float_factor = 255.99f;
+	template <>
+	float TColor3<unsigned short>::from_float_factor = 1.0f / 255.00f;
+	template <>
+	float TColor3<char>::to_float_factor = 127.99f;
+	template <>
+	float TColor3<char>::from_float_factor = 1.0f / 127.00f;
+	template <>
+	float TColor3<int>::to_float_factor = 255.99f;
+	template <>
+	float TColor3<int>::from_float_factor = 1.0f / 255.00f;
+	template <>
+	float TColor3<short>::to_float_factor = 255.99f;
+	template <>
+	float TColor3<short>::from_float_factor = 1.0f / 255.00f;
+
+	template <>
+	TColor3<float>::value_type TColor3<float>::min_value = 0.0f;
+	template <>
+	TColor3<float>::value_type TColor3<float>::max_value = 1.0f;
+	template <>
+	TColor3<double>::value_type TColor3<double>::min_value = 0.0;
+	template <>
+	TColor3<double>::value_type TColor3<double>::max_value = 1.0;
+	template <>
+	TColor3<char>::value_type TColor3<char>::min_value = 0;
+	template <>
+	TColor3<char>::value_type TColor3<char>::max_value = 127;
+	template <>
+	TColor3<short>::value_type TColor3<short>::min_value = 0;
+	template <>
+	TColor3<short>::value_type TColor3<short>::max_value = 255;
+	template <>
+	TColor3<int>::value_type TColor3<int>::min_value = 0;
+	template <>
+	TColor3<int>::value_type TColor3<int>::max_value = 65535;
+	template <>
+	TColor3<unsigned char>::value_type TColor3<unsigned char>::min_value = 0;
+	template <>
+	TColor3<unsigned char>::value_type TColor3<unsigned char>::max_value = 255;
+	template <>
+	TColor3<unsigned short>::value_type TColor3<unsigned short>::min_value = 0;
+	template <>
+	TColor3<unsigned short>::value_type TColor3<unsigned short>::max_value = 65535;
+	template <>
+	TColor3<unsigned int>::value_type TColor3<unsigned int>::min_value = 0;
+	template <>
+	TColor3<unsigned int>::value_type TColor3<unsigned int>::max_value = 65535;
+
+	template <>
+	unsigned int TColor3<float>::gl_type = 0x1406; // GL_FLOAT
+	template <>
+	unsigned int TColor3<double>::gl_type = 0x140A; // GL_DOUBLE
+	template <>
+	unsigned int TColor3<char>::gl_type = 0x1400; // GL_BYTE
+	template <>
+	unsigned int TColor3<unsigned char>::gl_type = 0x1401; // GL_UNSIGNED_BYTE
+	template <>
+	unsigned int TColor3<short>::gl_type = 0x1402; // GL_SHORT
+	template <>
+	unsigned int TColor3<unsigned short>::gl_type = 0x1403; // GL_UNSIGNED_SHORT
+	template <>
+	unsigned int TColor3<int>::gl_type = 0x1404; // GL_INT
+	template <>
+	unsigned int TColor3<unsigned int>::gl_type = 0x1405; // GL_UNSIGNED_INT
+	template <>
+	unsigned int TColor3<float>::gl_size = 3;
+	template <>
+	unsigned int TColor3<double>::gl_size = 3;
+	template <>
+	unsigned int TColor3<char>::gl_size = 3;
+	template <>
+	unsigned int TColor3<unsigned char>::gl_size = 3;
+	template <>
+	unsigned int TColor3<short>::gl_size = 3;
+	template <>
+	unsigned int TColor3<unsigned short>::gl_size = 3;
+	template <>
+	unsigned int TColor3<int>::gl_size = 3;
+	template <>
+	unsigned int TColor3<unsigned int>::gl_size = 3;
+
 #ifndef FLUXIONS_NO_EXTERN_TEMPLATES
 	extern template class TColor3<float>;
 	extern template class TColor3<double>;
@@ -509,25 +576,25 @@ namespace Fluxions
 	extern template class TColor3<unsigned char>;
 #endif
 
-	// Scales the color by 255 and then clamps to 0 to 65535
-	constexpr Color3i ToColor3i(const Color3f color, float scale = 255.0f, int min_value = 0, int max_value = 65535) {
-		return color.ToColor3<int, float>(scale, min_value, max_value);
-	}
+	//// Scales the color by 255 and then clamps to 0 to 65535
+	//constexpr Color3i ToColor3i(const Color3f color, float scale = 255.0f, int min_value = 0, int max_value = 65535) {
+	//	return color.ToColor3<int, float>(scale, min_value, max_value);
+	//}
 
-	// Scales the color by 255 and then clamps to 0 to 255
-	constexpr Color3ub ToColor3ub(const Color3f color, float scale = 255.99f, int min_value = 0, int max_value = 255) {
-		return color.ToColor3<unsigned char, float>(scale, (unsigned char)min_value, (unsigned char)max_value);
-	}
+	//// Scales the color by 255 and then clamps to 0 to 255
+	//constexpr Color3ub ToColor3ub(const Color3f color, float scale = 255.99f, int min_value = 0, int max_value = 255) {
+	//	return color.ToColor3<unsigned char, float>(scale, (unsigned char)min_value, (unsigned char)max_value);
+	//}
 
-	// Scales the color by 1/255 and then clamps to 0 to 1
-	constexpr Color3f ToColor3f(const Color3ub color, float scale = 1.0f / 255.0f, float min_value = 0.0f, float max_value = 1.0f) {
-		return color.ToColor3<float>(scale, min_value, max_value);
-	}
+	//// Scales the color by 1/255 and then clamps to 0 to 1
+	//constexpr Color3f ToColor3f(const Color3ub color, float scale = 1.0f / 255.0f, float min_value = 0.0f, float max_value = 1.0f) {
+	//	return color.ToColor3<float>(scale, min_value, max_value);
+	//}
 
-	// Scales the color by 1/255 and then clamps to 0 to 1
-	constexpr Color3f ToColor3f(const Color3i color, float scale = 1.0f / 255.0f, float min_value = 0.0f, float max_value = 1.0f) {
-		return color.ToColor3<float>(scale, min_value, max_value);
-	}
+	//// Scales the color by 1/255 and then clamps to 0 to 1
+	//constexpr Color3f ToColor3f(const Color3i color, float scale = 1.0f / 255.0f, float min_value = 0.0f, float max_value = 1.0f) {
+	//	return color.ToColor3<float>(scale, min_value, max_value);
+	//}
 
 	Color3f HLSToRGBf(float h, float l, float s) noexcept;
 	Color3d HLSToRGBd(double h, double l, double s) noexcept;

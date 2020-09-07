@@ -1,43 +1,25 @@
-// SSPHH/Fluxions/Unicornfish/Viperfish/Hatchetfish/Sunfish/Damselfish/GLUT Extensions
-// Copyright (C) 2017 Jonathan Metzgar
-// All rights reserved.
-//
-// This program is free software : you can redistribute it and/or modify
-// it under the terms of the GNU Affero General Public License as
-// published by the Free Software Foundation, either version 3 of the
-// License, or (at your option) any later version.
-//
-// This program is distributed in the hope that it will be useful,
-// but WITHOUT ANY WARRANTY; without even the implied warranty of
-// MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.See the
-// GNU Affero General Public License for more details.
-//
-// You should have received a copy of the GNU Affero General Public License
-// along with this program.If not, see <https://www.gnu.org/licenses/>.
-//
-// For any other type of licensing, please contact me at jmetzgar@outlook.com
 #ifndef FLUXIONS_GTE_IMAGE_HPP
 #define FLUXIONS_GTE_IMAGE_HPP
 
-#include <string>
-#include <vector>
-#include <memory.h>
+#include <fluxions_gte_base.hpp>
 #include <fluxions_gte_scalar_math.hpp>
 #include <fluxions_gte_vector_math.hpp>
 #include <fluxions_gte_color_math.hpp>
 
-namespace Fluxions
-{
+#ifdef _WIN32
+#define FLUXIONS_GTE_USEOPENEXR 1
+#elif __unix__
+#define FLUXIONS_GTE_USEOPENEXR 1
+#endif
+
+namespace Fluxions {
 	template <class T>
 	struct is_color_type : std::integral_constant<
 		bool,
-		std::is_same<TColor3<T>, T>::value || std::is_same<TColor4<T>, T>::value>
-	{
-	};
+		std::is_same<TColor3<T>, T>::value || std::is_same<TColor4<T>, T>::value> {};
 
 	template <typename ColorType>
-	class TImage
-	{
+	class TImage {
 	public:
 		std::vector<ColorType> pixels;
 		unsigned imageWidth;
@@ -47,7 +29,7 @@ namespace Fluxions
 		//using ImageType = TImage<ColorType>;
 		using vector_type = ColorType;
 		using scalar_type = typename ColorType::value_type;
-		using value_type = typename ColorType;
+		using value_type = ColorType;
 
 		TImage()
 			: imageWidth(0), imageHeight(0), imageDepth(0) {}
@@ -61,11 +43,14 @@ namespace Fluxions
 			imageDepth = image.imageDepth;
 		}
 
+		operator bool() const { return !pixels.empty(); }
+
 		constexpr void setBorderColor(const ColorType& color) { borderColor = color; }
 		constexpr const ColorType& getBorderColor() const { return borderColor; }
 		constexpr unsigned width() const { return imageWidth; }
 		constexpr unsigned height() const { return imageHeight; }
 		constexpr unsigned depth() const { return imageDepth; }
+		constexpr unsigned pitch() const { return (unsigned)imageWidth * sizeof(value_type); }
 		constexpr unsigned addr(unsigned x, unsigned y, unsigned z = 0) {
 			if (x >= imageWidth || y >= imageHeight || z >= imageDepth)
 				return 0;
@@ -91,12 +76,22 @@ namespace Fluxions
 		void clear(const ColorType& clearcolor);
 		bool empty() const noexcept { return pixels.empty(); }
 		bool IsCubeMap() const noexcept { return imageWidth == imageHeight && imageDepth == 6; }
+
+		bool isLikely61CubeMap() const noexcept {
+			return imageWidth == imageHeight * 6;
+		}
+
+		bool isLikelyCross() const noexcept {
+			return (imageWidth * 3 == imageHeight * 4) ||
+				(imageWidth * 4) == (imageHeight * 3);
+		}
+
 		TImage<ColorType>& ToSRGB();
 		TImage<ColorType>& ReverseSRGB();
 		TImage<ColorType>& ToneMap(float exposure);
 		TImage<ColorType>& ReverseToneMap(float exposure);
 		void scaleColors(float x);
-		TImage<ColorType> ScaleImage(unsigned newWidth, unsigned newHeight, bool bilinear = false);
+		TImage<ColorType> ScaleImage(unsigned newWidth, unsigned newHeight);
 
 		constexpr void setPixel(unsigned x, unsigned y, ColorType color) noexcept {
 			if (x >= imageWidth || y >= imageHeight)
@@ -183,18 +178,20 @@ namespace Fluxions
 		}
 
 		scalar_type maxrgb() const {
-			if (pixels.empty()) return 0;
+			if (pixels.empty())
+				return 0;
 			scalar_type value = pixels[0][0];
 			for (const vector_type& pixel : pixels) {
 				value = std::max(
 					*std::max_element(pixel.cbegin(), pixel.cend()),
-									  value);
+					value);
 			}
 			return value;
 		}
 
 		scalar_type minrgb() const {
-			if (pixels.empty()) return 0;
+			if (pixels.empty())
+				return 0;
 			scalar_type value = pixels[0][0];
 			for (const vector_type& pixel : pixels) {
 				value = std::min<scalar_type>(
@@ -218,35 +215,83 @@ namespace Fluxions
 		// * saveCubePFM
 		// * savePFM
 		//void savePPMRaw(const std::string& filename, unsigned z = 0) const;
-		void savePPM(const std::string& filename, unsigned z = 0, bool flipy = false) const;
-		//void savePPMi(const std::string& filename, float scale, int minValue, int maxValue, unsigned z = 0, bool flipy = false) const;
+		bool savePPM(const std::string& filename, unsigned z = 0, bool flipy = false) const;
+		bool savePPMi(const std::string& filename, float scale, int minValue, int maxValue, unsigned z = 0, bool flipy = false) const;
+		bool saveCubePPM(const std::string& filename, bool flipy = false) const;
+		bool saveCubePPMi(const std::string& filename, float scale, int minValue, int maxValue, bool flipy = false) const;
 		//void savePPMHDRI(const std::string& filename, unsigned z = 0) const;
-		void saveCubePPM(const std::string& filename, bool flipy = false) const;
 
 		// TODO: change these to
 		// * loadPPM
 		// * loadEXR
 		// * loadCubePPM
 		// * saveCubeEXR
-		//void loadPPM(const std::string& filename);
-		//void loadEXR(const std::string& path);
-		//void saveEXR(const std::string& path) const;
+		bool loadPPM(const std::string& path);
+		bool loadPFM(const std::string& path);
+		bool loadPGM(const std::string& path);
+		bool savePFM(const std::string& path) const;
+		bool loadEXR(const std::string& path);
+		bool saveEXR(const std::string& path) const;
 
 		bool flipX(int z = 0);
 		bool flipY(int z = 0);
+		bool flipXY(int z = 0);
 		bool rotateLeft90(int z = 0);
 		bool rotateRight90(int z = 0);
+
+		// blit2D copies a rectangle into the same image type dst
+		void blit2D(int sx, int sy, int sz,
+					int width, int height,
+					int dx, int dy, int dz,
+					TImage<ColorType>& dst) const;
+
+		// blit3D copies a cube into the same image type dst
+		void blit3D(int sx, int sy, int sz,
+					int width, int height, int depth,
+					int dx, int dy, int dz,
+					TImage<ColorType>& dst) const;
+
+		static constexpr int SwizzleDefault = 0;
+		static constexpr int SwizzleCorona = 1;
+		static constexpr int SwizzleRotateZUp = 2;
+
+		// option = 0, do default
+		// option = 1, do Corona swizzle
+		// option = 2, do Z up
+		bool convertRectToCubeMapEx(TImage<ColorType>& dst, int swizzle);
+		bool convertCubeMapToRectEx(TImage<ColorType>& dst, int swizzle);
+
+		// Converts 6x1 rectangle to cube map
+		bool convertRectToCubeMapEx(int swizzle);
+		// Converts cube map to 6x1 rectangle
+		bool convertCubeMapToRectEx(int swizzle);
+
+		// Converts Corona style 6x1 rectangle to cube map
 		bool convertRectToCubeMap();
+		// Converts cube map to Corona style 6x1 rectangle
 		bool convertCubeMapToRect();
+		// Converts Corona style 6x1 rectangle to cube map
 		bool convertRectToCubeMap(TImage<ColorType>& dst) const;
+		// Converts cube map to Corona style 6x1 rectangle
 		bool convertCubeMapToRect(TImage<ColorType>& dst) const;
 
+		// Converts either horizontal cross or vertical cross to cube map
+		bool convertCrossToCubeMap();
+		// Converse cube map to vertical cross format
+		bool convertCubeMapToCross(bool horizontal = false);
+		// Converts either horizontal cross or vertical cross to cube map
+		bool convertCrossToCubeMap(TImage<ColorType>& dst) const;
+		// Converts cube map to vertical cross format
+		bool convertCubeMapToCross(TImage<ColorType>& dst, bool horizontal = false) const;
+
+		// Copies GL_FLOAT or GL_UNSIGNED_BYTE raw data
 		void setImageData(unsigned int format, unsigned int type, unsigned width, unsigned height, unsigned depth, void* _pixels);
 
 	private:
 		void _setImageData(unsigned int fromFormat, unsigned int fromType, unsigned int toFormat, unsigned int toType, unsigned width, unsigned height, unsigned depth, void* _pixels);
 
 		unsigned zstride;
+		unsigned ystride;
 		ColorType borderColor;
 		int minColor;
 		int maxColor;

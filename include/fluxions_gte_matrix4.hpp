@@ -1,21 +1,3 @@
-// SSPHH/Fluxions/Unicornfish/Viperfish/Hatchetfish/Sunfish/Damselfish/GLUT Extensions
-// Copyright (C) 2017 Jonathan Metzgar
-// All rights reserved.
-//
-// This program is free software : you can redistribute it and/or modify
-// it under the terms of the GNU Affero General Public License as
-// published by the Free Software Foundation, either version 3 of the
-// License, or (at your option) any later version.
-//
-// This program is distributed in the hope that it will be useful,
-// but WITHOUT ANY WARRANTY; without even the implied warranty of
-// MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.See the
-// GNU Affero General Public License for more details.
-//
-// You should have received a copy of the GNU Affero General Public License
-// along with this program.If not, see <https://www.gnu.org/licenses/>.
-//
-// For any other type of licensing, please contact me at jmetzgar@outlook.com
 #ifndef FLUXIONS_MATRIX4_HPP
 #define FLUXIONS_MATRIX4_HPP
 
@@ -24,12 +6,9 @@
 #include <fluxions_gte_vector3.hpp>
 #include <fluxions_gte_vector4.hpp>
 
-namespace Fluxions
-{
-
+namespace Fluxions {
 	template <typename T>
-	class TMatrix4
-	{
+	class TMatrix4 {
 	public:
 		// normal access (column major)
 		T m11, m21, m31, m41;
@@ -240,6 +219,11 @@ namespace Fluxions
 		constexpr TVector4<T> col2() const noexcept { return TVector4<T>(m12, m22, m32, m42); }
 		constexpr TVector4<T> col3() const noexcept { return TVector4<T>(m13, m23, m33, m43); }
 		constexpr TVector4<T> col4() const noexcept { return TVector4<T>(m14, m24, m34, m44); }
+
+		constexpr TVector3<T> xbasis() const noexcept { return { m11, m21, m31 }; }
+		constexpr TVector3<T> ybasis() const noexcept { return { m12, m22, m32 }; }
+		constexpr TVector3<T> zbasis() const noexcept { return { m13, m23, m33 }; }
+		constexpr TVector3<T> origin() const noexcept { return { m14, m24, m34 }; }
 
 		// col(i) returns the ith column of the matrix (i = 1 is column 1)
 		constexpr TVector4<T> col(int i) const noexcept {
@@ -637,21 +621,21 @@ namespace Fluxions
 			T t18 = m21 * m32 - m22 * m31;
 
 			return TMatrix4<T>(m22 * t3 - m23 * t2 + m24 * t1,
-				-m12 * t3 + m13 * t2 - m14 * t1,
-				m12 * t6 - m13 * t5 + m14 * t4,
-				-m12 * t9 + m13 * t8 - m14 * t7,
-				-m21 * t3 + m23 * t11 - m24 * t10,
-				m11 * t3 - m13 * t11 + m14 * t10,
-				-m11 * t6 + m13 * t13 - m14 * t12,
-				m11 * t9 - m13 * t15 + m14 * t14,
-				m21 * t2 - m22 * t11 + m24 * t16,
-				-m11 * t2 + m12 * t11 - m14 * t16,
-				m11 * t5 - m12 * t13 + m14 * t17,
-				-m11 * t8 + m12 * t15 - m14 * t18,
-				-m21 * t1 + m22 * t10 - m23 * t16,
-				m11 * t1 - m12 * t10 + m13 * t16,
-				-m11 * t4 + m12 * t12 - m13 * t17,
-				m11 * t7 - m12 * t14 + m13 * t18);
+							   -m12 * t3 + m13 * t2 - m14 * t1,
+							   m12 * t6 - m13 * t5 + m14 * t4,
+							   -m12 * t9 + m13 * t8 - m14 * t7,
+							   -m21 * t3 + m23 * t11 - m24 * t10,
+							   m11 * t3 - m13 * t11 + m14 * t10,
+							   -m11 * t6 + m13 * t13 - m14 * t12,
+							   m11 * t9 - m13 * t15 + m14 * t14,
+							   m21 * t2 - m22 * t11 + m24 * t16,
+							   -m11 * t2 + m12 * t11 - m14 * t16,
+							   m11 * t5 - m12 * t13 + m14 * t17,
+							   -m11 * t8 + m12 * t15 - m14 * t18,
+							   -m21 * t1 + m22 * t10 - m23 * t16,
+							   m11 * t1 - m12 * t10 + m13 * t16,
+							   -m11 * t4 + m12 * t12 - m13 * t17,
+							   m11 * t7 - m12 * t14 + m13 * t18);
 		}
 
 		constexpr TMatrix4<T> Adjugate() noexcept {
@@ -756,6 +740,10 @@ namespace Fluxions
 				0, 0, 0, 0);
 		}
 
+		static constexpr TMatrix4<T> MakeRotation(T angleInDegrees, TVector3<T> v) noexcept {
+			return MakeRotation(angleInDegrees, v.x, v.y, v.z);
+		}
+
 		static constexpr TMatrix4<T> MakeRotation(T angleInDegrees, T x, T y, T z) noexcept {
 			T angleInRadians = static_cast<T>(angleInDegrees * FX_DEGREES_TO_RADIANS);
 			T c = cos(angleInRadians);
@@ -772,12 +760,24 @@ namespace Fluxions
 				0.0, 0.0, 0.0, 1.0);
 		}
 
+		static constexpr TMatrix4<T> MakeScaling(TVector3<T> v) noexcept {
+			return MakeScaling(v.x, v.y, v.z);
+		}
+
 		static constexpr TMatrix4<T> MakeScaling(T x, T y, T z) noexcept {
 			return TMatrix4<T>(
 				x, 0, 0, 0,
 				0, y, 0, 0,
 				0, 0, z, 0,
 				0, 0, 0, 1);
+		}
+
+		static constexpr TMatrix4<T> MakeTranslation(TVector3<T> v) noexcept {
+			return MakeTranslation(v.x, v.y, v.z);
+		}
+
+		static constexpr TMatrix4<T> MakeTranslation(TVector4<T> v) noexcept {
+			return MakeTranslation(v.x, v.y, v.z);
 		}
 
 		static constexpr TMatrix4<T> MakeTranslation(T x, T y, T z) noexcept {
@@ -854,10 +854,23 @@ namespace Fluxions
 				0, 0, -1, 0);
 		}
 
+		static constexpr TMatrix4<T> MakeLookAtInverse(TVector3<T> eye, TVector3<T> center, TVector3<T> up) noexcept {
+			TVector3<T> F = (center - eye).unit();
+			TVector3<T> S = F.cross(up).unit();
+			TVector3<T> U = S.cross(F).unit();
+
+			return TMatrix4<T>::multiply(TMatrix4<T>(
+				S.x, S.y, S.z, 0.0,
+				U.x, U.y, U.z, 0.0,
+				-F.x, -F.y, -F.z, 0.0,
+				0.0, 0.0, 0.0, 1.0),
+				TMatrix4<T>::MakeTranslation(-eye.x, -eye.y, -eye.z));
+		}
+
 		static constexpr TMatrix4<T> MakeLookAt(TVector3<T> eye, TVector3<T> center, TVector3<T> up) noexcept {
-			TVector3<T> F = (center - eye).norm();
-			TVector3<T> S = F.cross(up).norm();
-			TVector3<T> U = S.cross(F).norm();
+			TVector3<T> F = (center - eye).unit();
+			TVector3<T> S = F.cross(up).unit();
+			TVector3<T> U = S.cross(F).unit();
 
 			return TMatrix4<T>::multiply(TMatrix4<T>(
 				S.x, S.y, S.z, 0.0,
@@ -1563,9 +1576,9 @@ namespace Fluxions
 	//template <typename T>
 	//constexpr TMatrix4<double> TMatrix4<T>::MakeLookAt(TVector3<double> eye, TVector3<double> center, TVector3<double> up)
 	//{
-	//	TVector3<double> F = (center - eye).norm();
-	//	TVector3<double> S = F.cross(up).norm();
-	//	TVector3<double> U = S.cross(F).norm();
+	//	TVector3<double> F = (center - eye).unit();
+	//	TVector3<double> S = F.cross(up).unit();
+	//	TVector3<double> U = S.cross(F).unit();
 
 	//	return TMatrix4<double>::multiply(TMatrix4<double>(
 	//		S.X, S.y, S.z, 0.0,
@@ -1647,7 +1660,7 @@ namespace Fluxions
 
 	template <typename T, typename U>
 	constexpr auto operator*(const TMatrix4<T>& M, const TVector3<U>& V) noexcept {
-		return TVector2<std::common_type_t<T, U>>(
+		return TVector3<std::common_type_t<T, U>>(
 			M.m11 * V.x + M.m12 * V.y + M.m13 * V.z,
 			M.m21 * V.x + M.m22 * V.y + M.m23 * V.z,
 			M.m31 * V.x + M.m32 * V.y + M.m33 * V.z);
