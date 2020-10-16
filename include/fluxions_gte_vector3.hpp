@@ -556,6 +556,14 @@ namespace Fluxions {
 		return TVector3<std::common_type_t<U, T>>(V.x - a, V.y - a, V.z - a);
 	}
 
+	template <typename T>
+	constexpr TVector3<T> operator*(const TVector3<T>& a, const TVector3<T>& b) noexcept {
+		return TVector3<T>(
+			a.x * b.x,
+			a.y * b.y,
+			a.z * b.z);
+	}
+
 	template <typename T, typename U>
 	constexpr TVector3<T> operator*(const U a, const TVector3<T>& V) {
 		return TVector3<T>(T(a) * V.x, T(a) * V.y, T(a) * V.z);
@@ -591,6 +599,7 @@ namespace Fluxions {
 			v1.y - v2.y,
 			v1.z - v2.z);
 	}
+
 
 	//////////////////////////////////////////////////////////////////
 	// COMPARISON OPERATORS //////////////////////////////////////////

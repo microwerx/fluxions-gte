@@ -45,8 +45,8 @@ namespace Fluxions {
 			return *this;
 		}
 
-		// return new std::vector pointing t units along direction from origin.
-		constexpr auto getPointAtParameter(const T t) const noexcept {
+		// return new TVector3 pointing t units along direction from origin.
+		constexpr TVector3<T> getPointAtParameter(const T t) const noexcept {
 			return origin + t * direction;
 		}
 	};

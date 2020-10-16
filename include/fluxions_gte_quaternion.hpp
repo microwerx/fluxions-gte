@@ -209,12 +209,12 @@ namespace Fluxions {
 
 	template <typename T>
 	TQuaternion<T> TQuaternion<T>::makeFromAngles(double yawInDegrees, double pitchInDegrees, double rollInDegrees) noexcept {
-		float cos_phi = cosf(yawInDegrees * 0.5f * FX_F32_DEGREES_TO_RADIANS);
-		float cos_theta = cosf(pitchInDegrees * 0.5f * FX_F32_DEGREES_TO_RADIANS);
-		float cos_psi = cosf(rollInDegrees * 0.5f * FX_F32_DEGREES_TO_RADIANS);
-		float sin_phi = sinf(yawInDegrees * 0.5f * FX_F32_DEGREES_TO_RADIANS);
-		float sin_theta = sinf(pitchInDegrees * 0.5f * FX_F32_DEGREES_TO_RADIANS);
-		float sin_psi = sinf(rollInDegrees * 0.5f * FX_F32_DEGREES_TO_RADIANS);
+		float cos_phi = cosf((float)yawInDegrees * 0.5f * FX_F32_DEGREES_TO_RADIANS);
+		float cos_theta = cosf((float)pitchInDegrees * 0.5f * FX_F32_DEGREES_TO_RADIANS);
+		float cos_psi = cosf((float)rollInDegrees * 0.5f * FX_F32_DEGREES_TO_RADIANS);
+		float sin_phi = sinf((float)yawInDegrees * 0.5f * FX_F32_DEGREES_TO_RADIANS);
+		float sin_theta = sinf((float)pitchInDegrees * 0.5f * FX_F32_DEGREES_TO_RADIANS);
+		float sin_psi = sinf((float)rollInDegrees * 0.5f * FX_F32_DEGREES_TO_RADIANS);
 		return TQuaternion<T>(
 			cos_phi * cos_theta * cos_psi + sin_phi * sin_theta * sin_psi,
 			sin_phi * cos_theta * cos_psi - cos_phi * sin_theta * sin_psi,
