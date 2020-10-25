@@ -18,5 +18,8 @@
     <ClCompile Include="fluxions-gte-tests.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="test_gte_quaternions.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
   </ItemGroup>
 </Project>
