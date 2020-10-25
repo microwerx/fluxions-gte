@@ -14,7 +14,10 @@ namespace Fluxions {
 	template <typename T = QScalar>
 	class TQuaternion : public TCommonContainer<T> {
 	public:
-		T a, b, c, d;
+		T a; // The real value of the quaternion
+		T b; // The i component of the quaternion
+		T c; // The j component of the quaternion
+		T d; // The k component of the quaternion
 
 		using value_type = T;
 		using value_ref = T&;
@@ -32,19 +35,25 @@ namespace Fluxions {
 		constexpr TQuaternion() noexcept
 			: a(0), b(0), c(0), d(0) {}
 
+		constexpr TQuaternion(const T s) noexcept
+			: a(s), b(s), c(s), d(s) {}
+
 		constexpr TQuaternion(const T aVal, const T bVal, const T cVal, const T dVal) noexcept
 			: a(aVal), b(bVal), c(cVal), d(dVal) {}
+
 
 		constexpr TQuaternion(const TQuaternion& q) noexcept
 			: a(q.a), b(q.b), c(q.c), d(q.d) {}
 
-		const TQuaternion<T>& operator=(const TQuaternion<T>& q) noexcept {
+
+		TQuaternion<T>& operator=(TQuaternion<T> const& q) noexcept {
+			a = q.a;
 			b = q.b;
 			c = q.c;
 			d = q.d;
-			a = q.a;
 			return *this;
 		}
+
 
 		static TQuaternion<T> makeQuaternion(T a, T b, T c, T d) noexcept {
 			return { a, b, c, d };
@@ -63,67 +72,114 @@ namespace Fluxions {
 		TMatrix3<T> toMatrix3() const noexcept;
 		TMatrix4<T> toMatrix4() const noexcept;
 
+
+		// Returns the conjugate of the quaternion
 		TQuaternion<T> conjugate() const noexcept {
-			return TQuaternion(-b, -c, -d, a);
+			return { a, -b, -c, -d };
 		}
 
+
+		// Returns the length of the quaternion
 		T length() const noexcept {
-			return sqrt(b * b + c * c + d * d + a * a);
+			return sqrt(a * a + b * b + c * c + d * d);
 		}
 
+
+		// Returns a unit quaternion
 		TQuaternion<T> normalized() const noexcept {
 			T invlength = T(1) / length();
-			return TQuaternion<T>{a* invlength, b* invlength, c* invlength, d* invlength};
+			return TQuaternion<T>{a * invlength, b * invlength, c * invlength, d * invlength};
 		}
 
-		TQuaternion<T> operator-() const noexcept {
-			return TQuaternion<T>{-a, -b, -c, -d};
+
+		// Returns the additive inverse of the quaternion
+		constexpr TQuaternion<T> operator-() const noexcept {
+			return {-a, -b, -c, -d};
 		}
 
-		TQuaternion<T> operator+(const TQuaternion<T>& q) const noexcept {
-			return TQuaternion<T>(a + q.a, b + q.b, c + q.c, d + q.d);
+
+		// Adds the quaternion components to this one
+		constexpr TQuaternion<T>& operator+=(TQuaternion<T> const& q) noexcept {
+			a += q.a;
+			b += q.b;
+			c += q.c;
+			d += q.d;
+			return *this;
 		}
 
-		TQuaternion<T> operator-(const TQuaternion<T>& q) const noexcept {
-			return TQuaternion<T>(a - q.a, b - q.b, c - q.c, d - q.d);
+
+		// Subtracts the quaternion q from this one
+		constexpr TQuaternion<T>& operator-=(TQuaternion<T> const& q) noexcept {
+			a -= q.a;
+			b -= q.b;
+			c -= q.c;
+			d -= q.d;
+			return *this;
 		}
 
-		// Hamiltonian Product
-		TQuaternion<T> operator*(const TQuaternion<T>& q) const noexcept {
-			return TQuaternion<T>(a * q.a - b * q.b - c * q.c - d * q.d,
-								  a * q.b + b * q.a + c * q.d - d * q.c,
-								  a * q.c - b * q.d + c * q.a + d * q.b,
-								  a * q.d + b * q.c - c * q.b + d * q.a
-								  );
+
+		// Returns the Hamiltonian Product q1*q2
+		friend constexpr TQuaternion<T> operator*(const TQuaternion<T>& q1, const TQuaternion<T>& q2) {
+			return {
+				q1.a * q2.a - q1.b * q2.b - q1.c * q2.c - q1.d * q2.d,
+				q1.a * q2.b + q1.b * q2.a + q1.c * q2.d - q1.d * q2.c,
+				q1.a * q2.c - q1.b * q2.d + q1.c * q2.a + q1.d * q2.b,
+				q1.a * q2.d + q1.b * q2.c - q1.c * q2.b + q1.d * q2.a
+			};
 		}
 
-		TQuaternion<T> operator+(T alpha) const noexcept {
-			return TQuaternion(a + alpha, b + alpha, c + alpha, d + alpha);
+		//// Hamiltonian Product
+		//TQuaternion<T> operator*(const TQuaternion<T>& q) const noexcept {
+		//	return {
+		//		a * q.a - b * q.b - c * q.c - d * q.d,
+		//		a * q.b + b * q.a + c * q.d - d * q.c,
+		//		a * q.c - b * q.d + c * q.a + d * q.b,
+		//		a * q.d + b * q.c - c * q.b + d * q.a
+		//	};
+		//}
+
+		/// Return quaternion scaled by s
+		friend constexpr TQuaternion<T> operator*(T s, const TQuaternion<T>& q) noexcept {
+			return { s * q.a, s * q.b, s * q.c, s * q.d };
 		}
 
-		TQuaternion<T> operator-(T alpha) const noexcept {
-			return TQuaternion(a - alpha, b - alpha, c - alpha, d - alpha);
+		/// Return quaternion scaled by s
+		friend constexpr TQuaternion<T> operator*(const TQuaternion<T>& q, T s) noexcept {
+			return { s * q.a, s * q.b, s * q.c, s * q.d };
 		}
 
-		TQuaternion<T> scale(T alpha) const noexcept {
-			return TQuaternion(a * alpha, b * alpha, c * alpha, d * alpha);
+		/// Returns the quaternion a + b
+		friend constexpr TQuaternion<T> operator+(const TQuaternion<T>& a, const TQuaternion<T>& b) noexcept {
+			auto tmp(a);
+			return tmp += b;
 		}
 
-		TQuaternion<T> operator*(T alpha) const noexcept {
-			return TQuaternion(a * alpha, b * alpha, c * alpha, d * alpha);
+
+		/// Returns the quaternion a - b
+		friend constexpr TQuaternion<T> operator-(const TQuaternion<T>& a, const TQuaternion<T>& b) noexcept {
+			auto tmp(a);
+			return tmp -= b;
 		}
 
-		T dot(const TQuaternion& q) const noexcept {
-			return (a * q.a + b * q.b + c * q.c + d * q.d);
+		/// Returns the quaternion scaled by s
+		constexpr TQuaternion<T> scale(const T s) const noexcept {
+			return TQuaternion(a * s, b * s, c * s, d * s);
 		}
 
-		TQuaternion<T> cross(const TQuaternion<T>& q) const noexcept {
-			return TQuaternion(
-				0,
-				c * q.d - d * q.c,
-				d * q.b - b * q.d,
-				b * q.c - c * q.b);
-		}
+		//constexpr T dot(const TQuaternion& q) const noexcept {
+		//	return (a * q.a + b * q.b + c * q.c + d * q.d);
+		//}
+
+
+		///// Returns the cross product of the imaginary parts of q
+		//constexpr TQuaternion<T> cross(const TQuaternion<T>& q) const noexcept {
+		//	return {
+		//		T(0),
+		//		c * q.d - d * q.c,
+		//		d * q.b - b * q.d,
+		//		b * q.c - c * q.b
+		//	};
+		//}
 
 		TQuaternion<T> exp() const noexcept {
 			// exp(a) (cos ||v|| + v/||v|| sin ||v||)
@@ -278,10 +334,6 @@ namespace Fluxions {
 		return TQuaternion<T>(w, x, y, z).normalized();
 	}
 
-	template <typename T>
-	TQuaternion<T> operator*(T a, TQuaternion<T>& q) {
-		return TQuaternion<T>{a* q.a, a* q.b, a* q.c, a* q.d};
-	}
 
 	template <typename T>
 	void TQuaternion<T>::toAngleAxis(double& angleInDegrees, double& x, double& y, double& z) const noexcept {
@@ -299,6 +351,7 @@ namespace Fluxions {
 		}
 	}
 
+
 	template <typename T>
 	TMatrix3<T> TQuaternion<T>::toMatrix3() const noexcept {
 		return TMatrix3<T>(m11(), m12(), m13(),
@@ -315,12 +368,52 @@ namespace Fluxions {
 						   0, 0, 0, 1);
 	}
 
+
+	//////////////////////////////////////////////////////////////////
+	// Quaternion Binary Operators ///////////////////////////////////
+	//////////////////////////////////////////////////////////////////
+
+
+	/// Returns whether two Quaternions are numerically equal
+	template <typename T>
+	constexpr bool operator==(const TQuaternion<T> a, const TQuaternion<T> b) noexcept {
+		return (a.a == b.a && a.b == b.b && a.c == b.c && a.d == b.d);
+	}
+
+
+	/// Return whether two Quaternions are not numerically equal
+	template <typename T>
+	constexpr bool operator!=(const TQuaternion<T> a, const TQuaternion<T> b) noexcept {
+		return !(a == b);
+	}
+
+
+	/// Returns the dot product of q1 and q2
+	template <typename T>
+	constexpr T qdot(const TQuaternion<T>& q1, const TQuaternion<T>& q2) noexcept {
+		return (q1.a * q2.a + q1.b * q2.b + q1.c * q2.c + q1.d * q2.d);
+	}
+
+
+	/// Returns the cross product of the imaginary parts of q1 and q2
+	template <typename T>
+	constexpr TQuaternion<T> qcross(const TQuaternion<T>& q1, const TQuaternion<T>& q2) noexcept {
+		return {
+			T(0),
+			q1.c * q2.d - q1.d * q2.c,
+			q1.d * q2.b - q1.b * q2.d,
+			q1.b * q2.c - q1.c * q2.b
+		};
+	}
+
+
+	/// Returns the spherical linear interpolation of two quaternions
 	template <typename T>
 	TQuaternion<T> slerp(const TQuaternion<T>& a, const TQuaternion<T>& b, T t) noexcept {
 		// Code adapted from Wikipedia article / Ken Shoemake article
 		TQuaternion<T> q1 = a.normalized();
 		TQuaternion<T> q2 = b.normalized();
-		T dot = a.dot(b);
+		T dot = qdot(a, b);
 
 		if (dot < 0) {
 			q2 = -q2;
@@ -358,7 +451,7 @@ namespace Fluxions {
 	template <typename T>
 	TQuaternion<T> QDouble(const TQuaternion<T> p,
 						   const TQuaternion<T> q) {
-		return q.scale(2 * p.dot(q)) - p;
+		return q.scale(2 * qdot(p, q)) - p;
 	}
 
 	template <typename T>
