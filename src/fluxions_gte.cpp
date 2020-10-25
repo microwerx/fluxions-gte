@@ -32,6 +32,6 @@ namespace Fluxions
 		TestVector3();
 		TestColorType();
 		TestImage();
-		TestGteTransformations();
+		//TestGteTransformations();
 	}
 }
