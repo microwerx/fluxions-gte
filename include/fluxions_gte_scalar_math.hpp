@@ -182,12 +182,14 @@ namespace Fluxions {
 		return out;
 	}
 
+
 	template<typename T>
 	constexpr T incr_wrap(T& x, T b) noexcept {
 		if (x >= b) x = 0;
 		else x++;
 		return x;
 	}
+
 
 	template <typename T>
 	constexpr T decr_wrap(T& x, T b) noexcept {
@@ -196,20 +198,24 @@ namespace Fluxions {
 		return x;
 	}
 
+
 	template <typename T>
 	constexpr T saturate(T x, T maxvalue) noexcept {
 		return (x > maxvalue) ? maxvalue : x;
 	}
+
 
 	template <typename T>
 	constexpr T saturate(T x) noexcept {
 		return (x > T(1)) ? T(1) : x;
 	}
 
+
 	template <typename T, typename U>
 	constexpr U lerp(T t, U a, U b) noexcept {
 		return (T(1) - t) * a + t * b;
 	}
+
 
 	template <typename T>
 	constexpr T smoothstep(T x) noexcept {
@@ -218,11 +224,13 @@ namespace Fluxions {
 		return x * x * (T(3) - T(2) * x);
 	}
 
+
 	template <typename T>
 	constexpr T smootherstep(T x) noexcept {
 		x = clamp(x, T(0), T(1));
 		return x * x * x * (x * (x * T(6) - T(15)) + T(10));
 	}
+
 
 	template <typename T>
 	constexpr T smoothstep(T x, T a, T b) noexcept {
@@ -230,11 +238,13 @@ namespace Fluxions {
 		return x * x * (T(3) - T(2) * x);
 	}
 
+
 	template <typename T>
 	constexpr T smootherstep(T x, T a, T b) noexcept {
 		x = clamp<T>((x - a) / (b - a), T(0), T(1));
 		return x * x * x * (x * (x * T(6) - T(15)) + T(10));
 	}
+
 
 	template <typename T>
 	constexpr T smoothlerp(T t, T a, T b) noexcept {
@@ -242,21 +252,25 @@ namespace Fluxions {
 		return (T(1) - t) * a + t * b;
 	}
 
+
 	template <typename T>
 	constexpr T smootherlerp(T t, T a, T b) noexcept {
 		t = smootherstep(t);
 		return (T(1) - t) * a + t * b;
 	}
 
+
 	template <typename T>
 	constexpr T shininessToAlpha(T shininess) noexcept {
 		return (T)sqrtf(2.0f / ((float)shininess + 2.0f));
 	}
 
+
 	template <typename T>
 	constexpr T alphaToShininess(T alpha) noexcept {
 		return (T)(2.0f / powf(fmaxf(alpha, 0.005524f), 2.0f) - 2.0f);
 	}
+
 
 	template <typename _Ty1, typename _Ty2>
 	constexpr _Ty2 remap_value_min_max(_Ty1 x, const _Ty2 minValue, const _Ty2 maxValue) noexcept {
@@ -264,6 +278,7 @@ namespace Fluxions {
 			return 0;
 		return (_Ty2(x) - minValue) / (maxValue - minValue);
 	}
+
 
 	template <typename _Ty1, typename _Ty2>
 	constexpr _Ty2 remap_value_min_max(_Ty1 x, const _Ty1 min1, const _Ty1 max1, const _Ty2 min2, const _Ty2 max2) noexcept {
@@ -273,6 +288,7 @@ namespace Fluxions {
 		return (_Ty2)(((x - min1) / (max1 - min1)) * (max2 - min2) + min2);
 	}
 
+
 	template <typename IntType, typename FloatType>
 	FloatType int_to_float0to1(IntType x, const FloatType minValue, const FloatType maxValue) noexcept {
 		if (maxValue == minValue)
@@ -281,10 +297,12 @@ namespace Fluxions {
 		return (FloatType(x) - minValue) / (maxValue - minValue);
 	}
 
+
 	template <typename IntType, typename FloatType>
 	constexpr IntType float0to1_to_int(FloatType x, const IntType min, const IntType max) noexcept {
 		return clamp<IntType>(static_cast<IntType>((max - min) * x) + min, min, max);
 	}
+
 
 	// (a * b) + c
 	template <typename T>
@@ -292,9 +310,11 @@ namespace Fluxions {
 		return a * b + c;
 	}
 
+
 	float randomSampler(float _min0, float _max0);
 
-	inline void MakeFaceSTFromCubeVector(float x, float y, float z, float* s, float* t, unsigned* whichFace) noexcept {
+
+	static inline void MakeFaceSTFromCubeVector(float x, float y, float z, float* s, float* t, unsigned* whichFace) noexcept {
 		// ma is absolute value
 		float absX = fabsf(x);
 		float absY = fabsf(y);
@@ -372,6 +392,7 @@ namespace Fluxions {
 		*s = 0.5f * (sc / maxAxis + 1.0f);
 		*t = 0.5f * (tc / maxAxis + 1.0f);
 	}
+
 
 	constexpr void MakeCubeVectorFromFaceST(unsigned face, float s, float t, float* x, float* y, float* z) noexcept {
 		// 0 GL_TEXTURE_CUBE_MAP_POSITIVE_X
@@ -455,15 +476,18 @@ namespace Fluxions {
 	//	return X;
 	//}
 
+
 	template <typename T>
 	constexpr T min2(T x1, T x2) noexcept {
 		return x1 < x2 ? x1 : x2;
 	}
 
+
 	template <typename T>
 	constexpr T max2(T x1, T x2) noexcept {
 		return x1 > x2 ? x1 : x2;
 	}
+
 
 	template <typename T>
 	constexpr T min3(T x1, T x2, T x3) noexcept {
@@ -479,20 +503,24 @@ namespace Fluxions {
 			return x3;
 	}
 
+
 	template <typename T>
 	constexpr T max3(T x1, T x2, T x3) noexcept {
 		return (x1 > x2) ? (x1 > x3) ? x1 : x3 : (x2 > x3) ? x2 : x3;
 	}
+
 
 	template <typename T>
 	constexpr T maxof(T x) noexcept {
 		return x;
 	}
 
+
 	template <typename T>
 	constexpr T sqr(T x) noexcept {
 		return x * x;
 	}
+
 
 	template <typename T>
 	constexpr T sgn(T x) noexcept {
@@ -504,6 +532,7 @@ namespace Fluxions {
 			return 0;
 	}
 
+
 	template <typename T>
 	constexpr T abs(T x) noexcept {
 		if (x < 0)
@@ -511,17 +540,19 @@ namespace Fluxions {
 		return x;
 	}
 
+
 	// SUPERQUADRIC GENERATOR FUNCTIONS
 	/* sqS (ptr, n)
 	* This function implements the s(ptr,n) utility function
 	*
 	* s(ptr,n) = sgn(sin(ptr)) * |sin(ptr)|^n
 	*/
-	inline double sqS(double v, double n) noexcept {
+	static inline double sqS(double v, double n) noexcept {
 		return sgn(sin(v)) * pow(abs(sin(v)), n);
 	}
 
-	inline float sqSf(float v, float n) noexcept {
+
+	static inline float sqSf(float v, float n) noexcept {
 		return sgn(sinf(v)) * powf(fabsf(sinf(v)), n);
 	}
 
@@ -530,11 +561,12 @@ namespace Fluxions {
 	*
 	* c(ptr,n) = sgn(cos(ptr)) * |cos(ptr)|^n
 	*/
-	inline double sqC(double v, double n) noexcept {
+	static inline double sqC(double v, double n) noexcept {
 		return sgn(cos(v)) * pow(abs(cos(v)), n);
 	}
 
-	inline float sqCf(float v, float n) noexcept {
+
+	static inline float sqCf(float v, float n) noexcept {
 		return sgn(cosf(v)) * powf(fabsf(cosf(v)), n);
 	}
 
@@ -543,15 +575,17 @@ namespace Fluxions {
 	*
 	* CT(ptr,n,alpha) = alpha + c(ptr,n)
 	*/
-	inline double sqCT(double v, double n, double alpha) noexcept {
+	static inline double sqCT(double v, double n, double alpha) noexcept {
 		return alpha + sqC(v, n);
 	}
 
-	inline float sqCTf(float v, float n, float alpha) noexcept {
+
+	static inline float sqCTf(float v, float n, float alpha) noexcept {
 		return alpha + sqCf(v, n);
 	}
 
-	inline void sqEllipsoid(float a1, float a2, float a3, float u, float v, float n, float e,
+
+	static inline void sqEllipsoid(float a1, float a2, float a3, float u, float v, float n, float e,
 							float* x, float* y, float* z, float* nx, float* ny, float* nz) {
 		*x = a1 * sqCf(u, n) * sqCf(v, e);
 		*y = a2 * sqCf(u, n) * sqSf(v, e);
@@ -561,15 +595,18 @@ namespace Fluxions {
 		*nz = sqSf(u, 2.0f - n);
 	}
 
+
 	template <typename T>
 	constexpr T Radians(T angleInDegrees) noexcept {
 		return (T)(angleInDegrees * FX_DEGREES_TO_RADIANS);
 	}
 
+
 	template <typename T>
 	constexpr T Degrees(T angleInRadians) noexcept {
 		return (T)(angleInRadians * FX_RADIANS_TO_DEGREES);
 	}
+
 
 	template <class T>
 	constexpr T SRGBToLinear(T x) noexcept {
@@ -579,6 +616,7 @@ namespace Fluxions {
 		T bottomFactor = T(12.92);
 		return x <= bottom ? T(x / bottomFactor) : T(std::pow((x + a) / (T(1) + a), e));
 	}
+
 
 	template <class T>
 	constexpr T LinearToSRGB(T x) noexcept {
@@ -598,6 +636,13 @@ namespace Fluxions {
 	constexpr f64_t LinearToSRGBd(f64_t x) noexcept { return LinearToSRGB<f64_t>(x); }
 	constexpr f32_t SRGBToLinearf(f32_t x) noexcept { return SRGBToLinear<f32_t>(x); }
 	constexpr f64_t SRGBToLineard(f64_t x) noexcept { return SRGBToLinear<f64_t>(x); }
+
+	template <typename T>
+	static inline T flterrzero(T x) {
+		if (std::isfinite(x))
+			return x;
+		return 0;
+	}
 } //namespace Fluxions
 
 #endif
