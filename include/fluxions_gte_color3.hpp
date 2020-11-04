@@ -356,7 +356,7 @@ namespace Fluxions {
 		}
 
 		constexpr double Hue() const {
-			return acos(sqrt(0.5 * ((r - g) + (r - b)) / ((r - g) * (r - g) + (r - b) * (g - b))));
+			return acos(sqrt(0.5 * double((r - g) + (r - b)) / double((r - g) * (r - g) + (r - b) * (g - b))));
 		}
 
 		constexpr T minrgb() const noexcept {

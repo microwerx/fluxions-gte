@@ -165,16 +165,16 @@ namespace Fluxions {
 
 		// Same as setPixel(X, y, color) but without image bounds checking: unsafe!
 		constexpr void setPixelUnsafe(unsigned x, unsigned y, unsigned z, const ColorType& color) {
-			pixels[z * zstride + y * imageWidth + x] = color;
+			pixels[(long long)z * zstride + y * imageWidth + x] = color;
 		}
 
 		// Same as getPixel(X, y) but without image bounds checking: unsafe!
 		constexpr ColorType getPixelUnsafe(unsigned x, unsigned y, unsigned z) const {
-			return pixels[z * zstride + y * imageWidth + x];
+			return pixels[(long long)z * zstride + y * imageWidth + x];
 		}
 
 		constexpr const void* getImageData(unsigned z) const {
-			return &pixels[z * zstride];
+			return &pixels[(long long)z * zstride];
 		}
 
 		scalar_type maxrgb() const {
