@@ -17,6 +17,7 @@
     <ClInclude Include="include\fluxions_gte_catmull_rom.hpp" />
     <ClInclude Include="include\fluxions_gte_color3.hpp" />
     <ClInclude Include="include\fluxions_gte_color4.hpp" />
+    <ClInclude Include="include\fluxions_gte_colors.hpp" />
     <ClInclude Include="include\fluxions_gte_color_math.hpp" />
     <ClInclude Include="include\fluxions_gte_common_vector.hpp" />
     <ClInclude Include="include\fluxions_gte_extra.hpp" />

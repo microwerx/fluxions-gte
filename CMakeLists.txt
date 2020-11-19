@@ -42,6 +42,6 @@ add_library(${PROJECT_NAME}
     )
 
 if(${CMAKE_VERSION} VERSION_GREATER "3.16.0")
-    message("Using precompiled headers")
+    message("Fluxions GTE using precompiled headers")
     target_precompile_headers(${PROJECT_NAME} PRIVATE src/fluxions_gte_pch.cpp)
 endif()
