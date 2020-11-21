@@ -1,7 +1,6 @@
-#include "fluxions_gte_pch.hpp"
 #define FLUXIONS_NO_EXTERN_TEMPLATES
+#include "fluxions_gte_pch.hpp"
 #include <fluxions_gte_spherical_harmonic.hpp>
-//#include <kasl_json.hpp>
 
 namespace Fluxions {
 	template class TSphericalHarmonic<float, float>;
@@ -29,7 +28,7 @@ namespace Fluxions {
 			return pmmp1;
 		double pll = 0.0;
 		for (int ll = m + 2; ll <= l; ++ll) {
-			pll = ((2.0 * ll - 1.0) * x * pmmp1 - (ll + m - 1.0) * pmm) / (ll - m);
+			pll = ((2.0 * ll - 1.0) * x * pmmp1 - ((double)ll + m - 1.0) * pmm) / ((double)ll - m);
 			pmm = pmmp1;
 			pmmp1 = pll;
 		}
@@ -728,8 +727,8 @@ namespace Fluxions {
 			return (T)accum;
 		}
 
-		T t1 = cos(T2 * phi);
-		T t2 = sin(theta);
+		T t1 = (T)cos(T2 * phi);
+		T t2 = (T)sin(theta);
 		return T3 * t1 * a[3] * t2 - T4 * t1 * a[1] * t2 + T5 * a[2] * cos(theta);
 	}
 
@@ -746,12 +745,12 @@ namespace Fluxions {
 			return (T)accum;
 		}
 
-		T t1 = cos(theta);
+		T t1 = (T)cos(theta);
 		T t2 = T6 - T7 * t1;
-		T t3 = cos(T8 * phi);
-		T t4 = sin(theta);
-		T t5 = cos(T9 * phi);
-		T t6 = pow(t4, 2);
+		T t3 = (T)cos(T8 * phi);
+		T t4 = (T)sin(theta);
+		T t5 = (T)cos(T9 * phi);
+		T t6 = (T)pow(t4, 2);
 		return T10 * t5 * a[8] * t6 + T11 * t5 * a[4] * t6 + T12 * t3 * a[7] * t1 * t4 - T13 * t3 * a[5] * t1 * t4 + T14 * a[6] * (T15 * t2 + T16 * t2 * t2 + T17);
 	}
 
@@ -768,19 +767,19 @@ namespace Fluxions {
 			return (T)accum;
 		}
 
-		T t1 = cos(theta);
+		T t1 = (T)cos(theta);
 		T t2 = T18 - T19 * t1;
-		T t3 = pow(t2, 2);
-		T t4 = cos(T20 * phi);
+		T t3 = (T)pow(t2, 2);
+		T t4 = (T)cos(T20 * phi);
 		T t5 = T21 * t2 + T22 * t3 + T23;
-		T t6 = sin(theta);
-		T t7 = cos(T24 * phi);
-		T t8 = pow(t6, 2);
-		T t9 = cos(T25 * phi);
-		T t10 = pow(t6, 3);
-		return T26 * t9 * a[9] * t10 + T27 * t9 * a[15] * t10 + T28 * t7 * a[14] * t1 * t8 + T29 * t7 * a[10] * t1 * t8 +
+		T t6 = (T)sin(theta);
+		T t7 = (T)cos(T24 * phi);
+		T t8 = (T)pow(t6, 2);
+		T t9 = (T)cos(T25 * phi);
+		T t10 = (T)pow(t6, 3);
+		return (T)T26 * t9 * a[9] * t10 + T27 * t9 * a[15] * t10 + T28 * t7 * a[14] * t1 * t8 + T29 * t7 * a[10] * t1 * t8 +
 			T30 * t4 * a[13] * t5 * t6 - T31 * t4 * a[11] * t5 * t6 +
-			T32 * a[12] * (T33 * t2 - T34 * pow(t2, 3) + T35 * t3 + T36);
+			T32 * a[12] * (T33 * t2 - T34 * pow(t2, (T)3) + T35 * t3 + T36);
 	}
 
 	template <typename T>
@@ -796,24 +795,24 @@ namespace Fluxions {
 			return (T)accum;
 		}
 
-		T t1 = cos(theta);
+		T t1 = (T)cos(theta);
 		T t2 = T37 - T38 * t1;
-		T t3 = pow(t2, 2);
-		T t4 = pow(t2, 3);
-		T t5 = cos(T39 * phi);
+		T t3 = (T)pow(t2, 2);
+		T t4 = (T)pow(t2, 3);
+		T t5 = (T)cos(T39 * phi);
 		T t6 = T40 * t2 - T41 * t4 + T42 * t3 + T43;
-		T t7 = sin(theta);
-		T t8 = cos(T44 * phi);
+		T t7 = (T)sin(theta);
+		T t8 = (T)cos(T44 * phi);
 		T t9 = T45 * t2 + T46 * t3 + T47;
-		T t10 = pow(t7, 2);
-		T t11 = cos(T48 * phi);
-		T t12 = pow(t7, 3);
-		T t13 = cos(T49 * phi);
-		T t14 = pow(t7, 4);
-		return T50 * t13 * a[24] * t14 + T51 * t13 * a[16] * t14 + T52 * t11 * a[23] * t1 * t12 -
+		T t10 = (T)pow(t7, 2);
+		T t11 = (T)cos(T48 * phi);
+		T t12 = (T)pow(t7, 3);
+		T t13 = (T)cos(T49 * phi);
+		T t14 = (T)pow(t7, 4);
+		return (T)T50 * t13 * a[24] * t14 + T51 * t13 * a[16] * t14 + T52 * t11 * a[23] * t1 * t12 -
 			T53 * t11 * a[17] * t1 * t12 + T54 * t8 * a[22] * t9 * t10 + T55 * t8 * a[18] * t9 * t10 +
 			T56 * t5 * a[21] * t6 * t7 - T57 * t5 * a[19] * t6 * t7 +
-			T58 * a[20] * (T59 * t2 + T60 * pow(t2, 4) - T61 * t4 + T62 * t3 + T63);
+			T58 * a[20] * (T59 * t2 + T60 * pow(t2, (T)4) - T61 * t4 + T62 * t3 + T63);
 	}
 
 	template <typename T>
@@ -829,29 +828,29 @@ namespace Fluxions {
 			return (T)accum;
 		}
 
-		T t1 = cos(theta);
+		T t1 = (T)cos(theta);
 		T t2 = T64 - T65 * t1;
-		T t3 = pow(t2, 2);
-		T t4 = pow(t2, 3);
-		T t5 = pow(t2, 4);
-		T t6 = cos(T66 * phi);
+		T t3 = (T)pow(t2, 2);
+		T t4 = (T)pow(t2, 3);
+		T t5 = (T)pow(t2, 4);
+		T t6 = (T)cos(T66 * phi);
 		T t7 = T67 * t2 + T68 * t5 - T69 * t4 + T70 * t3 + T71;
-		T t8 = sin(theta);
-		T t9 = cos(T72 * phi);
+		T t8 = (T)sin(theta);
+		T t9 = (T)cos(T72 * phi);
 		T t10 = T73 * t2 - T74 * t4 + T75 * t3 + T76;
-		T t11 = pow(t8, 2);
-		T t12 = cos(T77 * phi);
+		T t11 = (T)pow(t8, 2);
+		T t12 = (T)cos(T77 * phi);
 		T t13 = T78 * t2 + T79 * t3 + T80;
-		T t14 = pow(t8, 3);
-		T t15 = cos(T81 * phi);
-		T t16 = pow(t8, 4);
-		T t17 = cos(T82 * phi);
-		T t18 = pow(t8, 5);
-		return T83 * t17 * a[35] * t18 - T84 * t17 * a[25] * t18 + T85 * t15 * a[34] * t1 * t16 +
+		T t14 = (T)pow(t8, 3);
+		T t15 = (T)cos(T81 * phi);
+		T t16 = (T)pow(t8, 4);
+		T t17 = (T)cos(T82 * phi);
+		T t18 = (T)pow(t8, 5);
+		return (T)T83 * t17 * a[35] * t18 - T84 * t17 * a[25] * t18 + T85 * t15 * a[34] * t1 * t16 +
 			T86 * t15 * a[26] * t1 * t16 + T87 * t12 * a[33] * t13 * t14 - T88 * t12 * a[27] * t13 * t14 +
 			T89 * t9 * a[32] * t10 * t11 + T90 * t9 * a[28] * t10 * t11 + T91 * t6 * a[31] * t7 * t8 -
 			T92 * t6 * a[29] * t7 * t8 +
-			T93 * a[30] * (T94 * t2 - T95 * pow(t2, 5) + T96 * t5 - T97 * t4 + T98 * t3 + T99);
+			T93 * a[30] * (T94 * t2 - T95 * pow(t2, (T)5) + T96 * t5 - T97 * t4 + T98 * t3 + T99);
 	}
 
 	template <typename T>
@@ -867,33 +866,33 @@ namespace Fluxions {
 			return (T)accum;
 		}
 
-		T t1 = cos(theta);
+		T t1 = (T)cos(theta);
 		T t2 = T100 - T101 * t1;
-		T t3 = pow(t2, 2);
-		T t4 = pow(t2, 3);
-		T t5 = pow(t2, 4);
-		T t6 = pow(t2, 5);
-		T t7 = cos(T102 * phi);
+		T t3 = (T)pow(t2, 2);
+		T t4 = (T)pow(t2, 3);
+		T t5 = (T)pow(t2, 4);
+		T t6 = (T)pow(t2, 5);
+		T t7 = (T)cos(T102 * phi);
 		T t8 = T103 * t2 - T104 * t6 + T105 * t5 - T106 * t4 + T107 * t3 + T108;
-		T t9 = sin(theta);
-		T t10 = cos(T109 * phi);
+		T t9 = (T)sin(theta);
+		T t10 = (T)cos(T109 * phi);
 		T t11 = T110 * t2 + T111 * t5 - T112 * t4 + T113 * t3 + T114;
-		T t12 = pow(t9, 2);
-		T t13 = cos(T115 * phi);
+		T t12 = (T)pow(t9, 2);
+		T t13 = (T)cos(T115 * phi);
 		T t14 = T116 * t2 - T117 * t4 + T118 * t3 + T119;
-		T t15 = pow(t9, 3);
-		T t16 = cos(T120 * phi);
+		T t15 = (T)pow(t9, 3);
+		T t16 = (T)cos(T120 * phi);
 		T t17 = T121 * t2 + T122 * t3 + T123;
-		T t18 = pow(t9, 4);
-		T t19 = cos(T124 * phi);
-		T t20 = pow(t9, 5);
-		T t21 = cos(T125 * phi);
-		T t22 = pow(t9, 6);
-		return T126 * t21 * a[48] * t22 + T127 * t21 * a[36] * t22 + T128 * t19 * a[47] * t1 * t20 -
+		T t18 = (T)pow(t9, 4);
+		T t19 = (T)cos(T124 * phi);
+		T t20 = (T)pow(t9, 5);
+		T t21 = (T)cos(T125 * phi);
+		T t22 = (T)pow(t9, 6);
+		return (T)T126 * t21 * a[48] * t22 + T127 * t21 * a[36] * t22 + T128 * t19 * a[47] * t1 * t20 -
 			T129 * t19 * a[37] * t1 * t20 + T130 * t16 * a[46] * t17 * t18 + T131 * t16 * a[38] * t17 * t18 +
 			T132 * t13 * a[45] * t14 * t15 - T133 * t13 * a[39] * t14 * t15 + T134 * t10 * a[44] * t11 * t12 +
 			T135 * t10 * a[40] * t11 * t12 + T136 * t7 * a[43] * t8 * t9 - T137 * t7 * a[41] * t8 * t9 +
-			T138 * a[42] * (T139 * t2 + T140 * pow(t2, 6) - T141 * t6 + T142 * t5 - T143 * t4 + T144 * t3 + T145);
+			T138 * a[42] * (T139 * t2 + T140 * pow(t2, (T)6) - T141 * t6 + T142 * t5 - T143 * t4 + T144 * t3 + T145);
 	}
 
 	template <typename T>
@@ -909,37 +908,38 @@ namespace Fluxions {
 			return (T)accum;
 		}
 
-		T t1 = cos(theta);
+		T t1 = (T)cos(theta);
 		T t2 = T146 - T147 * t1;
-		T t3 = pow(t2, 2);
-		T t4 = pow(t2, 3);
-		T t5 = pow(t2, 4);
-		T t6 = pow(t2, 5);
-		T t7 = pow(t2, 6);
-		T t8 = cos(T148 * phi);
+		T t3 = (T)pow(t2, 2);
+		T t4 = (T)pow(t2, 3);
+		T t5 = (T)pow(t2, 4);
+		T t6 = (T)pow(t2, 5);
+		T t7 = (T)pow(t2, 6);
+		T t8 = (T)cos(T148 * phi);
 		T t9 = T149 * t2 + T150 * t7 - T151 * t6 + T152 * t5 - T153 * t4 + T154 * t3 + T155;
-		T t10 = sin(theta);
-		T t11 = cos(T156 * phi);
+		T t10 = (T)sin(theta);
+		T t11 = (T)cos(T156 * phi);
 		T t12 = T157 * t2 - T158 * t6 + T159 * t5 - T160 * t4 + T161 * t3 + T162;
-		T t13 = pow(t10, 2);
-		T t14 = cos(T163 * phi);
+		T t13 = (T)pow(t10, 2);
+		T t14 = (T)cos(T163 * phi);
 		T t15 = T164 * t2 + T165 * t5 - T166 * t4 + T167 * t3 + T168;
-		T t16 = pow(t10, 3);
-		T t17 = cos(T169 * phi);
+		T t16 = (T)pow(t10, 3);
+		T t17 = (T)cos(T169 * phi);
 		T t18 = T170 * t2 - T171 * t4 + T172 * t3 + T173;
-		T t19 = pow(t10, 4);
-		T t20 = cos(T174 * phi);
+		T t19 = (T)pow(t10, 4);
+		T t20 = (T)cos(T174 * phi);
 		T t21 = T175 * t2 + T176 * t3 + T177;
-		T t22 = pow(t10, 5);
-		T t23 = cos(T178 * phi);
-		T t24 = pow(t10, 6);
-		T t25 = cos(T179 * phi);
-		T t26 = pow(t10, 7);
-		return T180 * t25 * a[63] * t26 - T181 * t25 * a[49] * t26 + T182 * t23 * a[62] * t1 * t24 +
+		T t22 = (T)pow(t10, 5);
+		T t23 = (T)cos(T178 * phi);
+		T t24 = (T)pow(t10, 6);
+		T t25 = (T)cos(T179 * phi);
+		T t26 = (T)pow(t10, 7);
+		return (T)T180 * t25 * a[63] * t26 - T181 * t25 * a[49] * t26 + T182 * t23 * a[62] * t1 * t24 +
 			T183 * t23 * a[50] * t1 * t24 + T184 * t20 * a[61] * t21 * t22 - T185 * t20 * a[51] * t21 * t22 +
 			T186 * t17 * a[60] * t18 * t19 + T187 * t17 * a[52] * t18 * t19 + T188 * t14 * a[59] * t15 * t16 -
 			T189 * t14 * a[53] * t15 * t16 + T190 * t11 * a[58] * t12 * t13 + T191 * t11 * a[54] * t12 * t13 +
-			T192 * t8 * a[57] * t9 * t10 - T193 * t8 * a[55] * t9 * t10 + T194 * a[56] * (T195 * t2 - T196 * pow(t2, 7) + T197 * t7 - T198 * t6 + T199 * t5 - T200 * t4 + T201 * t3 + T202);
+			T192 * t8 * a[57] * t9 * t10 - T193 * t8 * a[55] * t9 * t10 +
+			T194 * a[56] * (T195 * t2 - T196 * pow(t2, (T)7) + T197 * t7 - T198 * t6 + T199 * t5 - T200 * t4 + T201 * t3 + T202);
 	}
 
 	template <typename T>
@@ -955,40 +955,41 @@ namespace Fluxions {
 			return (T)accum;
 		}
 
-		T t1 = cos(theta);
+		T t1 = (T)cos(theta);
 		T t2 = T203 - T204 * t1;
-		T t3 = pow(t2, 2);
-		T t4 = pow(t2, 3);
-		T t5 = pow(t2, 4);
-		T t6 = pow(t2, 5);
-		T t7 = pow(t2, 6);
-		T t8 = pow(t2, 7);
-		T t9 = cos(T205 * phi);
+		T t3 = (T)pow(t2, 2);
+		T t4 = (T)pow(t2, 3);
+		T t5 = (T)pow(t2, 4);
+		T t6 = (T)pow(t2, 5);
+		T t7 = (T)pow(t2, 6);
+		T t8 = (T)pow(t2, 7);
+		T t9 = (T)cos(T205 * phi);
 		T t10 = T206 * t2 - T207 * t8 + T208 * t7 - T209 * t6 + T210 * t5 - T211 * t4 + T212 * t3 + T213;
-		T t11 = sin(theta);
-		T t12 = cos(T214 * phi);
+		T t11 = (T)sin(theta);
+		T t12 = (T)cos(T214 * phi);
 		T t13 = T215 * t2 + T216 * t7 - T217 * t6 + T218 * t5 - T219 * t4 + T220 * t3 + T221;
-		T t14 = pow(t11, 2);
-		T t15 = cos(T222 * phi);
+		T t14 = (T)pow(t11, 2);
+		T t15 = (T)cos(T222 * phi);
 		T t16 = T223 * t2 - T224 * t6 + T225 * t5 - T226 * t4 + T227 * t3 + T228;
-		T t17 = pow(t11, 3);
-		T t18 = cos(T229 * phi);
+		T t17 = (T)pow(t11, 3);
+		T t18 = (T)cos(T229 * phi);
 		T t19 = T230 * t2 + T231 * t5 - T232 * t4 + T233 * t3 + T234;
-		T t20 = pow(t11, 4);
-		T t21 = cos(T235 * phi);
+		T t20 = (T)pow(t11, 4);
+		T t21 = (T)cos(T235 * phi);
 		T t22 = T236 * t2 - T237 * t4 + T238 * t3 + T239;
-		T t23 = pow(t11, 5);
-		T t24 = cos(T240 * phi);
+		T t23 = (T)pow(t11, 5);
+		T t24 = (T)cos(T240 * phi);
 		T t25 = T241 * t2 + T242 * t3 + T243;
-		T t26 = pow(t11, 6);
-		T t27 = cos(T244 * phi);
-		T t28 = pow(t11, 7);
-		T t29 = cos(T245 * phi);
-		T t30 = pow(t11, 8);
-		return T246 * t29 * a[80] * t30 + T247 * t29 * a[64] * t30 + T248 * t27 * a[79] * t1 * t28 - T249 * t27 * a[65] * t1 * t28 + T250 * t24 * a[78] * t25 * t26 + T251 * t24 * a[66] * t25 * t26 + T252 * t21 * a[77] * t22 * t23 -
+		T t26 = (T)pow(t11, 6);
+		T t27 = (T)cos(T244 * phi);
+		T t28 = (T)pow(t11, 7);
+		T t29 = (T)cos(T245 * phi);
+		T t30 = (T)pow(t11, 8);
+		return (T)T246 * t29 * a[80] * t30 + T247 * t29 * a[64] * t30 + T248 * t27 * a[79] * t1 * t28 - T249 * t27 * a[65] * t1 * t28 + T250 * t24 * a[78] * t25 * t26 + T251 * t24 * a[66] * t25 * t26 + T252 * t21 * a[77] * t22 * t23 -
 			T253 * t21 * a[67] * t22 * t23 + T254 * t18 * a[76] * t19 * t20 + T255 * t18 * a[68] * t19 * t20 +
 			T256 * t15 * a[75] * t16 * t17 - T257 * t15 * a[69] * t16 * t17 + T258 * t12 * a[74] * t13 * t14 +
-			T259 * t12 * a[70] * t13 * t14 + T260 * t9 * a[73] * t10 * t11 - T261 * t9 * a[71] * t10 * t11 + T262 * a[72] * (T263 * t2 + T264 * pow(t2, 8) - T265 * t8 + T266 * t7 - T267 * t6 + T268 * t5 - T269 * t4 + T270 * t3 + T271);
+			T259 * t12 * a[70] * t13 * t14 + T260 * t9 * a[73] * t10 * t11 - T261 * t9 * a[71] * t10 * t11 +
+			T262 * a[72] * (T263 * t2 + T264 * pow(t2, (T)8) - T265 * t8 + T266 * t7 - T267 * t6 + T268 * t5 - T269 * t4 + T270 * t3 + T271);
 	}
 
 	template <typename T>
@@ -1004,45 +1005,47 @@ namespace Fluxions {
 			return (T)accum;
 		}
 
-		T t1 = cos(theta);
-		T t2 = T272 - T273 * t1;
-		T t3 = pow(t2, 2);
-		T t4 = pow(t2, 3);
-		T t5 = pow(t2, 4);
-		T t6 = pow(t2, 5);
-		T t7 = pow(t2, 6);
-		T t8 = pow(t2, 7);
-		T t9 = pow(t2, 8);
-		T t10 = cos(T274 * phi);
-		T t11 = T275 * t2 + T276 * t9 - T277 * t8 + T278 * t7 - T279 * t6 + T280 * t5 - T281 * t4 + T282 * t3 + T283;
-		T t12 = sin(theta);
-		T t13 = cos(T284 * phi);
-		T t14 = T285 * t2 - T286 * t8 + T287 * t7 - T288 * t6 + T289 * t5 - T290 * t4 + T291 * t3 + T292;
-		T t15 = pow(t12, 2);
-		T t16 = cos(T293 * phi);
-		T t17 = T294 * t2 + T295 * t7 - T296 * t6 + T297 * t5 - T298 * t4 + T299 * t3 + T300;
-		T t18 = pow(t12, 3);
-		T t19 = cos(T301 * phi);
-		T t20 = T302 * t2 - T303 * t6 + T304 * t5 - T305 * t4 + T306 * t3 + T307;
-		T t21 = pow(t12, 4);
-		T t22 = cos(T308 * phi);
-		T t23 = T309 * t2 + T310 * t5 - T311 * t4 + T312 * t3 + T313;
-		T t24 = pow(t12, 5);
-		T t25 = cos(T314 * phi);
-		T t26 = T315 * t2 - T316 * t4 + T317 * t3 + T318;
-		T t27 = pow(t12, 6);
-		T t28 = cos(T319 * phi);
-		T t29 = T320 * t2 + T321 * t3 + T322;
-		T t30 = pow(t12, 7);
-		T t31 = cos(T323 * phi);
-		T t32 = pow(t12, 8);
-		T t33 = cos(T324 * phi);
-		T t34 = pow(t12, 9);
-		return T325 * t33 * a[99] * t34 - T326 * t33 * a[81] * t34 + T327 * t31 * a[98] * t1 * t32 + T328 * t31 * a[82] * t1 * t32 + T329 * t28 * a[97] * t29 * t30 - T330 * t28 * a[83] * t29 * t30 + T331 * t25 * a[96] * t26 * t27 +
+		T t1 = (T)cos(theta);
+		T t2 = (T)T272 - T273 * t1;
+		T t3 = (T)pow(t2, 2);
+		T t4 = (T)pow(t2, 3);
+		T t5 = (T)pow(t2, 4);
+		T t6 = (T)pow(t2, 5);
+		T t7 = (T)pow(t2, 6);
+		T t8 = (T)pow(t2, 7);
+		T t9 = (T)pow(t2, 8);
+		T t10 = (T)cos(T274 * phi);
+		T t11 = (T)T275 * t2 + T276 * t9 - T277 * t8 + T278 * t7 - T279 * t6 + T280 * t5 - T281 * t4 + T282 * t3 + T283;
+		T t12 = (T)sin(theta);
+		T t13 = (T)cos(T284 * phi);
+		T t14 = (T)T285 * t2 - T286 * t8 + T287 * t7 - T288 * t6 + T289 * t5 - T290 * t4 + T291 * t3 + T292;
+		T t15 = (T)pow(t12, 2);
+		T t16 = (T)cos(T293 * phi);
+		T t17 = (T)T294 * t2 + T295 * t7 - T296 * t6 + T297 * t5 - T298 * t4 + T299 * t3 + T300;
+		T t18 = (T)pow(t12, 3);
+		T t19 = (T)cos(T301 * phi);
+		T t20 = (T)T302 * t2 - T303 * t6 + T304 * t5 - T305 * t4 + T306 * t3 + T307;
+		T t21 = (T)pow(t12, 4);
+		T t22 = (T)cos(T308 * phi);
+		T t23 = (T)T309 * t2 + T310 * t5 - T311 * t4 + T312 * t3 + T313;
+		T t24 = (T)pow(t12, 5);
+		T t25 = (T)cos(T314 * phi);
+		T t26 = (T)T315 * t2 - T316 * t4 + T317 * t3 + T318;
+		T t27 = (T)pow(t12, 6);
+		T t28 = (T)cos(T319 * phi);
+		T t29 = (T)T320 * t2 + T321 * t3 + T322;
+		T t30 = (T)pow(t12, 7);
+		T t31 = (T)cos(T323 * phi);
+		T t32 = (T)pow(t12, 8);
+		T t33 = (T)cos(T324 * phi);
+		T t34 = (T)pow(t12, 9);
+		return (T)T325 * t33 * a[99] * t34 - T326 * t33 * a[81] * t34 + T327 * t31 * a[98] * t1 * t32 + T328 * t31 * a[82] * t1 * t32 + T329 * t28 * a[97] * t29 * t30 - T330 * t28 * a[83] * t29 * t30 + T331 * t25 * a[96] * t26 * t27 +
 			T332 * t25 * a[84] * t26 * t27 + T333 * t22 * a[95] * t23 * t24 - T334 * t22 * a[85] * t23 * t24 +
 			T335 * t19 * a[94] * t20 * t21 + T336 * t19 * a[86] * t20 * t21 + T337 * t16 * a[93] * t17 * t18 -
 			T338 * t16 * a[87] * t17 * t18 + T339 * t13 * a[92] * t14 * t15 + T340 * t13 * a[88] * t14 * t15 +
-			T341 * t10 * a[91] * t11 * t12 - T342 * t10 * a[89] * t11 * t12 + T343 * a[90] * (T344 * t2 - T345 * pow(t2, 9) + T346 * t9 - T347 * t8 + T348 * t7 - T349 * t6 + T350 * t5 - T351 * t4 + T352 * t3 + T353);
+			T341 * t10 * a[91] * t11 * t12 - T342 * t10 * a[89] * t11 * t12 + T343 * (T)a[90] *
+			(T344 * t2 - T345 * (T)pow(t2, 9) + T346 * (T)t9 - T347 * (T)t8 + T348 * (T)t7 -
+			 T349 * (T)t6 + T350 * (T)t5 - T351 * t4 + T352 * t3 + T353);
 	}
 
 	template <typename T>
@@ -1058,52 +1061,53 @@ namespace Fluxions {
 			return (T)accum;
 		}
 
-		T t1 = cos(theta);
+		T t1 = (T)cos(theta);
 		T t2 = T354 - T355 * t1;
-		T t3 = pow(t2, 2);
-		T t4 = pow(t2, 3);
-		T t5 = pow(t2, 4);
-		T t6 = pow(t2, 5);
-		T t7 = pow(t2, 6);
-		T t8 = pow(t2, 7);
-		T t9 = pow(t2, 8);
-		T t10 = pow(t2, 9);
-		T t11 = cos(T356 * phi);
+		T t3 = (T)pow(t2, 2);
+		T t4 = (T)pow(t2, 3);
+		T t5 = (T)pow(t2, 4);
+		T t6 = (T)pow(t2, 5);
+		T t7 = (T)pow(t2, 6);
+		T t8 = (T)pow(t2, 7);
+		T t9 = (T)pow(t2, 8);
+		T t10 = (T)pow(t2, 9);
+		T t11 = (T)cos(T356 * phi);
 		T t12 = T357 * t2 - T358 * t10 + T359 * t9 - T360 * t8 + T361 * t7 - T362 * t6 + T363 * t5 - T364 * t4 +
 			T365 * t3 + T366;
-		T t13 = sin(theta);
-		T t14 = cos(T367 * phi);
+		T t13 = (T)sin(theta);
+		T t14 = (T)cos(T367 * phi);
 		T t15 = T368 * t2 + T369 * t9 - T370 * t8 + T371 * t7 - T372 * t6 + T373 * t5 - T374 * t4 + T375 * t3 + T376;
-		T t16 = pow(t13, 2);
-		T t17 = cos(T377 * phi);
+		T t16 = (T)pow(t13, 2);
+		T t17 = (T)cos(T377 * phi);
 		T t18 = T378 * t2 - T379 * t8 + T380 * t7 - T381 * t6 + T382 * t5 - T383 * t4 + T384 * t3 + T385;
-		T t19 = pow(t13, 3);
-		T t20 = cos(T386 * phi);
+		T t19 = (T)pow(t13, 3);
+		T t20 = (T)cos(T386 * phi);
 		T t21 = T387 * t2 + T388 * t7 - T389 * t6 + T390 * t5 - T391 * t4 + T392 * t3 + T393;
-		T t22 = pow(t13, 4);
-		T t23 = cos(T394 * phi);
+		T t22 = (T)pow(t13, 4);
+		T t23 = (T)cos(T394 * phi);
 		T t24 = T395 * t2 - T396 * t6 + T397 * t5 - T398 * t4 + T399 * t3 + T400;
-		T t25 = pow(t13, 5);
-		T t26 = cos(T401 * phi);
+		T t25 = (T)pow(t13, 5);
+		T t26 = (T)cos(T401 * phi);
 		T t27 = T402 * t2 + T403 * t5 - T404 * t4 + T405 * t3 + T406;
-		T t28 = pow(t13, 6);
-		T t29 = cos(T407 * phi);
+		T t28 = (T)pow(t13, 6);
+		T t29 = (T)cos(T407 * phi);
 		T t30 = T408 * t2 - T409 * t4 + T410 * t3 + T411;
-		T t31 = pow(t13, 7);
-		T t32 = cos(T412 * phi);
+		T t31 = (T)pow(t13, 7);
+		T t32 = (T)cos(T412 * phi);
 		T t33 = T413 * t2 + T414 * t3 + T415;
-		T t34 = pow(t13, 8);
-		T t35 = cos(T416 * phi);
-		T t36 = pow(t13, 9);
-		T t37 = cos(T417 * phi);
-		T t38 = pow(t13, 10);
-		return T418 * t37 * a[120] * t38 + T419 * t37 * a[100] * t38 + T420 * t35 * a[119] * t1 * t36 -
-			T421 * t35 * a[101] * t1 * t36 + T422 * t32 * a[118] * t33 * t34 + T423 * t32 * a[102] * t33 * t34 +
-			T424 * t29 * a[117] * t30 * t31 - T425 * t29 * a[103] * t30 * t31 + T426 * t26 * a[116] * t27 * t28 +
-			T427 * t26 * a[104] * t27 * t28 + T428 * t23 * a[115] * t24 * t25 - T429 * t23 * a[105] * t24 * t25 +
-			T430 * t20 * a[114] * t21 * t22 + T431 * t20 * a[106] * t21 * t22 + T432 * t17 * a[113] * t18 * t19 -
-			T433 * t17 * a[107] * t18 * t19 + T434 * t14 * a[112] * t15 * t16 + T435 * t14 * a[108] * t15 * t16 +
-			T436 * t11 * a[111] * t12 * t13 - T437 * t11 * a[109] * t12 * t13 + T438 * a[110] * (T439 * t2 + T440 * pow(t2, 10) - T441 * t10 + T442 * t9 - T443 * t8 + T444 * t7 - T445 * t6 + T446 * t5 - T447 * t4 + T448 * t3 + T449);
+		T t34 = (T)pow(t13, 8);
+		T t35 = (T)cos(T416 * phi);
+		T t36 = (T)pow(t13, 9);
+		T t37 = (T)cos(T417 * phi);
+		T t38 = (T)pow(t13, 10);
+		return (T)(T418 * t37 * a[120] * t38 + T419 * t37 * a[100] * t38 + T420 * t35 * a[119] * t1 * t36 -
+				   T421 * t35 * a[101] * t1 * t36 + T422 * t32 * a[118] * t33 * t34 + T423 * t32 * a[102] * t33 * t34 +
+				   T424 * t29 * a[117] * t30 * t31 - T425 * t29 * a[103] * t30 * t31 + T426 * t26 * a[116] * t27 * t28 +
+				   T427 * t26 * a[104] * t27 * t28 + T428 * t23 * a[115] * t24 * t25 - T429 * t23 * a[105] * t24 * t25 +
+				   T430 * t20 * a[114] * t21 * t22 + T431 * t20 * a[106] * t21 * t22 + T432 * t17 * a[113] * t18 * t19 -
+				   T433 * t17 * a[107] * t18 * t19 + T434 * t14 * a[112] * t15 * t16 + T435 * t14 * a[108] * t15 * t16 +
+				   T436 * t11 * a[111] * t12 * t13 - T437 * t11 * a[109] * t12 * t13 +
+				   T438 * a[110] * (T439 * t2 + T440 * pow(t2, (T)10) - T441 * t10 + T442 * t9 - T443 * t8 + T444 * t7 - T445 * t6 + T446 * t5 - T447 * t4 + T448 * t3 + T449));
 	}
 
 	template <typename T>

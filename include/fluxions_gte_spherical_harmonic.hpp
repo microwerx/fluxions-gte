@@ -202,7 +202,7 @@ namespace Fluxions {
 		constexpr VectorType K(int l, int m) noexcept {
 			// ScalarType fourPi = (ScalarType)12.566370614359172953850573533118;
 			constexpr ScalarType invFourPi = (ScalarType)0.07957747154594766788444188168626;
-			ScalarType c = invFourPi * (2 * l + 1);
+			ScalarType c = invFourPi * ((ScalarType)2 * l + 1);
 			ScalarType t;
 			if (m < 0) {
 				t = ScalarType(factorial(l + m) / factorial(l - m));
