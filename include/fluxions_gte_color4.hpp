@@ -63,6 +63,12 @@ namespace Fluxions {
 		constexpr TColor4(const TColor3<T>& color, const T alpha = T(1))
 			: r(color.r), g(color.g), b(color.b), a(alpha) {}
 
+		constexpr TColor4(const TVector3<T> v, const T alpha = T(1))
+			: r(v.x), g(v.y), b(v.z), a(alpha) {}
+
+		constexpr TColor4(const TVector4<T> v)
+			: r(v.x), g(v.y), b(v.z), a(v.w) {}
+
 		const TColor4<T>& reset(const T value) {
 			r = g = b = a = value;
 			return *this;

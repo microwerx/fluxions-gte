@@ -80,7 +80,7 @@ namespace Fluxions {
 				static_cast<U>(z));
 		}
 
-		constexpr TVector3<T> operator-() noexcept {
+		constexpr TVector3<T> operator-() const noexcept {
 			if (TVector3<T>::is_signed)
 				return TVector3<T>(-x, -y, -z);
 #ifdef _DEBUG
@@ -345,19 +345,19 @@ namespace Fluxions {
 
 	// unsigned specialization
 	template <>
-	constexpr TVector3<uint8_t> TVector3<uint8_t>::operator-() noexcept {
+	constexpr TVector3<uint8_t> TVector3<uint8_t>::operator-() const noexcept {
 		return TVector3<uint8_t>(x, y, z);
 	}
 	template <>
-	constexpr TVector3<uint16_t> TVector3<uint16_t>::operator-() noexcept {
+	constexpr TVector3<uint16_t> TVector3<uint16_t>::operator-() const noexcept {
 		return TVector3<uint16_t>(x, y, z);
 	}
 	template <>
-	constexpr TVector3<uint32_t> TVector3<uint32_t>::operator-() noexcept {
+	constexpr TVector3<uint32_t> TVector3<uint32_t>::operator-() const noexcept {
 		return TVector3<uint32_t>(x, y, z);
 	}
 	template <>
-	constexpr TVector3<uint64_t> TVector3<uint64_t>::operator-() noexcept {
+	constexpr TVector3<uint64_t> TVector3<uint64_t>::operator-() const noexcept {
 		return TVector3<uint64_t>(x, y, z);
 	}
 

@@ -61,7 +61,7 @@ namespace Fluxions {
 		T RadiusRounded() const { return (T)(trunc(Radius() + 0.5f)); }
 		T DiameterRounded() const { return (T)(trunc(Diameter() + 0.5f)); }
 		// returns the point at the center of the box
-		TVector3<T> Center() const;
+		TVector3<T> center() const;
 		// returns the smallest X coordinate of the box
 		T MinX() const { return minBounds.x; }
 		// returns the smallest y coordinate of the box
@@ -169,7 +169,7 @@ namespace Fluxions {
 	}
 
 	template <typename T>
-	TVector3<T> TBoundingBox<T>::Center() const {
+	TVector3<T> TBoundingBox<T>::center() const {
 		return TVector3<T>(
 			(maxBounds.x - minBounds.x) / 2 + minBounds.x,
 			(maxBounds.y - minBounds.y) / 2 + minBounds.y,

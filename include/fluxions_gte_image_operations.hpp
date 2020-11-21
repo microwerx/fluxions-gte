@@ -21,6 +21,16 @@ namespace Fluxions {
 		}
 		return found;
 	}
+
+	// For every pixel in src, p = scale * pow(2^stops * p, gamma)
+	template <typename ColorType>
+	TImage<ColorType>& gammaCorrect(TImage<ColorType>& src, float scale, float stops, float gamma) {
+		float exposure = stopsToExposure(stops);
+		for (auto& p : src.pixels) {
+			p = scaleExposeGamma(p, scale, exposure, gamma);
+		}
+		return src;
+	}
 }
 
 #endif

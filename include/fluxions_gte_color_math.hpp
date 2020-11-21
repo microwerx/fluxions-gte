@@ -120,5 +120,29 @@ namespace Fluxions {
 	constexpr T luma709(TColor4<T> c) {
 		return (T)(0.2126f * c.r + 0.7152f * c.g + 0.0722f * c.b);
 	}
+
+	// Raise a color x to the power of y, but leave alpha intact
+	template <typename T, typename ScalarType>
+	constexpr TColor4<T> pow(TColor4<T> x, ScalarType y) {
+		return TColor4<T>(std::pow<T>(x.r, y), std::pow<T>(x.g, y), std::pow<T>(x.b, y), x.a);
+	}
+
+	// Raise a color x to the power of y
+	template <typename T, typename ScalarType>
+	constexpr TColor3<T> pow(TColor3<T> x, ScalarType y) {
+		return TColor3<T>(std::pow<T>(x.r, y), std::pow<T>(x.g, y), std::pow<T>(x.b, y));
+	}
+
+	// Returns exposure compensated gamma correction for color p. Requires pow to be defined for ColorType
+	template <typename T>
+	constexpr TColor4<T> scaleExposeGamma(const TColor4<T> p, float s, float e, float g) {
+		return TColor4<T>(s * pow(e * p.rgb(), g), p.a);
+	}
+
+	// Returns exposure compensated gamma correction for color p. Requires pow to be defined for ColrType
+	template <typename T>
+	constexpr TColor3<T> scaleExposeGamma(const TColor3<T> p, float s, float e, float g) {
+		return s * pow(e * p, g);
+	}
 } // namespace Fluxions
 #endif

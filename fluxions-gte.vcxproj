@@ -35,6 +35,7 @@
     <ClInclude Include="include\fluxions_gte_plane.hpp" />
     <ClInclude Include="include\fluxions_gte_quaternion.hpp" />
     <ClInclude Include="include\fluxions_gte_ray.hpp" />
+    <ClInclude Include="include\fluxions_gte_ray_tracing.hpp" />
     <ClInclude Include="include\fluxions_gte_rect.hpp" />
     <ClInclude Include="include\fluxions_gte_scalar.hpp" />
     <ClInclude Include="include\fluxions_gte_scalar_math.hpp" />

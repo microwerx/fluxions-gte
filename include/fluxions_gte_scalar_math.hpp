@@ -541,6 +541,12 @@ namespace Fluxions {
 	}
 
 
+	template <typename T>
+	constexpr T stopsToExposure(T e) noexcept {
+		return (T)std::pow<T>(T(2), e);
+	}
+
+
 	// SUPERQUADRIC GENERATOR FUNCTIONS
 	/* sqS (ptr, n)
 	* This function implements the s(ptr,n) utility function
@@ -548,7 +554,7 @@ namespace Fluxions {
 	* s(ptr,n) = sgn(sin(ptr)) * |sin(ptr)|^n
 	*/
 	static inline double sqS(double v, double n) noexcept {
-		return sgn(sin(v)) * pow(abs(sin(v)), n);
+		return sgn(sin(v)) * std::pow(abs(sin(v)), n);
 	}
 
 
@@ -562,7 +568,7 @@ namespace Fluxions {
 	* c(ptr,n) = sgn(cos(ptr)) * |cos(ptr)|^n
 	*/
 	static inline double sqC(double v, double n) noexcept {
-		return sgn(cos(v)) * pow(abs(cos(v)), n);
+		return sgn(std::cos(v)) * std::pow(std::abs(std::cos(v)), n);
 	}
 
 
