@@ -39,6 +39,7 @@
     <ClInclude Include="include\fluxions_gte_rect.hpp" />
     <ClInclude Include="include\fluxions_gte_scalar.hpp" />
     <ClInclude Include="include\fluxions_gte_scalar_math.hpp" />
+    <ClInclude Include="include\fluxions_gte_shading.hpp" />
     <ClInclude Include="include\fluxions_gte_spherical_harmonic.hpp" />
     <ClInclude Include="include\fluxions_gte_stdcxx.hpp" />
     <ClInclude Include="include\fluxions_gte_superquadric.hpp" />
