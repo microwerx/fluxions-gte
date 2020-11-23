@@ -543,7 +543,7 @@ namespace Fluxions {
 
 	template <typename T>
 	constexpr T stopsToExposure(T e) noexcept {
-		return (T)std::pow<T>(T(2), e);
+		return (T)std::pow(T(2), e);
 	}
 
 
