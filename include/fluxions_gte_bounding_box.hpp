@@ -28,21 +28,21 @@ namespace Fluxions {
 		void operator+=(const TVector4<T>& point);
 
 		// returns true if (X, y, 0) is inside the box
-		bool IsPointInside(const TVector2<T>& point) const;
+		bool isPointInside(const TVector2<T>& point) const;
 		// returns true if (X, y, z) is inside the box
-		bool IsPointInside(const TVector3<T>& point) const;
+		bool isPointInside(const TVector3<T>& point) const;
 		// returns true if (X, y, z) is inside the box
-		bool IsPointInside(const TVector4<T>& point) const;
-		const TVector3<T> Size() const { return TVector3<T>(X(), Y(), Z()); }
-		const TVector3<T> SizeRounded() const { return TVector3<T>((T)trunc(X() + 0.5f), (T)trunc(Y() + 0.5f), (T)trunc(Z() + 0.5f)); }
-		T MinXRounded() const { return (T)trunc(MinX() - 0.5f); }
-		T MinYRounded() const { return (T)trunc(MinY() - 0.5f); }
-		T MinZRounded() const { return (T)trunc(MinZ() - 0.5f); }
-		T MaxXRounded() const { return (T)trunc(MaxX() + 0.5f); }
-		T MaxYRounded() const { return (T)trunc(MaxY() + 0.5f); }
-		T MaxZRounded() const { return (T)trunc(MaxZ() + 0.5f); }
-		const TVector3<T> MinRounded() const { return TVector3<T>(MinXRounded(), MinYRounded(), MinZRounded()); }
-		const TVector3<T> MaxRounded() const { return TVector3<T>(MaxXRounded(), MaxYRounded(), MaxZRounded()); }
+		bool isPointInside(const TVector4<T>& point) const;
+		const TVector3<T> size() const { return TVector3<T>(X(), Y(), Z()); }
+		const TVector3<T> sizeRounded() const { return TVector3<T>((T)trunc(X() + 0.5f), (T)trunc(Y() + 0.5f), (T)trunc(Z() + 0.5f)); }
+		T minXRounded() const { return (T)trunc(minX() - 0.5f); }
+		T minYRounded() const { return (T)trunc(minY() - 0.5f); }
+		T minZRounded() const { return (T)trunc(minZ() - 0.5f); }
+		T maxXRounded() const { return (T)trunc(maxX() + 0.5f); }
+		T maxYRounded() const { return (T)trunc(maxY() + 0.5f); }
+		T maxZRounded() const { return (T)trunc(maxZ() + 0.5f); }
+		const TVector3<T> minRounded() const { return TVector3<T>(minXRounded(), minYRounded(), minZRounded()); }
+		const TVector3<T> maxRounded() const { return TVector3<T>(maxXRounded(), maxYRounded(), maxZRounded()); }
 		// returns the size of box's X dimension
 		T X() const { return maxBounds.x - minBounds.x; }
 		// returns the size of the box's Y dimension
@@ -50,30 +50,30 @@ namespace Fluxions {
 		// returns the size of the box's Z dimension
 		T Z() const { return maxBounds.z - minBounds.z; }
 		// returns the largest size of the box's X, Y, or Z dimensions
-		T MaxSize() const { return max3(X(), Y(), Z()); }
-		T MaxSizeRounded() const { return (T)(trunc(MaxSize() + 0.5f)); }
+		T maxSize() const { return max3(X(), Y(), Z()); }
+		T maxSizeRounded() const { return (T)(trunc(maxSize() + 0.5f)); }
 		// returns the smallest size of the box's X, Y, or Z dimensions
-		T MinSize() const { return min3(X(), Y(), Z()); }
-		T MinSizeRounded() const { return (T)(trunc(MinSize() + 0.5f)); }
+		T minSize() const { return min3(X(), Y(), Z()); }
+		T minSizeRounded() const { return (T)(trunc(minSize() + 0.5f)); }
 		// returns the size of the sphere based on the size of the box
-		T Radius() const { return (T)(sqrt(0.75f) * MaxSize()); }
-		T Diameter() const { return (T)(sqrt(3.0f) * MaxSize()); }
-		T RadiusRounded() const { return (T)(trunc(Radius() + 0.5f)); }
-		T DiameterRounded() const { return (T)(trunc(Diameter() + 0.5f)); }
+		T radius() const { return (T)(sqrt(0.75f) * maxSize()); }
+		T diameter() const { return (T)(sqrt(3.0f) * maxSize()); }
+		T radiusRounded() const { return (T)(trunc(radius() + 0.5f)); }
+		T diameterRounded() const { return (T)(trunc(diameter() + 0.5f)); }
 		// returns the point at the center of the box
 		TVector3<T> center() const;
 		// returns the smallest X coordinate of the box
-		T MinX() const { return minBounds.x; }
+		T minX() const { return minBounds.x; }
 		// returns the smallest y coordinate of the box
-		T MinY() const { return minBounds.y; }
+		T minY() const { return minBounds.y; }
 		// returns the smallest z coordinate of the box
-		T MinZ() const { return minBounds.z; }
+		T minZ() const { return minBounds.z; }
 		// returns the largest X coordinate of the box
-		T MaxX() const { return maxBounds.x; }
+		T maxX() const { return maxBounds.x; }
 		// returns the largest y coordinate of the box
-		T MaxY() const { return maxBounds.y; }
+		T maxY() const { return maxBounds.y; }
 		// returns the largest z coordinate of the box
-		T MaxZ() const { return maxBounds.z; }
+		T maxZ() const { return maxBounds.z; }
 
 		TVector3<T> minBounds;
 		TVector3<T> maxBounds;
@@ -136,7 +136,7 @@ namespace Fluxions {
 	}
 
 	template <typename T>
-	bool TBoundingBox<T>::IsPointInside(const TVector2<T>& point) const {
+	bool TBoundingBox<T>::isPointInside(const TVector2<T>& point) const {
 		if (point.x < minBounds.x || point.x > maxBounds.x)
 			return false;
 		if (point.y < minBounds.y || point.y > maxBounds.y)
@@ -147,7 +147,7 @@ namespace Fluxions {
 	}
 
 	template <typename T>
-	bool TBoundingBox<T>::IsPointInside(const TVector3<T>& point) const {
+	bool TBoundingBox<T>::isPointInside(const TVector3<T>& point) const {
 		if (point.x < minBounds.x || point.x > maxBounds.x)
 			return false;
 		if (point.y < minBounds.y || point.y > maxBounds.y)
@@ -158,7 +158,7 @@ namespace Fluxions {
 	}
 
 	template <typename T>
-	bool TBoundingBox<T>::IsPointInside(const TVector4<T>& point) const {
+	bool TBoundingBox<T>::isPointInside(const TVector4<T>& point) const {
 		if (point.x < minBounds.x || point.x > maxBounds.x)
 			return false;
 		if (point.y < minBounds.y || point.y > maxBounds.y)
