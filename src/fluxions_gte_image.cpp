@@ -27,6 +27,25 @@
 #undef _CRT_SECURE_NO_WARNINGS
 
 namespace Fluxions {
+	extern template class TColor3<float>;
+	extern template class TColor3<double>;
+	extern template class TColor3<int>;
+	extern template class TColor3<unsigned int>;
+	extern template class TColor3<short>;
+	extern template class TColor3<unsigned short>;
+	extern template class TColor3<char>;
+	extern template class TColor3<unsigned char>;
+
+	extern template class TColor4<float>;
+	extern template class TColor4<double>;
+	extern template class TColor4<int>;
+	extern template class TColor4<unsigned int>;
+	extern template class TColor4<short>;
+	extern template class TColor4<unsigned short>;
+	extern template class TColor4<char>;
+	extern template class TColor4<unsigned char>;
+
+
 	// C++ Specializations Must Come First
 
 	Color3ub RGBFloatToUint8(const Color3f& c) {
