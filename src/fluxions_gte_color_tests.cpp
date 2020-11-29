@@ -3,6 +3,27 @@
 #include <iomanip>
 #include <fluxions_gte_color_math.hpp>
 
+
+namespace Fluxions {
+    extern template class TColor3<float>;
+    extern template class TColor3<double>;
+    extern template class TColor3<int>;
+    extern template class TColor3<unsigned int>;
+    extern template class TColor3<short>;
+    extern template class TColor3<unsigned short>;
+    extern template class TColor3<char>;
+    extern template class TColor3<unsigned char>;
+
+    extern template class TColor4<float>;
+    extern template class TColor4<double>;
+    extern template class TColor4<int>;
+    extern template class TColor4<unsigned int>;
+    extern template class TColor4<short>;
+    extern template class TColor4<unsigned short>;
+    extern template class TColor4<char>;
+    extern template class TColor4<unsigned char>;
+}
+
 namespace Fluxions {
 #define TEST(test)                                                                   \
 	if (!(test))                                                                     \
