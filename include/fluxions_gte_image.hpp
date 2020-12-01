@@ -45,6 +45,10 @@ namespace Fluxions {
 
 		operator bool() const { return !pixels.empty(); }
 
+		constexpr size_t sizeInBytes() const {
+			return sizeof(*this) + pixels.size() * sizeof(ColorType);
+		}
+
 		constexpr void setBorderColor(const ColorType& color) { borderColor = color; }
 		constexpr const ColorType& getBorderColor() const { return borderColor; }
 		constexpr unsigned width() const { return imageWidth; }
