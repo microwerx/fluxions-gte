@@ -1,12 +1,14 @@
 cmake_minimum_required(VERSION 3.16)
 project(fluxions-gte)
 
+set(CMAKE_C_STANDARD            99)
+set(CMAKE_C_STANDARD_REQUIRED   ON)
+set(CMAKE_CXX_EXTENSIONS        OFF)
+set(CMAKE_CXX_STANDARD          17)
 set(CMAKE_CXX_STANDARD_REQUIRED ON)
-set(CMAKE_CXX_STANDARD 17)
 
 if (APPLE)
-   include_directories(/usr/local/include)
-   link_directories(/usr/local/lib)
+    include_directories(/usr/local/include)
 endif()
 
 include_directories(${PROJECT_SOURCE_DIR}/include)
@@ -45,3 +47,10 @@ if(${CMAKE_VERSION} VERSION_GREATER "3.16.0")
     message("Fluxions GTE using precompiled headers")
     target_precompile_headers(${PROJECT_NAME} PRIVATE src/fluxions_gte_pch.cpp)
 endif()
+
+find_package(IlmBase CONFIG REQUIRED)
+# Note: 2 target(s) were omitted.
+target_link_libraries(${PROJECT_NAME} PRIVATE IlmBase::Iex IlmBase::Half IlmBase::Imath IlmBase::IexMath)
+
+find_package(OpenEXR CONFIG REQUIRED)
+target_link_libraries(${PROJECT_NAME} PRIVATE OpenEXR::IlmImf OpenEXR::IlmImfUtil OpenEXR::IlmImfConfig)

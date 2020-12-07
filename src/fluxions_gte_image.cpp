@@ -19,7 +19,9 @@
 
 #ifdef FLUXIONS_GTE_USEOPENEXR
 #ifdef _WIN32
+#ifndef OPENEXR_DLL
 #define OPENEXR_DLL
+#endif
 #endif
 #include <OpenEXR/ImfRgbaFile.h>
 #endif
